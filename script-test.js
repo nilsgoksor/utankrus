@@ -1,0 +1,21838 @@
+import { firebase } from '@firebase/app';
+import '@firebase/firestore';
+
+// Initialize Cloud Firestore through Firebase
+const firebaseConfig = {
+	apiKey: 'AIzaSyDmjbk886N4qZHtnielIAOdifWkUb2VO6E',
+	authDomain: 'utankrus.firebaseapp.com',
+	projectId: 'utankrus',
+	storageBucket: 'utankrus.appspot.com',
+	messagingSenderId: '640994737088',
+	appId: '1:640994737088:web:92fe37723f2e8ef37ba625',
+	measurementId: 'G-KQ5LRNT6Z7'
+};
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+// var db = firebase.firestore();
+
+const ratings = [
+	{
+		ÖLNAMN: 'BLACK BOSS',
+		BRYGGERI: 'Boss Browar Witnica SA',
+		LAND: 'PL',
+		ALKOHOL: '9.4',
+		BETYG: '5.86',
+		DELTAGARE: 7,
+		DATUM: '030825'
+	},
+	{
+		ÖLNAMN: 'HOG HEAVEN',
+		BRYGGERI: 'Avery Br.',
+		LAND: 'US',
+		ALKOHOL: '9.2',
+		BETYG: '4.57',
+		DELTAGARE: 7,
+		DATUM: '030825'
+	},
+	{
+		ÖLNAMN: 'TEHb -Smoked Porter w Sichuan Pepper',
+		BRYGGERI: 'Bakunin Br.',
+		LAND: 'LV',
+		ALKOHOL: '6.5',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '190117'
+	},
+	{
+		ÖLNAMN: 'JENLAIN*',
+		BRYGGERI: 'Br. A Jenlain',
+		LAND: 'FR',
+		ALKOHOL: '6.0',
+		BETYG: '5.72',
+		DELTAGARE: 7,
+		DATUM: '030825'
+	},
+	{
+		ÖLNAMN: 'Oak Smoked Chili Tomato Gose Extra Hot Edition',
+		BRYGGERI: 'Saldéns Br.',
+		LAND: 'RU',
+		ALKOHOL: '5.8',
+		BETYG: '1.17',
+		DELTAGARE: 6,
+		DATUM: '190117'
+	},
+	{
+		ÖLNAMN: 'OREGON HONEY ALE',
+		BRYGGERI: 'OREGON ALE & BEER CO.',
+		LAND: 'US',
+		ALKOHOL: '5.60?',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '971029'
+	},
+	{
+		ÖLNAMN: 'OREGON INDIA PALE ALE',
+		BRYGGERI: 'OREGON ALE & BEER CO.',
+		LAND: 'US',
+		ALKOHOL: '5.60?',
+		BETYG: '9.00',
+		DELTAGARE: 4,
+		DATUM: '971029'
+	},
+	{
+		ÖLNAMN: 'OREGON NUT BROWN ALE',
+		BRYGGERI: 'OREGON ALE & BEER CO.',
+		LAND: 'US',
+		ALKOHOL: '5.60?',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '971029'
+	},
+	{
+		ÖLNAMN: 'PYRAMID APRICOT ALE',
+		BRYGGERI: 'HART BR. INC.',
+		LAND: 'US',
+		ALKOHOL: '5.60?',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '971029'
+	},
+	{
+		ÖLNAMN: 'PYRAMID HEFEWEIZEN ALE',
+		BRYGGERI: 'HART BR. INC.',
+		LAND: 'US',
+		ALKOHOL: '5.60?',
+		BETYG: '3.75',
+		DELTAGARE: 4,
+		DATUM: '971029'
+	},
+	{
+		ÖLNAMN: 'PYRAMID PALE ALE',
+		BRYGGERI: 'HART BR. INC.',
+		LAND: 'US',
+		ALKOHOL: '5.60?',
+		BETYG: '8.50',
+		DELTAGARE: 4,
+		DATUM: '971029'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S BOSTON ALE*',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '5.5?',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '950831'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S CREAM STOUT*',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '5.5?',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '950831'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S HONEY PORTER*',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '5.5?',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '950831'
+	},
+	{
+		ÖLNAMN: 'HALIDA*',
+		BRYGGERI: 'South East Asia Br. Ltd.',
+		LAND: 'VN',
+		ALKOHOL: '5.0',
+		BETYG: '3.28',
+		DELTAGARE: 7,
+		DATUM: '030825'
+	},
+	{
+		ÖLNAMN: 'SOFIERO 1888*',
+		BRYGGERI: 'SOFIERO',
+		LAND: 'SE',
+		ALKOHOL: '5,6',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '971210'
+	},
+	{
+		ÖLNAMN: 'SALDÉNS SOUR ALE BLACK CURRANT',
+		BRYGGERI: 'Saldéns Br.',
+		LAND: 'RU',
+		ALKOHOL: '4.9',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '190117'
+	},
+	{
+		ÖLNAMN: '333 EXPORT',
+		BRYGGERI: 'Saigon Beer Co.',
+		LAND: 'VN',
+		ALKOHOL: '4.7',
+		BETYG: '4.00',
+		DELTAGARE: 7,
+		DATUM: '030825'
+	},
+	{
+		ÖLNAMN: 'HUDA',
+		BRYGGERI: 'Hue Br. Ltd.',
+		LAND: 'VN',
+		ALKOHOL: '4.7',
+		BETYG: '3.28',
+		DELTAGARE: 7,
+		DATUM: '030825'
+	},
+	{
+		ÖLNAMN: 'Jet Black Heart',
+		BRYGGERI: 'BrewDog',
+		LAND: 'SCOT',
+		ALKOHOL: '4.7',
+		BETYG: '5.83',
+		DELTAGARE: 7,
+		DATUM: '190228'
+	},
+	{
+		ÖLNAMN: 'ABC EXTRA STOUT',
+		BRYGGERI: 'ASIA PACIFIC BR.',
+		LAND: 'SG',
+		ALKOHOL: '',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '060622'
+	},
+	{
+		ÖLNAMN: 'BLUEBERRY ALE',
+		BRYGGERI: 'SLO BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '980706'
+	},
+	{
+		ÖLNAMN: 'BOYSENBERRY HEFE-WEIZEN',
+		BRYGGERI: 'SLO BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '980706'
+	},
+	{
+		ÖLNAMN: 'BRICKHOUSE EXTRA PALE ALE',
+		BRYGGERI: 'SLO BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '980706'
+	},
+	{
+		ÖLNAMN: 'CARIB LAGER BEER',
+		BRYGGERI: 'CARIB BR.',
+		LAND: 'TT',
+		ALKOHOL: '',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '950220'
+	},
+	{
+		ÖLNAMN: 'COLE PORTER',
+		BRYGGERI: 'SLO BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '980706'
+	},
+	{
+		ÖLNAMN: 'EFES PILSEN (B)',
+		BRYGGERI: 'EFES BR.',
+		LAND: 'TR',
+		ALKOHOL: '',
+		BETYG: '4.00',
+		DELTAGARE: 3,
+		DATUM: '940330'
+	},
+	{
+		ÖLNAMN: 'GARDEN ALLEY AMBER ALE',
+		BRYGGERI: 'SLO BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '7.75',
+		DELTAGARE: 4,
+		DATUM: '980706'
+	},
+	{
+		ÖLNAMN: 'GOOSE ISLAND BLONDE CHRISTMAS ALE',
+		BRYGGERI: 'GOOSE ISLAND BEER CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '5.33',
+		DELTAGARE: 3,
+		DATUM: '030416'
+	},
+	{
+		ÖLNAMN: 'GOOSE ISLAND ESB ANNIVERSARY ALE',
+		BRYGGERI: 'GOOSE ISLAND BEER CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '5.33',
+		DELTAGARE: 3,
+		DATUM: '030416'
+	},
+	{
+		ÖLNAMN: 'GOOSE ISLAND HEX NUT BROWN ALE',
+		BRYGGERI: 'GOOSE ISLAND BEER CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '6.00',
+		DELTAGARE: 3,
+		DATUM: '030416'
+	},
+	{
+		ÖLNAMN: "GOOSE ISLAND HONKER'S ALE",
+		BRYGGERI: 'GOOSE ISLAND BEER CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '6.00',
+		DELTAGARE: 3,
+		DATUM: '030416'
+	},
+	{
+		ÖLNAMN: 'GOOSE ISLAND INDIA PALE ALE',
+		BRYGGERI: 'GOOSE ISLAND BEER CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '4.33',
+		DELTAGARE: 3,
+		DATUM: '030416'
+	},
+	{
+		ÖLNAMN: 'GOOSE ISLAND OATMEAL STOUT',
+		BRYGGERI: 'GOOSE ISLAND BEER CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '5.00',
+		DELTAGARE: 3,
+		DATUM: '030416'
+	},
+	{
+		ÖLNAMN: 'IRON CITY BEER',
+		BRYGGERI: 'PITTSBURG BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '961007'
+	},
+	{
+		ÖLNAMN: 'KYUSHU OKINAWA DRAFT ORION BEER',
+		BRYGGERI: 'ORION BR.',
+		LAND: 'JP',
+		ALKOHOL: '',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '0010..'
+	},
+	{
+		ÖLNAMN: 'MAMBA',
+		BRYGGERI: 'SOLIBRA',
+		LAND: 'CI',
+		ALKOHOL: '',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '970910'
+	},
+	{
+		ÖLNAMN: 'MISSISSIPPI MUD',
+		BRYGGERI: 'MEMPHIS BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '970910'
+	},
+	{
+		ÖLNAMN: 'NEWPORT STORM HURRICANE AMBER ALE',
+		BRYGGERI: 'COASTAL EXT… BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '060705'
+	},
+	{
+		ÖLNAMN: 'Passionfruit',
+		BRYGGERI: 'Pasteur Str. Br. Co.',
+		LAND: 'VN',
+		ALKOHOL: '',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '151209'
+	},
+	{
+		ÖLNAMN: 'PENN PILSNER',
+		BRYGGERI: 'PENNSYLVANIA BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '961007'
+	},
+	{
+		ÖLNAMN: 'PUMPKIN ALE',
+		BRYGGERI: 'PORTLAND BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '030616'
+	},
+	{
+		ÖLNAMN: 'SARAJEVSKO PIVO',
+		BRYGGERI: 'SARAJEVSKA PIVARA d.d.',
+		LAND: 'BA',
+		ALKOHOL: '',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '961007'
+	},
+	{
+		ÖLNAMN: 'SCHMUCKER DOPPEL-BOCK DUNKEL',
+		BRYGGERI: 'PRIVATBRAEREI SCHMUCKER',
+		LAND: 'DE?',
+		ALKOHOL: '',
+		BETYG: '5.86',
+		DELTAGARE: 7,
+		DATUM: '040630'
+	},
+	{
+		ÖLNAMN: "STOUD'S GOLD",
+		BRYGGERI: 'STOUDT BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '4.43',
+		DELTAGARE: 7,
+		DATUM: '040630'
+	},
+	{
+		ÖLNAMN: 'WHATER GAP WHEAT',
+		BRYGGERI: 'APPALACHIAN BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '4.43',
+		DELTAGARE: 7,
+		DATUM: '040630'
+	},
+	{
+		ÖLNAMN: 'WILD GOOSE PORTER',
+		BRYGGERI: 'WILD GOOSE BR.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '980706'
+	},
+	{
+		ÖLNAMN: 'YUENGLING PORTER BEER',
+		BRYGGERI: 'YUENGLING & SON INC.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '961007'
+	},
+	{
+		ÖLNAMN: 'MJØD',
+		BRYGGERI: 'DANSK MJØD',
+		LAND: 'DK',
+		ALKOHOL: '19.0',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '110707'
+	},
+	{
+		ÖLNAMN: 'MIKKELLER SVART',
+		BRYGGERI: 'MIKKELLER',
+		LAND: 'DK',
+		ALKOHOL: '17.5',
+		BETYG: '7.75',
+		DELTAGARE: 4,
+		DATUM: '080528'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S TRIPLE BOCK*',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '17.0',
+		BETYG: '7.50',
+		DELTAGARE: 4,
+		DATUM: '020211'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S TRIPLE BOCK*',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '17.0',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '960213'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAMS TRIPLE BOCK 1994',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '17.0',
+		BETYG: '9.20',
+		DELTAGARE: 5,
+		DATUM: '080409'
+	},
+	{
+		ÖLNAMN: 'BORUBON COUNTY',
+		BRYGGERI: 'GOOSE ISLAND BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '15.0',
+		BETYG: '8.50',
+		DELTAGARE: 6,
+		DATUM: '130918'
+	},
+	{
+		ÖLNAMN: 'SAMICHLAUS BIER*',
+		BRYGGERI: 'CASTLE BR. EGGENBERG',
+		LAND: 'AT',
+		ALKOHOL: '14.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '011212'
+	},
+	{
+		ÖLNAMN: 'SAMICHLAUS BIER*',
+		BRYGGERI: 'BR. HÜRLIMANN AG',
+		LAND: 'CH',
+		ALKOHOL: '14.0',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '960116'
+	},
+	{
+		ÖLNAMN: 'SAMICHLAUS BIER*',
+		BRYGGERI: 'BR. HÜRLIMANN AG',
+		LAND: 'CH',
+		ALKOHOL: '14.0',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '980421'
+	},
+	{
+		ÖLNAMN: 'OLD STOCK ALE',
+		BRYGGERI: 'NORTH COAST BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '13.3',
+		BETYG: '7.30',
+		DELTAGARE: 5,
+		DATUM: '060705'
+	},
+	{
+		ÖLNAMN: 'BREWDOG TOKYO RISING SUN',
+		BRYGGERI: 'BREWDOG BR.',
+		LAND: 'SCOT',
+		ALKOHOL: '13.2',
+		BETYG: '8.17',
+		DELTAGARE: 6,
+		DATUM: '130918'
+	},
+	{
+		ÖLNAMN: 'MIKKELLER BLACK HOLE',
+		BRYGGERI: 'MIKKELLER',
+		LAND: 'BE',
+		ALKOHOL: '13.1',
+		BETYG: '8.25',
+		DELTAGARE: 4,
+		DATUM: '080528'
+	},
+	{
+		ÖLNAMN: 'BELZEBUTH',
+		BRYGGERI: "BR. GRAIN D'ORGE",
+		LAND: 'FR',
+		ALKOHOL: '13.0',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '120111'
+	},
+	{
+		ÖLNAMN: 'BLACK ALBERT BELGIAN ROYAL STOUT BA No. 14',
+		BRYGGERI: 'DE STRUISE BROUWERS',
+		LAND: 'BE',
+		ALKOHOL: '13.0',
+		BETYG: '8.67',
+		DELTAGARE: 3,
+		DATUM: '090722'
+	},
+	{
+		ÖLNAMN: 'MIKKELS MONSTER',
+		BRYGGERI: 'NØRREBRO BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '13.0',
+		BETYG: '8.75',
+		DELTAGARE: 4,
+		DATUM: '110216'
+	},
+	{
+		ÖLNAMN: 'OERBIER SPECIAL RESERVA 2010',
+		BRYGGERI: 'DE DOLLE BROUWERS',
+		LAND: 'BE',
+		ALKOHOL: '13.0',
+		BETYG: '9.20',
+		DELTAGARE: 5,
+		DATUM: '120613'
+	},
+	{
+		ÖLNAMN: 'NORTH COAST GRAND CRU',
+		BRYGGERI: 'NORTH COAST BR.',
+		LAND: 'US',
+		ALKOHOL: '12.9',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '130918'
+	},
+	{
+		ÖLNAMN: 'Agamemnon',
+		BRYGGERI: 'Omnipollo Pubdog Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '12.5',
+		BETYG: '8.67',
+		DELTAGARE: 6,
+		DATUM: '190516'
+	},
+	{
+		ÖLNAMN: "ANGEL'S SHARE",
+		BRYGGERI: 'PORT BREWING/THE LOST ABBEY',
+		LAND: 'US',
+		ALKOHOL: '12.5',
+		BETYG: '8.72',
+		DELTAGARE: 7,
+		DATUM: '110413'
+	},
+	{
+		ÖLNAMN: 'OLD STOCK ALE*',
+		BRYGGERI: 'NORTH COAST BR.',
+		LAND: 'US',
+		ALKOHOL: '12.5',
+		BETYG: '7.28',
+		DELTAGARE: 7,
+		DATUM: '090128'
+	},
+	{
+		ÖLNAMN: 'Willetized',
+		BRYGGERI: 'Lagunitas Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '12.4',
+		BETYG: '7.83',
+		DELTAGARE: 6,
+		DATUM: '200416'
+	},
+	{
+		ÖLNAMN: 'LA BIÈRE DU DEMON',
+		BRYGGERI: 'BR. DE GAYANT',
+		LAND: 'FR',
+		ALKOHOL: '12.0',
+		BETYG: '3.83',
+		DELTAGARE: 6,
+		DATUM: '120111'
+	},
+	{
+		ÖLNAMN: 'MALHEUR DARK BRUT',
+		BRYGGERI: 'BR. DE LANDTSHEER',
+		LAND: 'BE',
+		ALKOHOL: '12.0',
+		BETYG: '7.71',
+		DELTAGARE: 6,
+		DATUM: '090826'
+	},
+	{
+		ÖLNAMN: 'OLD GUARDIAN BELGO',
+		BRYGGERI: 'STONE BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '12.0',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '120509'
+	},
+	{
+		ÖLNAMN: 'THOMAS HARDY´S ALE*',
+		BRYGGERI: 'ELDRIDGE POPE & CO.',
+		LAND: 'GB',
+		ALKOHOL: '12.0',
+		BETYG: '7.75',
+		DELTAGARE: 4,
+		DATUM: '940901'
+	},
+	{
+		ÖLNAMN: 'THOMAS HARDY´S ALE*',
+		BRYGGERI: 'ELDRIDGE POPE & CO.',
+		LAND: 'GB',
+		ALKOHOL: '12.0',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '960116'
+	},
+	{
+		ÖLNAMN: 'THOMAS HARDY´S ALE*',
+		BRYGGERI: 'ELDRIDGE POPE & CO.',
+		LAND: 'GB',
+		ALKOHOL: '12.0',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '980421'
+	},
+	{
+		ÖLNAMN: 'Trignac',
+		BRYGGERI: 'Br. van Housebrouck',
+		LAND: 'BE',
+		ALKOHOL: '12.0',
+		BETYG: '8.28',
+		DELTAGARE: 7,
+		DATUM: '150711'
+	},
+	{
+		ÖLNAMN: 'THOMAS HARDY´S ALE*',
+		BRYGGERI: "O'HANLON'S BR. CO. LTD",
+		LAND: 'GB',
+		ALKOHOL: '11.7',
+		BETYG: '8.50',
+		DELTAGARE: 6,
+		DATUM: '041215'
+	},
+	{
+		ÖLNAMN: 'THOMAS HARDY´S ALE*',
+		BRYGGERI: "O'HANLON BR. CO.",
+		LAND: 'GB',
+		ALKOHOL: '11.7',
+		BETYG: '8.42',
+		DELTAGARE: 7,
+		DATUM: '090128'
+	},
+	{
+		ÖLNAMN: 'Black Ops',
+		BRYGGERI: 'Brooklyn Br.',
+		LAND: 'US',
+		ALKOHOL: '11.6',
+		BETYG: '7.67',
+		DELTAGARE: 6,
+		DATUM: '181011'
+	},
+	{
+		ÖLNAMN: 'OLIVER TWIST 20TH ANNIVERSARY ALE',
+		BRYGGERI: 'NORTH COAST BR.',
+		LAND: 'US',
+		ALKOHOL: '11.6',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '130918'
+	},
+	{
+		ÖLNAMN: 'Deus',
+		BRYGGERI: 'Br. Bosteels',
+		LAND: 'BE',
+		ALKOHOL: '11.5',
+		BETYG: '5.14',
+		DELTAGARE: 7,
+		DATUM: '150711'
+	},
+	{
+		ÖLNAMN: 'GULDEN DRAAK',
+		BRYGGERI: 'VAN STEENBERGER',
+		LAND: 'BE',
+		ALKOHOL: '11.5',
+		BETYG: '6.33',
+		DELTAGARE: 3,
+		DATUM: '940826'
+	},
+	{
+		ÖLNAMN: "SAMUEL ADAMS GRIFFIN'S BOW",
+		BRYGGERI: 'SAMUEL ADAMS BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '11.5',
+		BETYG: '8.20',
+		DELTAGARE: 5,
+		DATUM: '121114'
+	},
+	{
+		ÖLNAMN: 'Imperial Doughnut Brew',
+		BRYGGERI: 'Evil Twin Br.',
+		LAND: 'US',
+		ALKOHOL: '11.3',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '190516'
+	},
+	{
+		ÖLNAMN: 'TRAPPISTES ROCHEFORT 10o',
+		BRYGGERI: 'ABBAYE S:T REMY',
+		LAND: 'BE',
+		ALKOHOL: '11.3',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '010510'
+	},
+	{
+		ÖLNAMN: 'OLD GUARDIAN',
+		BRYGGERI: 'STONE BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '11.3',
+		BETYG: '7.38',
+		DELTAGARE: 8,
+		DATUM: '080820'
+	},
+	{
+		ÖLNAMN: 'STONE OLD GUARDIAN',
+		BRYGGERI: 'STONE BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '11.26',
+		BETYG: '7.83',
+		DELTAGARE: 6,
+		DATUM: '100310'
+	},
+	{
+		ÖLNAMN: 'Brewmanse',
+		BRYGGERI: 'De Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '11.2',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '190516'
+	},
+	{
+		ÖLNAMN: 'CARIBBEEAN RUM STOUT',
+		BRYGGERI: 'HORNBEER',
+		LAND: 'DK',
+		ALKOHOL: '11.0',
+		BETYG: '8.00',
+		DELTAGARE: 7,
+		DATUM: '100120'
+	},
+	{
+		ÖLNAMN: 'Distortion',
+		BRYGGERI: 'Jaws Br.',
+		LAND: 'RU',
+		ALKOHOL: '11.0',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '190117'
+	},
+	{
+		ÖLNAMN: 'EKU 28',
+		BRYGGERI: 'Erste Kulmbacher Actienbr.',
+		LAND: 'BE',
+		ALKOHOL: '11.0',
+		BETYG: '7.00',
+		DELTAGARE: 3,
+		DATUM: '950814'
+	},
+	{
+		ÖLNAMN: 'Eskilstuna Quandrupel Årgång 2017',
+		BRYGGERI: 'Eskilstuna Ölkultur',
+		LAND: 'SE',
+		ALKOHOL: '11.0',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '180906'
+	},
+	{
+		ÖLNAMN: 'Gouden Carolus/Cuvee de Keizer 2004',
+		BRYGGERI: 'Br. Het Anker',
+		LAND: 'BE',
+		ALKOHOL: '11.0',
+		BETYG: '7.80',
+		DELTAGARE: 5,
+		DATUM: '191114'
+	},
+	{
+		ÖLNAMN: 'Gouden Carolus/Cuvee de Keizer 2008',
+		BRYGGERI: 'Br. Het Anker',
+		LAND: 'BE',
+		ALKOHOL: '11.0',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '191114'
+	},
+	{
+		ÖLNAMN: 'Gouden Carolus/Cuvee de Keizer 2011',
+		BRYGGERI: 'Br. Het Anker',
+		LAND: 'BE',
+		ALKOHOL: '11.0',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '191114'
+	},
+	{
+		ÖLNAMN: 'Gouden Carolus/Cuvee de Keizer 2012',
+		BRYGGERI: 'Br. Het Anker',
+		LAND: 'BE',
+		ALKOHOL: '11.0',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '191114'
+	},
+	{
+		ÖLNAMN: 'Gouden Carolus/Cuvee de Keizer 2013',
+		BRYGGERI: 'Br. Het Anker',
+		LAND: 'BE',
+		ALKOHOL: '11.0',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '191114'
+	},
+	{
+		ÖLNAMN: 'Gouden Carolus/Cuvee de Keizer 2015',
+		BRYGGERI: 'Br. Het Anker',
+		LAND: 'BE',
+		ALKOHOL: '11.0',
+		BETYG: '8.20',
+		DELTAGARE: 5,
+		DATUM: '191114'
+	},
+	{
+		ÖLNAMN: 'GRAND CRU',
+		BRYGGERI: 'GREAT DIVIDE BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '11.0',
+		BETYG: '8.50',
+		DELTAGARE: 6,
+		DATUM: '120509'
+	},
+	{
+		ÖLNAMN: 'Imperial Oat',
+		BRYGGERI: 'Souther Tier Br.',
+		LAND: 'US',
+		ALKOHOL: '11.0',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '140115'
+	},
+	{
+		ÖLNAMN: 'KASTEEL BIER',
+		BRYGGERI: 'BR. van HONSEBROUCK',
+		LAND: 'BE',
+		ALKOHOL: '11.0',
+		BETYG: '7.67',
+		DELTAGARE: 3,
+		DATUM: '950814'
+	},
+	{
+		ÖLNAMN: 'Noa',
+		BRYGGERI: 'Omnipolla at Dugges',
+		LAND: 'SE',
+		ALKOHOL: '11.0',
+		BETYG: '7.42',
+		DELTAGARE: 7,
+		DATUM: '160210'
+	},
+	{
+		ÖLNAMN: 'Russian Imperial Stout',
+		BRYGGERI: 'Lehe Pruulikoda',
+		LAND: 'EE',
+		ALKOHOL: '11.0',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '171010'
+	},
+	{
+		ÖLNAMN: 'SAHTI',
+		BRYGGERI: 'NØGNE Ø',
+		LAND: 'NO',
+		ALKOHOL: '11.0',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '090520'
+	},
+	{
+		ÖLNAMN: 'Screenshott',
+		BRYGGERI: 'Krebs Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '11.0',
+		BETYG: '9.00',
+		DELTAGARE: 5,
+		DATUM: '200319'
+	},
+	{
+		ÖLNAMN: 'XS IMPERIAL STOUT',
+		BRYGGERI: 'ROGUE ALES NEWPORT',
+		LAND: 'US',
+		ALKOHOL: '11.0',
+		BETYG: '7.83',
+		DELTAGARE: 6,
+		DATUM: '081126'
+	},
+	{
+		ÖLNAMN: 'CZAR IMPERIAL STOUT',
+		BRYGGERI: 'AVERY BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '10.82',
+		BETYG: '6.14',
+		DELTAGARE: 7,
+		DATUM: '100120'
+	},
+	{
+		ÖLNAMN: 'THE TZAR IMPERIAL STOUT',
+		BRYGGERI: 'AVERY BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '10.8',
+		BETYG: '7.67',
+		DELTAGARE: 6,
+		DATUM: '130306'
+	},
+	{
+		ÖLNAMN: 'BROOKLYN MONSTER ALE',
+		BRYGGERI: 'BROOKLYN BR.',
+		LAND: 'US',
+		ALKOHOL: '10.8',
+		BETYG: '7.83',
+		DELTAGARE: 6,
+		DATUM: '070315'
+	},
+	{
+		ÖLNAMN: 'ESCONDIDIAN IMPERIAL BLACK IPA',
+		BRYGGERI: 'STONE BR CO',
+		LAND: 'US',
+		ALKOHOL: '10.8',
+		BETYG: '7.80',
+		DELTAGARE: 5,
+		DATUM: '130703'
+	},
+	{
+		ÖLNAMN: 'IMPERIAL RUSSIAN STOUT',
+		BRYGGERI: 'STONE BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '10.8',
+		BETYG: '7.83',
+		DELTAGARE: 6,
+		DATUM: '130306'
+	},
+	{
+		ÖLNAMN: 'Dark Skull Feat. Victor Brandt',
+		BRYGGERI: 'Electric Nurse',
+		LAND: 'SE',
+		ALKOHOL: '10.7',
+		BETYG: '8.33',
+		DELTAGARE: 6,
+		DATUM: '180308'
+	},
+	{
+		ÖLNAMN: 'Dark Skull Imperial Coconut Stout',
+		BRYGGERI: 'Electric Nurse',
+		LAND: 'SE',
+		ALKOHOL: '10.7',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: "Fuller's Imperial Stout",
+		BRYGGERI: 'Fuller, Smith & Turner',
+		LAND: 'GB',
+		ALKOHOL: '10.7',
+		BETYG: '7.72',
+		DELTAGARE: 7,
+		DATUM: '131211'
+	},
+	{
+		ÖLNAMN: 'Triple Burner',
+		BRYGGERI: 'Brooklyn Br.',
+		LAND: 'US',
+		ALKOHOL: '10.6',
+		BETYG: '7.17',
+		DELTAGARE: 6,
+		DATUM: '181011'
+	},
+	{
+		ÖLNAMN: 'ÅRGÅNGSÖL 2000',
+		BRYGGERI: 'WIIBROE BR.',
+		LAND: 'DK',
+		ALKOHOL: '10.6',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '020211'
+	},
+	{
+		ÖLNAMN: 'Belgo Anise Imperial Russian Stout',
+		BRYGGERI: 'Stone Br.',
+		LAND: 'US',
+		ALKOHOL: '10.5',
+		BETYG: '2.83',
+		DELTAGARE: 6,
+		DATUM: '140115'
+	},
+	{
+		ÖLNAMN: 'BELGO ANISE IMPERIAL RUSSION STOUT',
+		BRYGGERI: 'STONE BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '10.5',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '120208'
+	},
+	{
+		ÖLNAMN: 'Cloaking Device',
+		BRYGGERI: 'Brooklyn Br.',
+		LAND: 'US',
+		ALKOHOL: '10.5',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '181011'
+	},
+	{
+		ÖLNAMN: 'Double Bastard Ale',
+		BRYGGERI: 'STONE BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '10.5',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '140212'
+	},
+	{
+		ÖLNAMN: 'Gouden Carolus Easter',
+		BRYGGERI: 'Br. Het Anker',
+		LAND: 'BE',
+		ALKOHOL: '10.5',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '200514'
+	},
+	{
+		ÖLNAMN: 'Imperial Russian Stout',
+		BRYGGERI: 'Stone Br.',
+		LAND: 'US',
+		ALKOHOL: '10.5',
+		BETYG: '7.00',
+		DELTAGARE: 6,
+		DATUM: '140115'
+	},
+	{
+		ÖLNAMN: 'Imperial Stout',
+		BRYGGERI: 'Founders',
+		LAND: 'US',
+		ALKOHOL: '10.5',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '170118'
+	},
+	{
+		ÖLNAMN: 'Infinium',
+		BRYGGERI: 'Br. Statsbr. Weihenstephan',
+		LAND: 'DE',
+		ALKOHOL: '10.5',
+		BETYG: '6.71',
+		DELTAGARE: 7,
+		DATUM: '150711'
+	},
+	{
+		ÖLNAMN: 'JUDGEMENT DAY',
+		BRYGGERI: 'PORT BREWING/THE LOST ABBEY',
+		LAND: 'US',
+		ALKOHOL: '10.5',
+		BETYG: '7.86',
+		DELTAGARE: 7,
+		DATUM: '110413'
+	},
+	{
+		ÖLNAMN: 'MASTER BREW',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '10.5',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '011107'
+	},
+	{
+		ÖLNAMN: 'RIGOR MORTIS',
+		BRYGGERI: 'Br. DIEU DU CIEL',
+		LAND: 'CA',
+		ALKOHOL: '10.5',
+		BETYG: '7.28',
+		DELTAGARE: 7,
+		DATUM: '110413'
+	},
+	{
+		ÖLNAMN: 'TERRIBLE*',
+		BRYGGERI: 'UNIBROUE',
+		LAND: 'CA',
+		ALKOHOL: '10.5',
+		BETYG: '7.29',
+		DELTAGARE: 7,
+		DATUM: '060321'
+	},
+	{
+		ÖLNAMN: 'TERRIBLE*',
+		BRYGGERI: 'UNIBROUE BR.',
+		LAND: 'CA',
+		ALKOHOL: '10.5',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '111012'
+	},
+	{
+		ÖLNAMN: 'Ale Tempora',
+		BRYGGERI: 'Vittoria',
+		LAND: 'IT',
+		ALKOHOL: '10.4',
+		BETYG: '7.25',
+		DELTAGARE: 4,
+		DATUM: '170215'
+	},
+	{
+		ÖLNAMN: 'GAUDER STEINBOCK',
+		BRYGGERI: 'ZILLERTAL BIER GmbH',
+		LAND: 'AT',
+		ALKOHOL: '10.4',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '130821'
+	},
+	{
+		ÖLNAMN: 'Narwhal 2013',
+		BRYGGERI: 'SIERRA NEVADA BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '10.2',
+		BETYG: '7.80',
+		DELTAGARE: 5,
+		DATUM: '170118'
+	},
+	{
+		ÖLNAMN: "SOLSTICE D'HIVER",
+		BRYGGERI: 'Br. DIEU DU CIEL',
+		LAND: 'CA',
+		ALKOHOL: '10.2',
+		BETYG: '7.28',
+		DELTAGARE: 7,
+		DATUM: '110413'
+	},
+	{
+		ÖLNAMN: 'OLD DANISH BEER',
+		BRYGGERI: 'DANSK MJØD',
+		LAND: 'DK',
+		ALKOHOL: '10.2',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '110707'
+	},
+	{
+		ÖLNAMN: 'SIGTUNA MIDVINTERBLOT 10.1',
+		BRYGGERI: 'SIGTUNA BRYGGHUS',
+		LAND: 'SE',
+		ALKOHOL: '10.1',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '120208'
+	},
+	{
+		ÖLNAMN: 'Acadian Groove',
+		BRYGGERI: 'Flying Monkeys Craft Br.',
+		LAND: 'CA',
+		ALKOHOL: '10.0',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '200514'
+	},
+	{
+		ÖLNAMN: 'BARLEY WINE',
+		BRYGGERI: 'GREEN FLASH BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '10.0',
+		BETYG: '7.38',
+		DELTAGARE: 8,
+		DATUM: '080820'
+	},
+	{
+		ÖLNAMN: 'Black Nordic Skies',
+		BRYGGERI: 'Amager Bryghus',
+		LAND: 'DK',
+		ALKOHOL: '10.0',
+		BETYG: '7.83',
+		DELTAGARE: 7,
+		DATUM: '190228'
+	},
+	{
+		ÖLNAMN: 'Christmas Eve at NYC Hotel Room',
+		BRYGGERI: 'Evil Twin',
+		LAND: 'US',
+		ALKOHOL: '10.0',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '141210'
+	},
+	{
+		ÖLNAMN: 'CREST SUPER',
+		BRYGGERI: 'CREST BR. CO.',
+		LAND: 'GB',
+		ALKOHOL: '10.0',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '010425'
+	},
+	{
+		ÖLNAMN: 'DARK ISLAND RESERVE',
+		BRYGGERI: 'THE ORKNEY BR.',
+		LAND: 'SCOT',
+		ALKOHOL: '10.0',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '081217'
+	},
+	{
+		ÖLNAMN: 'DOUBLE BASTARD ALE',
+		BRYGGERI: 'STONE BR.',
+		LAND: 'US',
+		ALKOHOL: '10.0',
+		BETYG: '6.71',
+		DELTAGARE: 7,
+		DATUM: '040331'
+	},
+	{
+		ÖLNAMN: 'DOUBLE BASTARD ALE',
+		BRYGGERI: 'STONE BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '10.0',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '100310'
+	},
+	{
+		ÖLNAMN: 'Dugges Ethiopia Welena',
+		BRYGGERI: 'Dugges',
+		LAND: 'SE',
+		ALKOHOL: '10.0',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '170118'
+	},
+	{
+		ÖLNAMN: 'Dugges Imperial Geisha',
+		BRYGGERI: 'Dugges',
+		LAND: 'SE',
+		ALKOHOL: '10.0',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '170118'
+	},
+	{
+		ÖLNAMN: 'EDITION 2005',
+		BRYGGERI: 'UNIBROUE',
+		LAND: 'CA',
+		ALKOHOL: '10.0',
+		BETYG: '7.43',
+		DELTAGARE: 7,
+		DATUM: '060321'
+	},
+	{
+		ÖLNAMN: 'EMBRASSE SPECIAL EDITION PEATED OAK AGED',
+		BRYGGERI: 'DE DOCHTER VAN DE KORENAAR',
+		LAND: 'BE',
+		ALKOHOL: '10.0',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '120613'
+	},
+	{
+		ÖLNAMN: 'Handshake',
+		BRYGGERI: 'West Coast/All-in',
+		LAND: 'SE',
+		ALKOHOL: '10.0',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '170118'
+	},
+	{
+		ÖLNAMN: 'HET KAPITTEL WATOU ABT',
+		BRYGGERI: 'N.V. van EECKE',
+		LAND: 'BE',
+		ALKOHOL: '10.0',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '070726'
+	},
+	{
+		ÖLNAMN: 'HOPPY FEET 1.5',
+		BRYGGERI: 'MERCURY BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '10.0',
+		BETYG: '8.20',
+		DELTAGARE: 5,
+		DATUM: '121114'
+	},
+	{
+		ÖLNAMN: 'IMPERIAL RUSSIAN STOUT*',
+		BRYGGERI: 'COURAGE',
+		LAND: 'GB',
+		ALKOHOL: '10.0',
+		BETYG: '7.00',
+		DELTAGARE: 3,
+		DATUM: '940826'
+	},
+	{
+		ÖLNAMN: 'IMPERIAL RUSSIAN STOUT*',
+		BRYGGERI: 'COURAGE',
+		LAND: 'GB',
+		ALKOHOL: '10.0',
+		BETYG: '8.50',
+		DELTAGARE: 4,
+		DATUM: '940901'
+	},
+	{
+		ÖLNAMN: 'ISJEESES RESERVA TSJ No. 11XMAS BREW',
+		BRYGGERI: 'DE STRUISE BROUWERS',
+		LAND: 'BE',
+		ALKOHOL: '10.0',
+		BETYG: '7.33',
+		DELTAGARE: 3,
+		DATUM: '090722'
+	},
+	{
+		ÖLNAMN: 'iStout',
+		BRYGGERI: '8-Wired Br. Co.',
+		LAND: 'NZ',
+		ALKOHOL: '10.0',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '140312'
+	},
+	{
+		ÖLNAMN: 'KOPPARBERGS SPECIAL BREW',
+		BRYGGERI: 'KOPPARBERGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '10.0',
+		BETYG: '2.40',
+		DELTAGARE: 5,
+		DATUM: '971112'
+	},
+	{
+		ÖLNAMN: 'LA GRAND 10',
+		BRYGGERI: 'BR. ARTISANALE DE RULLES',
+		LAND: 'BE',
+		ALKOHOL: '10.0',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '120613'
+	},
+	{
+		ÖLNAMN: 'LA TRAPPE QUADRUPLE*',
+		BRYGGERI: 'BIERBR. DE SCHAAPSKOOI',
+		LAND: 'NL',
+		ALKOHOL: '10.0',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '000523'
+	},
+	{
+		ÖLNAMN: 'LA TRAPPE QUADRUPLE*',
+		BRYGGERI: 'BIERBR. DE SCHAAPSKOOI',
+		LAND: 'NL',
+		ALKOHOL: '10.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '970910'
+	},
+	{
+		ÖLNAMN: 'Loco Veza Charred',
+		BRYGGERI: 'Stone Br.',
+		LAND: 'US',
+		ALKOHOL: '10.0',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '170913'
+	},
+	{
+		ÖLNAMN: "N'ICE CHOUFFE",
+		BRYGGERI: "BR. D'ACHOUFFE",
+		LAND: 'BE',
+		ALKOHOL: '10.0',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '061115'
+	},
+	{
+		ÖLNAMN: 'OLD VISCOSITY ALE',
+		BRYGGERI: 'PORT BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '10.0',
+		BETYG: '6.86',
+		DELTAGARE: 7,
+		DATUM: '100120'
+	},
+	{
+		ÖLNAMN: 'PANNEPOT',
+		BRYGGERI: 'STRUISEBROUWERS',
+		LAND: 'BE',
+		ALKOHOL: '10.0',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '120613'
+	},
+	{
+		ÖLNAMN: "PANNEPOT 2007 OLD FISHERMAN'S ALE",
+		BRYGGERI: 'DE STRUISE BROUWERS',
+		LAND: 'BE',
+		ALKOHOL: '10.0',
+		BETYG: '9.00',
+		DELTAGARE: 3,
+		DATUM: '090722'
+	},
+	{
+		ÖLNAMN: 'PARADOX GRAIN WHISKEY CASK AGED IMPERIAL STOUT',
+		BRYGGERI: 'BREW DOG',
+		LAND: 'SCOT',
+		ALKOHOL: '10.0',
+		BETYG: '7.25',
+		DELTAGARE: 4,
+		DATUM: '080528'
+	},
+	{
+		ÖLNAMN: 'PARADOX ISLAY',
+		BRYGGERI: 'BREW DOG',
+		LAND: 'SCOT',
+		ALKOHOL: '10.0',
+		BETYG: '6.75',
+		DELTAGARE: 8,
+		DATUM: '080820'
+	},
+	{
+		ÖLNAMN: 'PARADOX SPEYSIDE CASK MATURED',
+		BRYGGERI: 'BREW DOG',
+		LAND: 'SCOT',
+		ALKOHOL: '10.0',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '080528'
+	},
+	{
+		ÖLNAMN: 'PETRA BEER',
+		BRYGGERI: 'GENERAL INVESTMENT CO. LTD.',
+		LAND: 'JO',
+		ALKOHOL: '10.0',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '100512'
+	},
+	{
+		ÖLNAMN: 'Pride',
+		BRYGGERI: 'Amager Bryghus',
+		LAND: 'DK',
+		ALKOHOL: '10.0',
+		BETYG: '7.14',
+		DELTAGARE: 7,
+		DATUM: '131009'
+	},
+	{
+		ÖLNAMN: 'PRIMÁTOR',
+		BRYGGERI: 'PIVOVAR NÁCHOD A.S.',
+		LAND: 'CZ',
+		ALKOHOL: '10.0',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '050913'
+	},
+	{
+		ÖLNAMN: 'S:T BERNARDUS ABT 12',
+		BRYGGERI: 'BR. ST. BERNARD NV/SA',
+		LAND: 'BE',
+		ALKOHOL: '10.0',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '070726'
+	},
+	{
+		ÖLNAMN: 'S:t Bernardus Abt 12',
+		BRYGGERI: "Bière d'Abbaye",
+		LAND: 'BE',
+		ALKOHOL: '10.0',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '180215'
+	},
+	{
+		ÖLNAMN: 'SAKARA KING',
+		BRYGGERI: 'AL AHRAM BEVERAGES CO.',
+		LAND: 'EG',
+		ALKOHOL: '10.0',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '100512'
+	},
+	{
+		ÖLNAMN: 'Södvik Super Saison',
+		BRYGGERI: 'Eskilstuna Ölkultur',
+		LAND: 'SE',
+		ALKOHOL: '10.0',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '200704'
+	},
+	{
+		ÖLNAMN: 'The Chocolate Manifesto Triple Choclate Milk Stout',
+		BRYGGERI: 'Flying Monkeys Craft Br.',
+		LAND: 'CA',
+		ALKOHOL: '10.0',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '170913'
+	},
+	{
+		ÖLNAMN: 'THE REVEREND',
+		BRYGGERI: 'AVERY BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '10.0',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '120509'
+	},
+	{
+		ÖLNAMN: 'UNIBROUE 15',
+		BRYGGERI: 'UNIBROUE',
+		LAND: 'CN',
+		ALKOHOL: '10.0',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '061115'
+	},
+	{
+		ÖLNAMN: 'UNIBROUE 16',
+		BRYGGERI: 'UNIBROUE BR.',
+		LAND: 'CA',
+		ALKOHOL: '10.0',
+		BETYG: '7.72',
+		DELTAGARE: 7,
+		DATUM: '070919'
+	},
+	{
+		ÖLNAMN: 'UNIBROUE 17',
+		BRYGGERI: 'UNIBROUE BR.',
+		LAND: 'CA',
+		ALKOHOL: '10.0',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '111012'
+	},
+	{
+		ÖLNAMN: 'Unibroue 17',
+		BRYGGERI: 'Unibroue',
+		LAND: 'CA',
+		ALKOHOL: '10.0',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '200514'
+	},
+	{
+		ÖLNAMN: 'Celebration Ale 2015',
+		BRYGGERI: 'Nils Oscar',
+		LAND: 'SE',
+		ALKOHOL: '9.9',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '160113'
+	},
+	{
+		ÖLNAMN: 'Nils Oscar Celebration Barley Wine',
+		BRYGGERI: 'Nils Oscar Br.',
+		LAND: 'SE',
+		ALKOHOL: '9.9',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '200213'
+	},
+	{
+		ÖLNAMN: 'Pelasku Velns',
+		BRYGGERI: 'Aristida Briana/Labietis',
+		LAND: 'LV',
+		ALKOHOL: '9.9',
+		BETYG: '8.00',
+		DELTAGARE: 4,
+		DATUM: '171010'
+	},
+	{
+		ÖLNAMN: 'WIIBROE ÅRGÅNGSÖL 1999',
+		BRYGGERI: 'WIIBROE BR.',
+		LAND: 'DK',
+		ALKOHOL: '9.90',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '990901'
+	},
+	{
+		ÖLNAMN: 'WILLEMOES PORTER',
+		BRYGGERI: 'VESTFYNS BR.',
+		LAND: 'DK',
+		ALKOHOL: '9.8',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '110914'
+	},
+	{
+		ÖLNAMN: 'OLDE GNARLY WINE',
+		BRYGGERI: 'LAGUNITAS BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '9.7',
+		BETYG: '7.63',
+		DELTAGARE: 8,
+		DATUM: '080820'
+	},
+	{
+		ÖLNAMN: 'TWIN SISTERS DOUBLE IPA ALE',
+		BRYGGERI: 'LEFT HAND BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '9.7',
+		BETYG: '8.00',
+		DELTAGARE: 6,
+		DATUM: '081126'
+	},
+	{
+		ÖLNAMN: 'WIIBROE ÅRGÅNGSÖL 1997',
+		BRYGGERI: 'WIIBROE BR.',
+		LAND: 'DK',
+		ALKOHOL: '9.7',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '000216'
+	},
+	{
+		ÖLNAMN: 'BIG FOOT ALE',
+		BRYGGERI: 'SIERRA NEVADA BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '9.6',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '051011'
+	},
+	{
+		ÖLNAMN: 'Hoptimum',
+		BRYGGERI: 'Sierra Nevada Br.',
+		LAND: 'US',
+		ALKOHOL: '9.6',
+		BETYG: '8.00',
+		DELTAGARE: 6,
+		DATUM: '171206'
+	},
+	{
+		ÖLNAMN: 'Oh Honey, honey',
+		BRYGGERI: 'Nörrebro Bryghus',
+		LAND: 'DK',
+		ALKOHOL: '9.6',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '200319'
+	},
+	{
+		ÖLNAMN: 'SIERRA NEVADA BIGFOOT ALE 2010',
+		BRYGGERI: 'SIERRA NEVADA BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '9.6',
+		BETYG: '7.80',
+		DELTAGARE: 5,
+		DATUM: '110807'
+	},
+	{
+		ÖLNAMN: 'SIERRA NEVADA BIGFOOT ALE 2011',
+		BRYGGERI: 'SIERRA NEVADA BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '9.6',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '110807'
+	},
+	{
+		ÖLNAMN: 'Belgian Style Yeti',
+		BRYGGERI: 'Great Divide Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '9.5',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '140115'
+	},
+	{
+		ÖLNAMN: 'Boucanier Christmas Ale',
+		BRYGGERI: 'Br. van Steenberge',
+		LAND: 'BE',
+		ALKOHOL: '9.5',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '141210'
+	},
+	{
+		ÖLNAMN: 'Chocolate Oak Aged Yeti',
+		BRYGGERI: 'Great Divide Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '9.5',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '140115'
+	},
+	{
+		ÖLNAMN: 'Duvel Tripel Hop',
+		BRYGGERI: 'Br. Duvel Moortgat',
+		LAND: 'BE',
+		ALKOHOL: '9.5',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '141112'
+	},
+	{
+		ÖLNAMN: 'ESPRESSO OAK AGED YETI',
+		BRYGGERI: 'GREAT DIVIDE BR.',
+		LAND: 'US',
+		ALKOHOL: '9.5',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '121114'
+	},
+	{
+		ÖLNAMN: 'IGA CABERNET',
+		BRYGGERI: 'CRAK',
+		LAND: 'IT',
+		ALKOHOL: '9.5',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '191017'
+	},
+	{
+		ÖLNAMN: 'IMPERIAL STOUT',
+		BRYGGERI: 'MIDTFYNS BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '9.5',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '130306'
+	},
+	{
+		ÖLNAMN: 'Liefmans Goudenband Barrel Aged',
+		BRYGGERI: 'Liefmans',
+		LAND: 'BE',
+		ALKOHOL: '9.5',
+		BETYG: '7.67',
+		DELTAGARE: 6,
+		DATUM: '181220'
+	},
+	{
+		ÖLNAMN: 'NILS OSCAR BARLEY WINE',
+		BRYGGERI: 'Nils Oscar Bryggerier',
+		LAND: 'SE',
+		ALKOHOL: '9.5',
+		BETYG: '8.20',
+		DELTAGARE: 5,
+		DATUM: '021009'
+	},
+	{
+		ÖLNAMN: 'OAK AGED YETI IMPERIAL STOUT',
+		BRYGGERI: 'GREAT DIVIDE BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '9.5',
+		BETYG: '7.67',
+		DELTAGARE: 6,
+		DATUM: '081126'
+	},
+	{
+		ÖLNAMN: 'Oak Aged Yeti Imperial Stout',
+		BRYGGERI: 'Great Divide Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '9.5',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '140115'
+	},
+	{
+		ÖLNAMN: 'Oatmeal Yeti ',
+		BRYGGERI: 'Great Divide Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '9.5',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '140115'
+	},
+	{
+		ÖLNAMN: 'Oatmeal Yeti Imperial Stout',
+		BRYGGERI: 'Great Divide Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '9.5',
+		BETYG: '8.33',
+		DELTAGARE: 6,
+		DATUM: '140709'
+	},
+	{
+		ÖLNAMN: 'Old World Russian Imperial Stout',
+		BRYGGERI: 'Brewdog Br',
+		LAND: 'SCOT',
+		ALKOHOL: '9.5',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '140709'
+	},
+	{
+		ÖLNAMN: 'PÉCHÉ MORTEL',
+		BRYGGERI: 'Br. DIEU DU CIEL',
+		LAND: 'CA',
+		ALKOHOL: '9.5',
+		BETYG: '8.00',
+		DELTAGARE: 7,
+		DATUM: '110413'
+	},
+	{
+		ÖLNAMN: 'PÉCHÉ MORTEL',
+		BRYGGERI: 'Br. DIEU DU CIEL',
+		LAND: 'CA',
+		ALKOHOL: '9.5',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '130306'
+	},
+	{
+		ÖLNAMN: 'Poppels Russian Imperial Stout',
+		BRYGGERI: 'Poppels Br.',
+		LAND: 'SE',
+		ALKOHOL: '9.5',
+		BETYG: '6.72',
+		DELTAGARE: 7,
+		DATUM: '160210'
+	},
+	{
+		ÖLNAMN: 'Redankulous Imperial Red IPA',
+		BRYGGERI: 'Founders',
+		LAND: 'US',
+		ALKOHOL: '9.5',
+		BETYG: '7.17',
+		DELTAGARE: 6,
+		DATUM: '171206'
+	},
+	{
+		ÖLNAMN: 'Russian Imperial Stout',
+		BRYGGERI: 'Poppels',
+		LAND: 'SE',
+		ALKOHOL: '9.5',
+		BETYG: '8.17',
+		DELTAGARE: 7,
+		DATUM: '190228'
+	},
+	{
+		ÖLNAMN: 'St. Feuillien Grand Cru',
+		BRYGGERI: 'Br. St. Feuillien',
+		LAND: 'BE',
+		ALKOHOL: '9.5',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '200514'
+	},
+	{
+		ÖLNAMN: 'WESTMALLE TRIPPEL',
+		BRYGGERI: "D'ABBAYE WESTMALLE",
+		LAND: 'BE',
+		ALKOHOL: '9.5',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '040614'
+	},
+	{
+		ÖLNAMN: 'White Monkey',
+		BRYGGERI: 'Victory Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '9.5',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '140813'
+	},
+	{
+		ÖLNAMN: 'WIIBROE ÅRGÅNGSÖL 1995',
+		BRYGGERI: 'WIIBROE BR.',
+		LAND: 'DK',
+		ALKOHOL: '9.5',
+		BETYG: '2.25',
+		DELTAGARE: 4,
+		DATUM: '950126'
+	},
+	{
+		ÖLNAMN: 'XS IMPERIAL PALE ALE',
+		BRYGGERI: 'ROGUE ALES NEWPORT',
+		LAND: 'US',
+		ALKOHOL: '9.5',
+		BETYG: '7.67',
+		DELTAGARE: 6,
+		DATUM: '081126'
+	},
+	{
+		ÖLNAMN: 'YETI',
+		BRYGGERI: 'GREAT DIVIDE BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '9.5',
+		BETYG: '8.83',
+		DELTAGARE: 6,
+		DATUM: '120208'
+	},
+	{
+		ÖLNAMN: 'YETI IMPERIAL STOUT',
+		BRYGGERI: 'GREAT DIVIDE BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '9.5',
+		BETYG: '7.75',
+		DELTAGARE: 4,
+		DATUM: '080116'
+	},
+	{
+		ÖLNAMN: 'Yeti Imperial Stout',
+		BRYGGERI: 'Great Divide Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '9.5',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '140115'
+	},
+	{
+		ÖLNAMN: 'ZYWIEC PORTER',
+		BRYGGERI: 'BROWAR ZYWIEC',
+		LAND: 'PL',
+		ALKOHOL: '9.5',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '120906'
+	},
+	{
+		ÖLNAMN: 'BROTHER THELONIOUS*',
+		BRYGGERI: 'NORTH COAST BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '9.4',
+		BETYG: '9.40',
+		DELTAGARE: 5,
+		DATUM: '070614'
+	},
+	{
+		ÖLNAMN: 'BROTHER THELONIOUS*',
+		BRYGGERI: 'NORTH COAST BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '9.4',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '080409'
+	},
+	{
+		ÖLNAMN: 'BROTHER THELONIUS*',
+		BRYGGERI: 'NORTH COAST BR.',
+		LAND: 'US',
+		ALKOHOL: '9.4',
+		BETYG: '7.86',
+		DELTAGARE: 7,
+		DATUM: '090128'
+	},
+	{
+		ÖLNAMN: 'Gluttony',
+		BRYGGERI: 'Amager Bryghus',
+		LAND: 'DK',
+		ALKOHOL: '9.4',
+		BETYG: '7.14',
+		DELTAGARE: 7,
+		DATUM: '131009'
+	},
+	{
+		ÖLNAMN: 'MIDGÅRDSØL',
+		BRYGGERI: 'DANSK MJØD',
+		LAND: 'DK',
+		ALKOHOL: '9.4',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '110707'
+	},
+	{
+		ÖLNAMN: 'VERTICAL EPIC*',
+		BRYGGERI: 'STONE BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '9.4',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '120509'
+	},
+	{
+		ÖLNAMN: 'WIIBROE ÅRGÅNGSØL 1994',
+		BRYGGERI: 'WIIBROE BR.',
+		LAND: 'DK',
+		ALKOHOL: '9.4',
+		BETYG: '2.00',
+		DELTAGARE: 4,
+		DATUM: '940308'
+	},
+	{
+		ÖLNAMN: 'DOUBLE IPA',
+		BRYGGERI: 'MIDTFYNS BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '9.2',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '101013'
+	},
+	{
+		ÖLNAMN: 'DUBHE',
+		BRYGGERI: 'UINTA BR CO',
+		LAND: 'US',
+		ALKOHOL: '9.2',
+		BETYG: '8.40',
+		DELTAGARE: 5,
+		DATUM: '130703'
+	},
+	{
+		ÖLNAMN: 'GÓRSKIE',
+		BRYGGERI: 'ROYAL UNIBREW POLSKA',
+		LAND: 'PL',
+		ALKOHOL: '9.2',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '080227'
+	},
+	{
+		ÖLNAMN: 'HARDCORE IPA',
+		BRYGGERI: 'BREWDOG',
+		LAND: 'SCOT',
+		ALKOHOL: '9.2',
+		BETYG: '6.87',
+		DELTAGARE: 6,
+		DATUM: '120711'
+	},
+	{
+		ÖLNAMN: 'HOG HEAVEN',
+		BRYGGERI: 'AVERY BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '9.2',
+		BETYG: '7.67',
+		DELTAGARE: 6,
+		DATUM: '120509'
+	},
+	{
+		ÖLNAMN: 'Lust',
+		BRYGGERI: 'Amager Bryghus',
+		LAND: 'DK',
+		ALKOHOL: '9.2',
+		BETYG: '4.86',
+		DELTAGARE: 7,
+		DATUM: '131009'
+	},
+	{
+		ÖLNAMN: 'TRAPPISTES ROCHEFORT 8o',
+		BRYGGERI: 'ABBAYE S:T REMY',
+		LAND: 'BE',
+		ALKOHOL: '9.2',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '010510'
+	},
+	{
+		ÖLNAMN: 'Vittoria Marinette',
+		BRYGGERI: 'Vittoria',
+		LAND: 'IT',
+		ALKOHOL: '9.2',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '170215'
+	},
+	{
+		ÖLNAMN: 'WIDDERSHINS',
+		BRYGGERI: 'LEFT HAND BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '9.1',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '081126'
+	},
+	{
+		ÖLNAMN: 'ArchDruid',
+		BRYGGERI: 'Clown Shoes',
+		LAND: 'US',
+		ALKOHOL: '9.0',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '170412'
+	},
+	{
+		ÖLNAMN: 'BLÅ CHIMAY 1999',
+		BRYGGERI: "L'ABBAYE DE SCOURMONT",
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '8.20',
+		DELTAGARE: 5,
+		DATUM: '080409'
+	},
+	{
+		ÖLNAMN: 'Bolsjeviken Imperial Stout',
+		BRYGGERI: 'Sälens Fjällbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '9.0',
+		BETYG: '7.75',
+		DELTAGARE: 4,
+		DATUM: '190328'
+	},
+	{
+		ÖLNAMN: 'BORNEM TRIPPEL',
+		BRYGGERI: 'BR. VAN STEENBERGE',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '040421'
+	},
+	{
+		ÖLNAMN: 'BRIGAND',
+		BRYGGERI: 'BR. van HONSEBROUCK',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '6.00',
+		DELTAGARE: 3,
+		DATUM: '950814'
+	},
+	{
+		ÖLNAMN: 'BROOKLYN LAGER LOCAL 1',
+		BRYGGERI: 'BROOKLYN BR.',
+		LAND: 'US',
+		ALKOHOL: '9.0',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '120711'
+	},
+	{
+		ÖLNAMN: 'BROOKLYN LOCAL 1',
+		BRYGGERI: 'BROOKLYN BR.',
+		LAND: 'US',
+		ALKOHOL: '9.0',
+		BETYG: '7.28',
+		DELTAGARE: 7,
+		DATUM: '070919'
+	},
+	{
+		ÖLNAMN: 'CHIMAY BLÅ 1992',
+		BRYGGERI: "L'ABBAYE DE SCOURMONT",
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '8.33',
+		DELTAGARE: 3,
+		DATUM: '950629'
+	},
+	{
+		ÖLNAMN: 'CHIMAY BLÅ 1994',
+		BRYGGERI: "L'ABBAYE DE SCOURMONT",
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '991006'
+	},
+	{
+		ÖLNAMN: 'CHIMAY BLÅ 1995*',
+		BRYGGERI: "L'ABBAYE DE SCOURMONT",
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '7.50',
+		DELTAGARE: 4,
+		DATUM: '950328'
+	},
+	{
+		ÖLNAMN: 'CHIMAY BLÅ 1995*',
+		BRYGGERI: "L'ABBAYE DE SCOURMONT",
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '8.33',
+		DELTAGARE: 3,
+		DATUM: '950629'
+	},
+	{
+		ÖLNAMN: 'CHIMAY BLÅ 2003',
+		BRYGGERI: 'S.A. BIERES DE CHIMAY',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '031209'
+	},
+	{
+		ÖLNAMN: 'CHIMAY GRAND RÉSERVE*',
+		BRYGGERI: "L'ABBAYE DE SCOURMONT",
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '980421'
+	},
+	{
+		ÖLNAMN: 'CHIMAY GRAND RÉSERVE*',
+		BRYGGERI: "L'ABBAYE DE SCOURMONT",
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '991006'
+	},
+	{
+		ÖLNAMN: 'CHOUFFE HOUBLONDOBBELEN IPA TRIPLE',
+		BRYGGERI: "BR. D'ACHOUFFE",
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '7.28',
+		DELTAGARE: 6,
+		DATUM: '090826'
+	},
+	{
+		ÖLNAMN: 'CUVÉE DE NOEL S:T FEUILLIEN',
+		BRYGGERI: 'BR. FRIART - LE RŒULX',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '040421'
+	},
+	{
+		ÖLNAMN: 'EMBRASSE',
+		BRYGGERI: 'DE DOCHTER VAN DE KORENAAR',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '120613'
+	},
+	{
+		ÖLNAMN: 'EMBRASSE SPECIAL EDITION',
+		BRYGGERI: 'DE DOCHTER VAN DE KORENAAR',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '120613'
+	},
+	{
+		ÖLNAMN: 'FULLERS BREWERS RESERVE OAK AGED ALE',
+		BRYGGERI: 'FULLER, SMITH & TURNER',
+		LAND: 'GB',
+		ALKOHOL: '9.0',
+		BETYG: '7.00',
+		DELTAGARE: 6,
+		DATUM: '130918'
+	},
+	{
+		ÖLNAMN: 'GRIMBERGEN TRIPLE',
+		BRYGGERI: 'ABDIJ GRIMBERGEN',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '7.17',
+		DELTAGARE: 6,
+		DATUM: '040922'
+	},
+	{
+		ÖLNAMN: 'IMPERIAL STOUT 2007',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '9.0',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '080116'
+	},
+	{
+		ÖLNAMN: 'IMPERIAL STOUT 2007',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '9.0',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '130306'
+	},
+	{
+		ÖLNAMN: 'KAPITTEL WATOU PRIOR',
+		BRYGGERI: 'N.V. van EECKE',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '070726'
+	},
+	{
+		ÖLNAMN: 'LA FIN DU MONDE*',
+		BRYGGERI: 'UNIBROUE',
+		LAND: 'CA',
+		ALKOHOL: '9.0',
+		BETYG: '6.29',
+		DELTAGARE: 7,
+		DATUM: '060321'
+	},
+	{
+		ÖLNAMN: 'LA FIN DU MONDE*',
+		BRYGGERI: 'UNIBROUE BR.',
+		LAND: 'CA',
+		ALKOHOL: '9.0',
+		BETYG: '7.17',
+		DELTAGARE: 6,
+		DATUM: '111012'
+	},
+	{
+		ÖLNAMN: 'LA GUILOTINE',
+		BRYGGERI: 'BRASSERIE HUYGHE BR.',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '020211'
+	},
+	{
+		ÖLNAMN: 'Local 1',
+		BRYGGERI: 'Brooklyn Br.',
+		LAND: 'US',
+		ALKOHOL: '9.0',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '181011'
+	},
+	{
+		ÖLNAMN: 'Local King',
+		BRYGGERI: 'Brekeriet',
+		LAND: 'SE',
+		ALKOHOL: '9.0',
+		BETYG: '8.00',
+		DELTAGARE: 6,
+		DATUM: '170913'
+	},
+	{
+		ÖLNAMN: 'MIKKELER DSB',
+		BRYGGERI: 'ELLIOT BREW',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '7.33',
+		DELTAGARE: 3,
+		DATUM: '090722'
+	},
+	{
+		ÖLNAMN: 'MONTAGNARDE*',
+		BRYGGERI: "BR. DE L'ABBAYE DEC ROCS",
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '7.67',
+		DELTAGARE: 6,
+		DATUM: '041215'
+	},
+	{
+		ÖLNAMN: 'MONTAGNARDE*',
+		BRYGGERI: "BR. L'ABBAYE DES ROCS",
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '050823'
+	},
+	{
+		ÖLNAMN: 'Nelson Sauvin Brut',
+		BRYGGERI: 'De Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '180412'
+	},
+	{
+		ÖLNAMN: 'Nelson Sauvin Brut Oranges and Passion Fruit',
+		BRYGGERI: 'De Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '180412'
+	},
+	{
+		ÖLNAMN: 'Nelson Sauvin Mango Passion',
+		BRYGGERI: 'De Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '190708'
+	},
+	{
+		ÖLNAMN: 'OLD RASPUTIN RUSSIAN IMPERIAL STOUT',
+		BRYGGERI: 'NORTH COAST BR.',
+		LAND: 'US',
+		ALKOHOL: '9.0',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '130306'
+	},
+	{
+		ÖLNAMN: 'PANIL ENHANCED',
+		BRYGGERI: 'BIRRIFICIO TORRECHIARA',
+		LAND: 'IT',
+		ALKOHOL: '9.0',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '071212'
+	},
+	{
+		ÖLNAMN: 'PRIZE OLD ALE',
+		BRYGGERI: 'GEORGE GALE & CO LTD.',
+		LAND: 'GB',
+		ALKOHOL: '9.0',
+		BETYG: '8.67',
+		DELTAGARE: 6,
+		DATUM: '040309'
+	},
+	{
+		ÖLNAMN: 'SALVATION',
+		BRYGGERI: 'AVERY BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '9.0',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '120509'
+	},
+	{
+		ÖLNAMN: 'Salvation',
+		BRYGGERI: 'Avery Br.',
+		LAND: 'US',
+		ALKOHOL: '9.0',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '140212'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAMS 13TH HOUR',
+		BRYGGERI: 'SAMUEL ADAMS BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '9.0',
+		BETYG: '8.40',
+		DELTAGARE: 5,
+		DATUM: '121114'
+	},
+	{
+		ÖLNAMN: 'SPECIAL EXTRA EXPORT STOUT',
+		BRYGGERI: 'DE DOLLE BROUWERS',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '080528'
+	},
+	{
+		ÖLNAMN: 'SPECIALE NOEL',
+		BRYGGERI: 'BR. LA BINCHOISE',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '980421'
+	},
+	{
+		ÖLNAMN: 'SUPER NOëL',
+		BRYGGERI: "ABBAYE d'AULNE",
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '970121'
+	},
+	{
+		ÖLNAMN: 'THREE PHILOSOPHERS',
+		BRYGGERI: 'BR. OMMEGANG',
+		LAND: 'US',
+		ALKOHOL: '9.0',
+		BETYG: '8.38',
+		DELTAGARE: 8,
+		DATUM: '080820'
+	},
+	{
+		ÖLNAMN: 'TRAQUAIR 900',
+		BRYGGERI: 'TRAQUAIR HOUSE INNERLEITHE PEEBLESSHIRE',
+		LAND: 'SCOT',
+		ALKOHOL: '9.0',
+		BETYG: '7.63',
+		DELTAGARE: 8,
+		DATUM: '080820'
+	},
+	{
+		ÖLNAMN: 'TROIS PISTOLES',
+		BRYGGERI: 'UNIBROUE',
+		LAND: 'CA',
+		ALKOHOL: '9.0',
+		BETYG: '7.86',
+		DELTAGARE: 7,
+		DATUM: '060321'
+	},
+	{
+		ÖLNAMN: 'Troubadour Imperial Stout',
+		BRYGGERI: 'Br. The Musketeers',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '200514'
+	},
+	{
+		ÖLNAMN: 'VÅR TRIPEL 2010',
+		BRYGGERI: 'NØRREBRO BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '9.0',
+		BETYG: '7.75',
+		DELTAGARE: 4,
+		DATUM: '110216'
+	},
+	{
+		ÖLNAMN: 'WARMINSKI PORTER',
+		BRYGGERI: 'BROWAR KORMORAN',
+		LAND: 'PL',
+		ALKOHOL: '9.0',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '120906'
+	},
+	{
+		ÖLNAMN: 'WESTMALLE TRAPPIST',
+		BRYGGERI: "D'ABBAYE WESTMALLE",
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '991006'
+	},
+	{
+		ÖLNAMN: 'White Horse IPA Passionfruit',
+		BRYGGERI: 'Sälens Fjällbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '9.0',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '170831'
+	},
+	{
+		ÖLNAMN: 'WOJAK SUPER MOCNE',
+		BRYGGERI: 'BREWER BELGIA SP.',
+		LAND: 'PL',
+		ALKOHOL: '9.0',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '080227'
+	},
+	{
+		ÖLNAMN: 'YORKSHIRE STINGO',
+		BRYGGERI: 'SAMUEL SMITH´S OLD BR.',
+		LAND: 'UK',
+		ALKOHOL: '9.0',
+		BETYG: '7.75',
+		DELTAGARE: 4,
+		DATUM: '100609'
+	},
+	{
+		ÖLNAMN: 'Dark Penance',
+		BRYGGERI: 'Founders',
+		LAND: 'US',
+		ALKOHOL: '8.9',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '170118'
+	},
+	{
+		ÖLNAMN: 'GORDON XMAS',
+		BRYGGERI: 'N.V. JOHN MARTIN S.A.',
+		LAND: 'BE',
+		ALKOHOL: '8.8',
+		BETYG: '6.57',
+		DELTAGARE: 7,
+		DATUM: '040630'
+	},
+	{
+		ÖLNAMN: 'Hornbeer Funky Monk',
+		BRYGGERI: 'Hornbeer',
+		LAND: 'DK',
+		ALKOHOL: '8.8',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '161208'
+	},
+	{
+		ÖLNAMN: 'OLD FOGHORN',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '8.8',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '010815'
+	},
+	{
+		ÖLNAMN: 'Old foghorn barleywine ale',
+		BRYGGERI: 'Anchor Br.',
+		LAND: 'US',
+		ALKOHOL: '8.8',
+		BETYG: '7.80',
+		DELTAGARE: 5,
+		DATUM: '180215'
+	},
+	{
+		ÖLNAMN: 'ROCHEFORT 8-KLON',
+		BRYGGERI: 'S. RÖRUMS ELBRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '8.8',
+		BETYG: '5.58',
+		DELTAGARE: 7,
+		DATUM: '090128'
+	},
+	{
+		ÖLNAMN: "SAMUEL ADAM'S DOUBLE BOCK",
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '8.8',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '070315'
+	},
+	{
+		ÖLNAMN: 'HOEGAARDEN GRAND CRU',
+		BRYGGERI: 'Br. Hoegaarden',
+		LAND: 'BE',
+		ALKOHOL: '8.7',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '021128'
+	},
+	{
+		ÖLNAMN: 'HOEGAARDEN GRAND CRU',
+		BRYGGERI: 'S.A. INTERBREW',
+		LAND: 'BE',
+		ALKOHOL: '8.6',
+		BETYG: '6.71',
+		DELTAGARE: 7,
+		DATUM: '040331'
+	},
+	{
+		ÖLNAMN: '3 MONTS',
+		BRYGGERI: 'BR. DE SAINT SYLVESTRE',
+		LAND: 'FR',
+		ALKOHOL: '8.5',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '040922'
+	},
+	{
+		ÖLNAMN: '3 MONTS',
+		BRYGGERI: 'BR. DE SAINT-SYLVESTRE',
+		LAND: 'FR',
+		ALKOHOL: '8.5',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '120111'
+	},
+	{
+		ÖLNAMN: '3 Monts/Biere de Flandre',
+		BRYGGERI: 'Br. de Saint Sylvestre',
+		LAND: 'FR',
+		ALKOHOL: '8.5',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '191219'
+	},
+	{
+		ÖLNAMN: 'Barley Wine',
+		BRYGGERI: 'Malz & Hopfen',
+		LAND: 'RU',
+		ALKOHOL: '8.5',
+		BETYG: '7.5',
+		DELTAGARE: 4,
+		DATUM: '171010'
+	},
+	{
+		ÖLNAMN: 'BIRZIECIU',
+		BRYGGERI: 'GAMINAMAS AB "RAGULIS"',
+		LAND: 'LT',
+		ALKOHOL: '8.5',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '011107'
+	},
+	{
+		ÖLNAMN: 'BROOKLYNER-SCHNEIDER HOPFEN-WEISSE',
+		BRYGGERI: 'BROOKLYN BR.',
+		LAND: 'US',
+		ALKOHOL: '8.5',
+		BETYG: '7.28',
+		DELTAGARE: 6,
+		DATUM: '090826'
+	},
+	{
+		ÖLNAMN: 'CARLSBERG PÅSKE BRYG*',
+		BRYGGERI: 'CARLSBERG',
+		LAND: 'DK',
+		ALKOHOL: '8.5',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '940407'
+	},
+	{
+		ÖLNAMN: 'CORSENDONK CHRISTMAS ALE*',
+		BRYGGERI: 'BR. CORSENDONK',
+		LAND: 'BE',
+		ALKOHOL: '8.5',
+		BETYG: '8.00',
+		DELTAGARE: 4,
+		DATUM: '020211'
+	},
+	{
+		ÖLNAMN: 'CORSENDONK CHRISTMAS ALE*',
+		BRYGGERI: 'BR. CORSENDONK',
+		LAND: 'BE',
+		ALKOHOL: '8.5',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '040421'
+	},
+	{
+		ÖLNAMN: 'Dimitri Russian Imperial Stout',
+		BRYGGERI: '',
+		LAND: 'ES',
+		ALKOHOL: '8.5',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '160615'
+	},
+	{
+		ÖLNAMN: 'Duvel',
+		BRYGGERI: 'Br. Duvel Moortgat',
+		LAND: 'BE',
+		ALKOHOL: '8.5',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '141112'
+	},
+	{
+		ÖLNAMN: 'Duvel',
+		BRYGGERI: 'Duvel-Moortgat NV',
+		LAND: 'BE',
+		ALKOHOL: '8.5',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '190425'
+	},
+	{
+		ÖLNAMN: 'DUVEL*',
+		BRYGGERI: 'DUVEL MOORTGAT',
+		LAND: 'BE',
+		ALKOHOL: '8.5',
+		BETYG: '7.50',
+		DELTAGARE: 4,
+		DATUM: '020211'
+	},
+	{
+		ÖLNAMN: 'DUVEL*',
+		BRYGGERI: 'DUVEL MOORTGAT',
+		LAND: 'BE',
+		ALKOHOL: '8.5',
+		BETYG: '6.86',
+		DELTAGARE: 7,
+		DATUM: '090128'
+	},
+	{
+		ÖLNAMN: 'DUVEL*',
+		BRYGGERI: 'DUVEL',
+		LAND: 'BE',
+		ALKOHOL: '8.5',
+		BETYG: '8.80',
+		DELTAGARE: 5,
+		DATUM: '930407'
+	},
+	{
+		ÖLNAMN: 'DUVEL*',
+		BRYGGERI: 'BROUWERIJ MOORTGAT',
+		LAND: 'BE',
+		ALKOHOL: '8.5',
+		BETYG: '8.00',
+		DELTAGARE: 3,
+		DATUM: '950814'
+	},
+	{
+		ÖLNAMN: "FULLER'S GOLDEN PRIDE",
+		BRYGGERI: 'FULLER, SMITH & TURNER',
+		LAND: 'GB',
+		ALKOHOL: '8.5',
+		BETYG: '6.00',
+		DELTAGARE: 8,
+		DATUM: '040204'
+	},
+	{
+		ÖLNAMN: 'Grand Cru',
+		BRYGGERI: 'Br. Castelain',
+		LAND: 'FR',
+		ALKOHOL: '8.5',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '191219'
+	},
+	{
+		ÖLNAMN: 'Imperial Saison Röda/Svarta Vinbär',
+		BRYGGERI: 'Poppel',
+		LAND: 'SE',
+		ALKOHOL: '8.5',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '170913'
+	},
+	{
+		ÖLNAMN: 'Imperial Saison Röda/Svarta Vinbär',
+		BRYGGERI: 'Poppels',
+		LAND: 'SE',
+		ALKOHOL: '8.5',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '180412'
+	},
+	{
+		ÖLNAMN: 'INFERNO ALE',
+		BRYGGERI: 'PORT BREWING/THE LOST ABBEY',
+		LAND: 'US',
+		ALKOHOL: '8.5',
+		BETYG: '5.42',
+		DELTAGARE: 7,
+		DATUM: '110413'
+	},
+	{
+		ÖLNAMN: 'LA CERVOISE DES ANCETRES',
+		BRYGGERI: 'HUYGHE-MELLE BREWERY',
+		LAND: 'BE',
+		ALKOHOL: '8.5',
+		BETYG: '7.00',
+		DELTAGARE: 7,
+		DATUM: '040331'
+	},
+	{
+		ÖLNAMN: 'Nebuchadnezzar',
+		BRYGGERI: 'Omnipollo',
+		LAND: 'SE',
+		ALKOHOL: '8.5',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '171206'
+	},
+	{
+		ÖLNAMN: 'OLD TOM STRONG ALE',
+		BRYGGERI: 'UNICORN BR.',
+		LAND: 'GB',
+		ALKOHOL: '8.5',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '050406'
+	},
+	{
+		ÖLNAMN: 'Sauvin Nouveau',
+		BRYGGERI: 'Garage Project',
+		LAND: 'NZ',
+		ALKOHOL: '8.5',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '151125'
+	},
+	{
+		ÖLNAMN: 'Supersonic',
+		BRYGGERI: 'Lervig Br.',
+		LAND: 'NO',
+		ALKOHOL: '8.5',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '200319'
+	},
+	{
+		ÖLNAMN: 'TRIPLE DIAMOND',
+		BRYGGERI: 'IND. COOPE LTD.',
+		LAND: 'GB',
+		ALKOHOL: '8.5',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '961112'
+	},
+	{
+		ÖLNAMN: 'White Monkey',
+		BRYGGERI: 'Victory Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '8.5',
+		BETYG: '8.20',
+		DELTAGARE: 5,
+		DATUM: '141112'
+	},
+	{
+		ÖLNAMN: 'WISBY V JUBILEUM',
+		BRYGGERI: 'GOTLANDSBRYGGERIER AB',
+		LAND: 'SE',
+		ALKOHOL: '8.5',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '130417'
+	},
+	{
+		ÖLNAMN: 'YULE SMITH*',
+		BRYGGERI: 'ALESMITH',
+		LAND: 'US',
+		ALKOHOL: '8.5',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '130417'
+	},
+	{
+		ÖLNAMN: 'YULE SMITH*',
+		BRYGGERI: 'Alesmith Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '8.5',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '140212'
+	},
+	{
+		ÖLNAMN: 'HERCULE STOUT',
+		BRYGGERI: 'ELLEZELLOISE BR.',
+		LAND: 'BE',
+		ALKOHOL: '8.4',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '080528'
+	},
+	{
+		ÖLNAMN: 'La Rulles Triple',
+		BRYGGERI: 'Br. de Rulles',
+		LAND: 'BE',
+		ALKOHOL: '8.4',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '150916'
+	},
+	{
+		ÖLNAMN: 'NEPTUN LUXUS',
+		BRYGGERI: 'NEPTUN BR.',
+		LAND: 'DK',
+		ALKOHOL: '8.4',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '990901'
+	},
+	{
+		ÖLNAMN: 'STONE VERTICAL EPIC* 2007',
+		BRYGGERI: 'STONE BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '8.4',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '100310'
+	},
+	{
+		ÖLNAMN: 'BJØRNEBRYG*',
+		BRYGGERI: 'HARBOE',
+		LAND: 'DK',
+		ALKOHOL: '8.3',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '930310'
+	},
+	{
+		ÖLNAMN: 'LAGUNITAS CAPPUCCINO STOUT',
+		BRYGGERI: 'LAGUNITAS BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '8.3',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '080528'
+	},
+	{
+		ÖLNAMN: 'OKOCIM PORTER',
+		BRYGGERI: 'BROWAR OKOCIM',
+		LAND: 'PL',
+		ALKOHOL: '8.3',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '120906'
+	},
+	{
+		ÖLNAMN: 'OLD NICK*',
+		BRYGGERI: 'YOUNG´S',
+		LAND: 'GB',
+		ALKOHOL: '8.3',
+		BETYG: '8.20',
+		DELTAGARE: 5,
+		DATUM: '930407'
+	},
+	{
+		ÖLNAMN: 'CARLSMINDE PAASKE BRYG',
+		BRYGGERI: 'CARLSMINDE',
+		LAND: 'DK',
+		ALKOHOL: '8.2',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '930505'
+	},
+	{
+		ÖLNAMN: 'Choco Libre',
+		BRYGGERI: 'Brewdog',
+		LAND: 'SCOT',
+		ALKOHOL: '8.2',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '180308'
+	},
+	{
+		ÖLNAMN: 'LAGUNITAS IMPERIAL STOUT',
+		BRYGGERI: 'THE LAGUNITAS BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '8.2',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '010927'
+	},
+	{
+		ÖLNAMN: 'LEFFE RADIEUSE*',
+		BRYGGERI: 'ST. GUIBERT S.A.',
+		LAND: 'BE',
+		ALKOHOL: '8.2',
+		BETYG: '7.00',
+		DELTAGARE: 3,
+		DATUM: '950921'
+	},
+	{
+		ÖLNAMN: 'LEFFE RADIEUSE*',
+		BRYGGERI: 'S.A. INTERBREW',
+		LAND: 'BE',
+		ALKOHOL: '8.2',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '990414'
+	},
+	{
+		ÖLNAMN: 'Svarte Petter',
+		BRYGGERI: 'Lundabryggeriet',
+		LAND: 'SE',
+		ALKOHOL: '8.2',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '140409'
+	},
+	{
+		ÖLNAMN: 'VERDI IMPERIAL STOUT',
+		BRYGGERI: 'BIRRIFICIO DEL DUCATO',
+		LAND: 'IT',
+		ALKOHOL: '8.2',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '090226'
+	},
+	{
+		ÖLNAMN: 'Vinjak Barrel Old Ale',
+		BRYGGERI: 'Nils Oscar Br.',
+		LAND: 'SE',
+		ALKOHOL: '8.2',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '200213'
+	},
+	{
+		ÖLNAMN: 'WIIBROE IMPERIAL STOUT',
+		BRYGGERI: 'WIIBROE BR.',
+		LAND: 'DK',
+		ALKOHOL: '8.2',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '980421'
+	},
+	{
+		ÖLNAMN: 'ZOLIBAT',
+		BRYGGERI: 'Stiegl-Br. zu Salzburg',
+		LAND: 'AU',
+		ALKOHOL: '8.2',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '170607'
+	},
+	{
+		ÖLNAMN: 'BASS*',
+		BRYGGERI: 'BASS',
+		LAND: 'GB',
+		ALKOHOL: '8.1',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '9801..'
+	},
+	{
+		ÖLNAMN: 'Black Shield Stout',
+		BRYGGERI: 'Myanmar Br. Ltd.',
+		LAND: 'MM',
+		ALKOHOL: '8.1',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '180517'
+	},
+	{
+		ÖLNAMN: "Kiwi's Play House",
+		BRYGGERI: 'Brooklyn Br.',
+		LAND: 'US',
+		ALKOHOL: '8.1',
+		BETYG: '7.17',
+		DELTAGARE: 6,
+		DATUM: '181011'
+	},
+	{
+		ÖLNAMN: 'LUNATOR',
+		BRYGGERI: 'GREBBESTAD BR. AB',
+		LAND: 'SE',
+		ALKOHOL: '8.1',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '000417'
+	},
+	{
+		ÖLNAMN: 'MADRUGADA OBSCURA DARK DAWN STOUT',
+		BRYGGERI: 'JOLLY PUMPKIN BR.',
+		LAND: 'US',
+		ALKOHOL: '8.1',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '100210'
+	},
+	{
+		ÖLNAMN: 'ABC Extra Stout',
+		BRYGGERI: 'APB Alliance Br. Co. Ltd.',
+		LAND: 'MM',
+		ALKOHOL: '8.0',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '180517'
+	},
+	{
+		ÖLNAMN: 'ACHEL BLONDE*',
+		BRYGGERI: 'SAINT BENEDICTUS ABDIJ',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '070315'
+	},
+	{
+		ÖLNAMN: 'ACHEL BRUIN*',
+		BRYGGERI: 'SAINT BENEDICTUS ABDIJ',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '070315'
+	},
+	{
+		ÖLNAMN: 'Angkor Extra Stout',
+		BRYGGERI: 'Cambrew Ltd',
+		LAND: 'KH',
+		ALKOHOL: '8.0',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '151209'
+	},
+	{
+		ÖLNAMN: 'AUGUSTIJN',
+		BRYGGERI: 'BR. VAN STEENBERGE',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '040421'
+	},
+	{
+		ÖLNAMN: 'BALTICA 9',
+		BRYGGERI: 'BALTICA BR.',
+		LAND: 'RU',
+		ALKOHOL: '8.0',
+		BETYG: '5.00',
+		DELTAGARE: 7,
+		DATUM: '051115'
+	},
+	{
+		ÖLNAMN: 'BARBAR',
+		BRYGGERI: 'BRASSERIE LEFEBVRE',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '5.67',
+		DELTAGARE: 3,
+		DATUM: '950814'
+	},
+	{
+		ÖLNAMN: 'BARBÃR WINTER BOK VINTAGE 2005',
+		BRYGGERI: 'BR. LEFEBVRE',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '7.83',
+		DELTAGARE: 6,
+		DATUM: '061115'
+	},
+	{
+		ÖLNAMN: 'BELLE DE DALLE',
+		BRYGGERI: 'BR. ARTISANALE DES 2 CAPS',
+		LAND: 'FR',
+		ALKOHOL: '8.0',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '111123'
+	},
+	{
+		ÖLNAMN: 'CHIMAY VIT*',
+		BRYGGERI: 'S.A. BIÉRES DE CHIMAY',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '6.28',
+		DELTAGARE: 7,
+		DATUM: '090128'
+	},
+	{
+		ÖLNAMN: 'CHIMAY VIT*',
+		BRYGGERI: "L'ABBAYE DE SCOURMONT",
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '9.67',
+		DELTAGARE: 3,
+		DATUM: '950629'
+	},
+	{
+		ÖLNAMN: 'CHIMAY VIT*',
+		BRYGGERI: "L'ABBAYE DE SCOURMONT",
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '7.67',
+		DELTAGARE: 6,
+		DATUM: '991006'
+	},
+	{
+		ÖLNAMN: 'CONAN DIPA',
+		BRYGGERI: 'Brewski',
+		LAND: 'SE',
+		ALKOHOL: '8.0',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '171206'
+	},
+	{
+		ÖLNAMN: 'CORNELIUS BALTIC PORTER',
+		BRYGGERI: 'BROWAR CORNELIUS',
+		LAND: 'PL',
+		ALKOHOL: '8.0',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '120906'
+	},
+	{
+		ÖLNAMN: 'Donkey Boy IPA',
+		BRYGGERI: 'Brewski',
+		LAND: 'SE',
+		ALKOHOL: '8.0',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '171206'
+	},
+	{
+		ÖLNAMN: 'Fata Morgana',
+		BRYGGERI: 'Dugges Br.',
+		LAND: 'SE',
+		ALKOHOL: '8.0',
+		BETYG: '7.00',
+		DELTAGARE: 6,
+		DATUM: '171206'
+	},
+	{
+		ÖLNAMN: 'FRA & TIL',
+		BRYGGERI: 'MIKKELLER',
+		LAND: 'DK',
+		ALKOHOL: '8.0',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '090226'
+	},
+	{
+		ÖLNAMN: 'FRA/TIL MIKKELLER',
+		BRYGGERI: 'MIKKELER',
+		LAND: 'DK',
+		ALKOHOL: '8.0',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '091209'
+	},
+	{
+		ÖLNAMN: 'GEUZE BOON MARIAGE PARFAIT',
+		BRYGGERI: 'BR. BOON ',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '7.67',
+		DELTAGARE: 6,
+		DATUM: '050315'
+	},
+	{
+		ÖLNAMN: 'GRAND IMPERIAL PORTER',
+		BRYGGERI: 'BROWAR AMBER',
+		LAND: 'PL',
+		ALKOHOL: '8.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '120906'
+	},
+	{
+		ÖLNAMN: 'Guldenberg',
+		BRYGGERI: 'De Ranke',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '7.57',
+		DELTAGARE: 7,
+		DATUM: '150711'
+	},
+	{
+		ÖLNAMN: 'HAYWARDS 5000',
+		BRYGGERI: 'SKOL BR.',
+		LAND: 'IN',
+		ALKOHOL: '8.0',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '090624'
+	},
+	{
+		ÖLNAMN: 'HOP ROD RYE ALE',
+		BRYGGERI: 'BEAR REPUBLIC',
+		LAND: 'US',
+		ALKOHOL: '8.0',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '010927'
+	},
+	{
+		ÖLNAMN: 'KING FISHER STRONG',
+		BRYGGERI: 'UNITED BR. LTD.',
+		LAND: 'IN',
+		ALKOHOL: '8.0',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '090624'
+	},
+	{
+		ÖLNAMN: 'Krallig',
+		BRYGGERI: 'Lundabryggeriet',
+		LAND: 'SE',
+		ALKOHOL: '8.0',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '140409'
+	},
+	{
+		ÖLNAMN: 'KWAK*',
+		BRYGGERI: 'N.V. BOSTEELS S.A.',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '7.50',
+		DELTAGARE: 4,
+		DATUM: '050202'
+	},
+	{
+		ÖLNAMN: 'KWAK*',
+		BRYGGERI: 'N.V. Br. BOSTEELS',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '5.00',
+		DELTAGARE: 3,
+		DATUM: '950814'
+	},
+	{
+		ÖLNAMN: 'LA CHOUFFE',
+		BRYGGERI: "D'ACHOUFFE",
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '7.50',
+		DELTAGARE: 4,
+		DATUM: '960116'
+	},
+	{
+		ÖLNAMN: 'LA CHOULETTE AMBRÉE',
+		BRYGGERI: 'BR. LA CHOULETTE',
+		LAND: 'FR',
+		ALKOHOL: '8.0',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '111123'
+	},
+	{
+		ÖLNAMN: 'LA TRAPPE TRIPPEL',
+		BRYGGERI: 'BIERBR. DE SCHAAPSKOOI',
+		LAND: 'NL',
+		ALKOHOL: '8.0',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '970910'
+	},
+	{
+		ÖLNAMN: 'Liefmans Goudenband',
+		BRYGGERI: 'Br. Liefmans',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '161123'
+	},
+	{
+		ÖLNAMN: 'LIEFMANS GOUDENBAND*',
+		BRYGGERI: 'LIEFMANS BR.',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '8.25',
+		DELTAGARE: 4,
+		DATUM: '960523'
+	},
+	{
+		ÖLNAMN: 'LIEFMANS GOUDENBAND*',
+		BRYGGERI: 'LIEFMANS BR.',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '970625'
+	},
+	{
+		ÖLNAMN: 'LION STOUT*',
+		BRYGGERI: 'LION BR.',
+		LAND: 'LK',
+		ALKOHOL: '8.0',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '051011'
+	},
+	{
+		ÖLNAMN: 'LION STOUT*',
+		BRYGGERI: 'LION BR.',
+		LAND: 'LK',
+		ALKOHOL: '8.0',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '080116'
+	},
+	{
+		ÖLNAMN: 'LOST & FOUND',
+		BRYGGERI: 'PORT BREWING/THE LOST ABBEY',
+		LAND: 'US',
+		ALKOHOL: '8.0',
+		BETYG: '6.86',
+		DELTAGARE: 7,
+		DATUM: '110413'
+	},
+	{
+		ÖLNAMN: 'LUCIFER',
+		BRYGGERI: 'RIVA',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '930407'
+	},
+	{
+		ÖLNAMN: 'MALMÖ BRYGGHUS CACAOPORTER',
+		BRYGGERI: 'MALMÖ BRYGGHUS',
+		LAND: 'SE',
+		ALKOHOL: '8.0',
+		BETYG: '5.56',
+		DELTAGARE: 7,
+		DATUM: '101110'
+	},
+	{
+		ÖLNAMN: 'MAREDSOUS BRUNE 8*',
+		BRYGGERI: 'DUVEL MOORTGAT',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '7.13',
+		DELTAGARE: 8,
+		DATUM: '040204'
+	},
+	{
+		ÖLNAMN: 'MAREDSOUS BRUNE 8*',
+		BRYGGERI: "L'ABBAYE DE MAREDSOUS",
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '050823'
+	},
+	{
+		ÖLNAMN: 'MAUDITE',
+		BRYGGERI: 'UNIBROUE',
+		LAND: 'CA',
+		ALKOHOL: '8.0',
+		BETYG: '7.29',
+		DELTAGARE: 7,
+		DATUM: '060321'
+	},
+	{
+		ÖLNAMN: 'PANIL BARRIQUÉE',
+		BRYGGERI: 'BIRRIFICIO TORRECHIARA',
+		LAND: 'IT',
+		ALKOHOL: '8.0',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '070614'
+	},
+	{
+		ÖLNAMN: 'PATER LIEVEN',
+		BRYGGERI: 'buba Br. Van der BOSSCHE',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '060118'
+	},
+	{
+		ÖLNAMN: 'PETRA BEER',
+		BRYGGERI: 'GENERAL INVESTMENT CO. LTD.',
+		LAND: 'JO',
+		ALKOHOL: '8.0',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '100512'
+	},
+	{
+		ÖLNAMN: 'PRINCE ROYAL',
+		BRYGGERI: 'VESTFYNS BR.',
+		LAND: 'DK',
+		ALKOHOL: '8.0',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '961112'
+	},
+	{
+		ÖLNAMN: 'QUELQUE CHOSE',
+		BRYGGERI: 'UNIBROUE',
+		LAND: 'CA',
+		ALKOHOL: '8.0',
+		BETYG: '4.67',
+		DELTAGARE: 6,
+		DATUM: '070315'
+	},
+	{
+		ÖLNAMN: 'S:T BERNARDUS PRIOR 8',
+		BRYGGERI: 'BR. ST. BERNARD NV/SA',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '070726'
+	},
+	{
+		ÖLNAMN: 'S:t Bernardus Prior 8',
+		BRYGGERI: "Bière d'Abbaye",
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '180215'
+	},
+	{
+		ÖLNAMN: 'S:t Bernardus Trippel',
+		BRYGGERI: "Bière d'Abbaye",
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '180215'
+	},
+	{
+		ÖLNAMN: 'SATAN GOLD ',
+		BRYGGERI: 'DE BLOCK',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '930407'
+	},
+	{
+		ÖLNAMN: 'SCHMUCHER DOPPEL-BOCK',
+		BRYGGERI: 'PRIVATBRAUEREI SCHMUCHER',
+		LAND: 'DE',
+		ALKOHOL: '8.0',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '030526'
+	},
+	{
+		ÖLNAMN: 'SIGTUNA PRINCE OF DARKNESS',
+		BRYGGERI: 'SIGTUNA BRYGGHUS',
+		LAND: 'SE',
+		ALKOHOL: '8.0',
+		BETYG: '8.40',
+		DELTAGARE: 5,
+		DATUM: '130703'
+	},
+	{
+		ÖLNAMN: 'TRAPPIST ACHEL BLOND BIER*',
+		BRYGGERI: 'ST. BENEDICTUS ABBIJ',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '041215'
+	},
+	{
+		ÖLNAMN: 'TRAPPIST ACHEL BRUN BIER*',
+		BRYGGERI: 'ST. BENEDICTUS ABBIJ',
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '041215'
+	},
+	{
+		ÖLNAMN: 'Traquair Jacobite Ale',
+		BRYGGERI: 'Traquair',
+		LAND: 'SCOT',
+		ALKOHOL: '8.0',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '140212'
+	},
+	{
+		ÖLNAMN: 'TYTTEBÆR',
+		BRYGGERI: 'NØGNE Ø',
+		LAND: 'NO',
+		ALKOHOL: '8.0',
+		BETYG: '3.60',
+		DELTAGARE: 5,
+		DATUM: '100210'
+	},
+	{
+		ÖLNAMN: 'VIVUNGS DRAGÖL',
+		BRYGGERI: 'VIVUNGS BRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '8.0',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '960716'
+	},
+	{
+		ÖLNAMN: 'WAILING WENCH',
+		BRYGGERI: 'MIDDLE AGES BR. CO. LTD.',
+		LAND: 'US',
+		ALKOHOL: '8.0',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '051011'
+	},
+	{
+		ÖLNAMN: 'WIIBROE PORTER',
+		BRYGGERI: 'WIIBROE BR.',
+		LAND: 'DK',
+		ALKOHOL: '8.0',
+		BETYG: '9.00',
+		DELTAGARE: 3,
+		DATUM: '940826'
+	},
+	{
+		ÖLNAMN: 'WILLEMOES STRONG LAGER',
+		BRYGGERI: 'VESTFYNS BR.',
+		LAND: 'DK',
+		ALKOHOL: '8.0',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '110914'
+	},
+	{
+		ÖLNAMN: 'X PORTER',
+		BRYGGERI: 'MIDTFYNS BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '8.0',
+		BETYG: '7.80',
+		DELTAGARE: 5,
+		DATUM: '111214'
+	},
+	{
+		ÖLNAMN: 'YETI',
+		BRYGGERI: 'Br. Des cimes….',
+		LAND: 'FR',
+		ALKOHOL: '8.0',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '021128'
+	},
+	{
+		ÖLNAMN: 'Yeti',
+		BRYGGERI: 'Br. des Cimes',
+		LAND: 'FR',
+		ALKOHOL: '8.0',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '140813'
+	},
+	{
+		ÖLNAMN: 'DOUBLE BROWN STOUT LIMFJORDSPORTER',
+		BRYGGERI: 'THISTED BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '7.9',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '051011'
+	},
+	{
+		ÖLNAMN: 'EASTER EDITION#',
+		BRYGGERI: 'BLACK MOHAWK',
+		LAND: 'SE',
+		ALKOHOL: '7.9',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '130703'
+	},
+	{
+		ÖLNAMN: 'Goudale Grand Cru',
+		BRYGGERI: 'Br. Goudale',
+		LAND: 'FR',
+		ALKOHOL: '7.9',
+		BETYG: '5.71',
+		DELTAGARE: 7,
+		DATUM: '190821'
+	},
+	{
+		ÖLNAMN: 'IVANS VANILJ & ROM PORTER',
+		BRYGGERI: 'RÖRUMS ELBRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '7.9',
+		BETYG: '5.14',
+		DELTAGARE: 7,
+		DATUM: '100120'
+	},
+	{
+		ÖLNAMN: 'LIMFJORDS PORTER',
+		BRYGGERI: 'THISTED BRYGGHUS',
+		LAND: 'DK',
+		ALKOHOL: '7.9',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '081022'
+	},
+	{
+		ÖLNAMN: 'LIMFJORDS PORTER DOUBLE BROWN STOUT',
+		BRYGGERI: 'TISTED BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '7.9',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '111214'
+	},
+	{
+		ÖLNAMN: 'LUNATOR',
+		BRYGGERI: 'GREBBESTAD BR. AB',
+		LAND: 'SE',
+		ALKOHOL: '7.9',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '071212'
+	},
+	{
+		ÖLNAMN: 'BROK',
+		BRYGGERI: 'KOSZALIN BR.',
+		LAND: 'PL',
+		ALKOHOL: '7.8',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '000417'
+	},
+	{
+		ÖLNAMN: 'GAMLE CARLSBERGS PORTER',
+		BRYGGERI: 'CARLSBERG',
+		LAND: 'DK',
+		ALKOHOL: '7.8',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '971203'
+	},
+	{
+		ÖLNAMN: 'GL. CARLSBERG PORTER',
+		BRYGGERI: 'CARLSBERG',
+		LAND: 'DK',
+		ALKOHOL: '7.8',
+		BETYG: '7.67',
+		DELTAGARE: 3,
+		DATUM: '940826'
+	},
+	{
+		ÖLNAMN: 'KPENKOE',
+		BRYGGERI: 'PIVOVARNIA IVANA TARANOVA',
+		LAND: 'RU',
+		ALKOHOL: '7.8',
+		BETYG: '4.00',
+		DELTAGARE: 3,
+		DATUM: '080716'
+	},
+	{
+		ÖLNAMN: 'Must Kuld Colombia',
+		BRYGGERI: 'Pohjala',
+		LAND: 'EE',
+		ALKOHOL: '7.8',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '171010'
+	},
+	{
+		ÖLNAMN: 'Pohjala Must Kuld',
+		BRYGGERI: 'Pohjala Br. Co.',
+		LAND: 'EE',
+		ALKOHOL: '7.8',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '190516'
+	},
+	{
+		ÖLNAMN: 'ARBOGA 7,7',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '7.7',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '010212'
+	},
+	{
+		ÖLNAMN: 'CERES ROYAL PORTER',
+		BRYGGERI: 'CERES BR.',
+		LAND: 'DK',
+		ALKOHOL: '7.7',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '001018'
+	},
+	{
+		ÖLNAMN: 'CERES ROYAL SELECTION',
+		BRYGGERI: 'CERES BR.',
+		LAND: 'DK',
+		ALKOHOL: '7.7',
+		BETYG: '3.20',
+		DELTAGARE: 5,
+		DATUM: '001018'
+	},
+	{
+		ÖLNAMN: 'DANSK DORTMUNDER*',
+		BRYGGERI: 'CERES BR.',
+		LAND: 'DK',
+		ALKOHOL: '7.7',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '000216'
+	},
+	{
+		ÖLNAMN: 'DANSK DORTMUNDER*',
+		BRYGGERI: 'CERES BR.',
+		LAND: 'DK',
+		ALKOHOL: '7.7',
+		BETYG: '3.60',
+		DELTAGARE: 5,
+		DATUM: '970903'
+	},
+	{
+		ÖLNAMN: 'DANSK DORTMUNDER*',
+		BRYGGERI: 'CERES BR.',
+		LAND: 'DK',
+		ALKOHOL: '7.7',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '990901'
+	},
+	{
+		ÖLNAMN: 'Dobbeltbock',
+		BRYGGERI: 'Ebeltoft Gårdbryggeri',
+		LAND: 'DK',
+		ALKOHOL: '7.7',
+		BETYG: '6.28',
+		DELTAGARE: 7,
+		DATUM: '151007'
+	},
+	{
+		ÖLNAMN: 'DRAGETS KANAL DUBBEL IPA',
+		BRYGGERI: 'NYNÄSHAMNS ÅNGBR.',
+		LAND: 'SE',
+		ALKOHOL: '7.7',
+		BETYG: '7.00',
+		DELTAGARE: 6,
+		DATUM: '101013'
+	},
+	{
+		ÖLNAMN: 'FAXE PAASKE BRYG',
+		BRYGGERI: 'FAXE',
+		LAND: 'DK',
+		ALKOHOL: '7.7',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '930428'
+	},
+	{
+		ÖLNAMN: 'FREGATTEN JYLLAND',
+		BRYGGERI: 'THOR BR.',
+		LAND: 'DK',
+		ALKOHOL: '7.7',
+		BETYG: '2.00',
+		DELTAGARE: 5,
+		DATUM: '960829'
+	},
+	{
+		ÖLNAMN: 'GRAINSTORM BLACK RYE IPA',
+		BRYGGERI: 'BOULEVARD BR CO',
+		LAND: 'US',
+		ALKOHOL: '7.7',
+		BETYG: '7.80',
+		DELTAGARE: 5,
+		DATUM: '130703'
+	},
+	{
+		ÖLNAMN: 'INNIS AND GUNN IPA',
+		BRYGGERI: 'INNIS AND GUNN',
+		LAND: 'SCOT',
+		ALKOHOL: '7.7',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '100609'
+	},
+	{
+		ÖLNAMN: 'RYE BOCK LAGER',
+		BRYGGERI: 'LEFT HAND BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '7.7',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '081126'
+	},
+	{
+		ÖLNAMN: 'The Stranger Wheat IPA',
+		BRYGGERI: 'Clown Shoes Br.',
+		LAND: 'US',
+		ALKOHOL: '7.7',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '180308'
+	},
+	{
+		ÖLNAMN: 'ALBANI PAASKE BRYG',
+		BRYGGERI: 'ALBANI BR.',
+		LAND: 'DK',
+		ALKOHOL: '7.6',
+		BETYG: '5.25',
+		DELTAGARE: 5,
+		DATUM: '930428'
+	},
+	{
+		ÖLNAMN: 'ALBANI PORTER*',
+		BRYGGERI: 'ALBANI BR.',
+		LAND: 'DK',
+		ALKOHOL: '7.6',
+		BETYG: '7.00',
+		DELTAGARE: 3,
+		DATUM: '940826'
+	},
+	{
+		ÖLNAMN: 'ALBANI PORTER*',
+		BRYGGERI: 'ALBANI BR.',
+		LAND: 'DK',
+		ALKOHOL: '7.6',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '980421'
+	},
+	{
+		ÖLNAMN: 'BROOKLYN SORACHI ACE',
+		BRYGGERI: 'BROOKLYN BR.',
+		LAND: 'BE',
+		ALKOHOL: '7.6',
+		BETYG: '7.00',
+		DELTAGARE: 6,
+		DATUM: '111012'
+	},
+	{
+		ÖLNAMN: 'DARK DEPTHS',
+		BRYGGERI: 'SAMUEL ADAMS BR CO',
+		LAND: 'US',
+		ALKOHOL: '7.6',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '130703'
+	},
+	{
+		ÖLNAMN: 'ALMOND 22 BIRRA GRAND CRU',
+		BRYGGERI: 'BIRRAALMOND',
+		LAND: 'IT',
+		ALKOHOL: '7.5',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '120613'
+	},
+	{
+		ÖLNAMN: 'BEER NAPOLEON',
+		BRYGGERI: 'BR. DES NAUFRAGEURS',
+		LAND: 'FR',
+		ALKOHOL: '7.5',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '0803XX'
+	},
+	{
+		ÖLNAMN: 'CORSENDONK',
+		BRYGGERI: 'BR. CORSENDONK',
+		LAND: 'BE',
+		ALKOHOL: '7.5',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '040421'
+	},
+	{
+		ÖLNAMN: 'DEN UDØDELIGE HEST',
+		BRYGGERI: 'BRYGHUSET SVANEKE',
+		LAND: 'DK',
+		ALKOHOL: '7.5',
+		BETYG: '8.20',
+		DELTAGARE: 5,
+		DATUM: '091014'
+	},
+	{
+		ÖLNAMN: 'EFES EXTRA (B)',
+		BRYGGERI: 'EFES BR.',
+		LAND: 'TR',
+		ALKOHOL: '7.5',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '060920'
+	},
+	{
+		ÖLNAMN: 'FINE FESTIVAL',
+		BRYGGERI: 'TUBORG',
+		LAND: 'DK',
+		ALKOHOL: '7.5',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '040826'
+	},
+	{
+		ÖLNAMN: 'GUINNESS FOREIGN EXTRA STOUT*',
+		BRYGGERI: "S:t JAMES'S GATE BR.",
+		LAND: 'IE',
+		ALKOHOL: '7.5',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '010620'
+	},
+	{
+		ÖLNAMN: 'GUINNESS FOREIGN EXTRA STOUT*',
+		BRYGGERI: 'GUINNESS BR., S:t James´s Gate',
+		LAND: 'IE',
+		ALKOHOL: '7.5',
+		BETYG: '8.50',
+		DELTAGARE: 4,
+		DATUM: '940901'
+	},
+	{
+		ÖLNAMN: "Harvey's Christmas Ale",
+		BRYGGERI: 'Harvey & Son Ltd',
+		LAND: 'UK',
+		ALKOHOL: '7.5',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '180215'
+	},
+	{
+		ÖLNAMN: 'HET KAPITTEL DUBBEL',
+		BRYGGERI: 'N.V. van EECKE',
+		LAND: 'BE',
+		ALKOHOL: '7.5',
+		BETYG: '4.67',
+		DELTAGARE: 6,
+		DATUM: '070726'
+	},
+	{
+		ÖLNAMN: 'Imperiale',
+		BRYGGERI: 'Abbaye de Vauclair',
+		LAND: 'FR',
+		ALKOHOL: '7.5',
+		BETYG: '5.14',
+		DELTAGARE: 7,
+		DATUM: '190821'
+	},
+	{
+		ÖLNAMN: 'IVANS COFFE STOUT',
+		BRYGGERI: 'RÖRUMS ELBRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '7.5',
+		BETYG: '5.00',
+		DELTAGARE: 7,
+		DATUM: '100120'
+	},
+	{
+		ÖLNAMN: 'JACOBSEN CAMOMILLE DUBBEL',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '7.5',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '070124'
+	},
+	{
+		ÖLNAMN: 'JACOBSEN GOLDEN NAKED CHRISTMAS ALE',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '7.5',
+		BETYG: '6.66',
+		DELTAGARE: 6,
+		DATUM: '070124'
+	},
+	{
+		ÖLNAMN: 'JENLAIN',
+		BRYGGERI: 'BR. DUYCK',
+		LAND: 'FR',
+		ALKOHOL: '7.5',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '120111'
+	},
+	{
+		ÖLNAMN: 'KOPPARBERGS SPECIAL',
+		BRYGGERI: 'KOPPARBERGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '7.5',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '010212'
+	},
+	{
+		ÖLNAMN: 'LEUTE BOKBIER',
+		BRYGGERI: 'BR. VAN STEENBERGE',
+		LAND: 'BE',
+		ALKOHOL: '7.5',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '040421'
+	},
+	{
+		ÖLNAMN: "MAC QUEEN'S NESSIE",
+		BRYGGERI: 'Schloss br. Eggenberg',
+		LAND: 'AT',
+		ALKOHOL: '7.5',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '021128'
+	},
+	{
+		ÖLNAMN: 'MARTINS EXTRA 7,5',
+		BRYGGERI: 'SOFIERO',
+		LAND: 'SE',
+		ALKOHOL: '7.5',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '980922'
+	},
+	{
+		ÖLNAMN: 'MOHAWK BLACK OXYMORON',
+		BRYGGERI: 'GAMLA SLOTTSKÄLLAN BR. AB',
+		LAND: 'SE',
+		ALKOHOL: '7.5',
+		BETYG: '6.63',
+		DELTAGARE: 8,
+		DATUM: '120815'
+	},
+	{
+		ÖLNAMN: 'MOHAWK RYE IPA',
+		BRYGGERI: 'GAMLA SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '7.5',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '101013'
+	},
+	{
+		ÖLNAMN: 'Moinette Biologique',
+		BRYGGERI: 'Br. du Pont',
+		LAND: 'FR',
+		ALKOHOL: '7.5',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '141112'
+	},
+	{
+		ÖLNAMN: 'MOWHAWK EXTRA IPA',
+		BRYGGERI: 'SIGTUNA BRYGGHUS',
+		LAND: 'SE',
+		ALKOHOL: '7.5',
+		BETYG: '7.00',
+		DELTAGARE: 6,
+		DATUM: '101013'
+	},
+	{
+		ÖLNAMN: 'Old World IPA',
+		BRYGGERI: 'Brewdog Br',
+		LAND: 'SCOT',
+		ALKOHOL: '7.5',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '140709'
+	},
+	{
+		ÖLNAMN: 'OXYMORON BLACK',
+		BRYGGERI: 'GAMLA SLOTTSKÄLLAN',
+		LAND: 'SE',
+		ALKOHOL: '7.5',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '130703'
+	},
+	{
+		ÖLNAMN: 'Pink Wednesday Hibiscus DIPA',
+		BRYGGERI: 'Den bryggande holländaren',
+		LAND: 'SE',
+		ALKOHOL: '7.5',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '180906'
+	},
+	{
+		ÖLNAMN: 'Red Robot',
+		BRYGGERI: 'Brewski',
+		LAND: 'SE',
+		ALKOHOL: '7.5',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '171206'
+	},
+	{
+		ÖLNAMN: 'S:T FEUILLIEN*',
+		BRYGGERI: 'BR. S:T FEUILLIEN',
+		LAND: 'BE',
+		ALKOHOL: '7.5',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '040922'
+	},
+	{
+		ÖLNAMN: 'S:T FEUILLIEN*',
+		BRYGGERI: 'BR. S:T FEUILLIEN',
+		LAND: 'BE',
+		ALKOHOL: '7.5',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '050823'
+	},
+	{
+		ÖLNAMN: 'SMOKED BALTIC PORTER',
+		BRYGGERI: 'GREAT DIVIDE BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '7.5',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '120208'
+	},
+	{
+		ÖLNAMN: 'ST LANDELIN MYTHIQUE',
+		BRYGGERI: 'LES BRASSEUR DE GAYANT',
+		LAND: 'FR',
+		ALKOHOL: '7.5',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '090422'
+	},
+	{
+		ÖLNAMN: 'Suruga Bay Imperial IPA',
+		BRYGGERI: 'Baird Beer',
+		LAND: 'JP',
+		ALKOHOL: '7.5',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '130508'
+	},
+	{
+		ÖLNAMN: 'TRAPPISTES ROCHEFORT 6o',
+		BRYGGERI: 'ABBAYE S:T REMY',
+		LAND: 'BE',
+		ALKOHOL: '7.5',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '041215'
+	},
+	{
+		ÖLNAMN: 'HP BOCK',
+		BRYGGERI: 'REFSVINDINGE BR.',
+		LAND: 'DK',
+		ALKOHOL: '7.4',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '071121'
+	},
+	{
+		ÖLNAMN: 'INNIS & GUNN SCOTTISH STOUT',
+		BRYGGERI: 'INNIS & GUNN',
+		LAND: 'SCOT',
+		ALKOHOL: '7.4',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '130918'
+	},
+	{
+		ÖLNAMN: 'MORRELLS COLLEGE ALE',
+		BRYGGERI: 'MORRELLS BR.',
+		LAND: 'GB',
+		ALKOHOL: '7.4',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '970408'
+	},
+	{
+		ÖLNAMN: 'CARLSBERG ABBEY ALE SEMPER ARDENS',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '7.3',
+		BETYG: '7.00',
+		DELTAGARE: 6,
+		DATUM: '080910'
+	},
+	{
+		ÖLNAMN: 'DREHER BAK',
+		BRYGGERI: 'DREHER SÖRGYÁRAK',
+		LAND: 'HU',
+		ALKOHOL: '7.3',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '041117'
+	},
+	{
+		ÖLNAMN: 'Erdinger Pikantus Dunkler Weißenbock',
+		BRYGGERI: 'ERDINGER WEIßBRÄU',
+		LAND: 'DE',
+		ALKOHOL: '7.3',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '961021'
+	},
+	{
+		ÖLNAMN: "Fuller's Past Masters 1966",
+		BRYGGERI: 'Fuller, Smith & Turner',
+		LAND: 'GB',
+		ALKOHOL: '7.3',
+		BETYG: '6.00',
+		DELTAGARE: 7,
+		DATUM: '131211'
+	},
+	{
+		ÖLNAMN: 'KALNAPILIS',
+		BRYGGERI: 'AB "KALNAPILIS"',
+		LAND: 'LT',
+		ALKOHOL: '7.3',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '011107'
+	},
+	{
+		ÖLNAMN: 'MILLENIUM STARK STARKÖL',
+		BRYGGERI: 'FALCON BR.',
+		LAND: 'SE',
+		ALKOHOL: '7.3',
+		BETYG: '3.75',
+		DELTAGARE: 4,
+		DATUM: '010212'
+	},
+	{
+		ÖLNAMN: 'Sort Sortebrödre',
+		BRYGGERI: 'Naestved Bryghus',
+		LAND: 'DK',
+		ALKOHOL: '7.3',
+		BETYG: '7.00',
+		DELTAGARE: 7,
+		DATUM: '190821'
+	},
+	{
+		ÖLNAMN: 'Amarillo',
+		BRYGGERI: 'Brewdog Br',
+		LAND: 'SCOT',
+		ALKOHOL: '7.2',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '141210'
+	},
+	{
+		ÖLNAMN: 'BEER GEEK BREAKFAST',
+		BRYGGERI: 'MIKKELLER',
+		LAND: 'DK',
+		ALKOHOL: '7.2',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '090226'
+	},
+	{
+		ÖLNAMN: 'BJØRNE BRYG',
+		BRYGGERI: 'HARBOE',
+		LAND: 'DK',
+		ALKOHOL: '7.2',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '110707'
+	},
+	{
+		ÖLNAMN: 'Comet',
+		BRYGGERI: 'Brewdog Br',
+		LAND: 'SCOT',
+		ALKOHOL: '7.2',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '141210'
+	},
+	{
+		ÖLNAMN: 'ELEPHANT BEER',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '7.2',
+		BETYG: '5.71',
+		DELTAGARE: 7,
+		DATUM: '060215'
+	},
+	{
+		ÖLNAMN: 'ELEPHANT BEER*',
+		BRYGGERI: 'CARLSBERG',
+		LAND: 'DK',
+		ALKOHOL: '7.2',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '941115'
+	},
+	{
+		ÖLNAMN: 'ELEPHANT BEER*',
+		BRYGGERI: 'CARLSBERG',
+		LAND: 'DK',
+		ALKOHOL: '7.2',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '971015'
+	},
+	{
+		ÖLNAMN: 'Exp 366',
+		BRYGGERI: 'Brewdog Br',
+		LAND: 'SCOT',
+		ALKOHOL: '7.2',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '141210'
+	},
+	{
+		ÖLNAMN: 'GOOSINATOR DOPPELBOCK LAGER',
+		BRYGGERI: 'LEFT HAND BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '7.2',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '081126'
+	},
+	{
+		ÖLNAMN: 'ISLAND CASK',
+		BRYGGERI: 'INNIS & GUNN',
+		LAND: 'SCOT',
+		ALKOHOL: '7.2',
+		BETYG: '3.20',
+		DELTAGARE: 5,
+		DATUM: '090226'
+	},
+	{
+		ÖLNAMN: "JOHN L'S GULDÖL*",
+		BRYGGERI: 'FALCON BR.',
+		LAND: 'SE',
+		ALKOHOL: '7.2',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '010212'
+	},
+	{
+		ÖLNAMN: 'Kohatu',
+		BRYGGERI: 'Brewdog Br',
+		LAND: 'SCOT',
+		ALKOHOL: '7.2',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '141210'
+	},
+	{
+		ÖLNAMN: 'LA GOUDALE',
+		BRYGGERI: 'LES BRASSEUR DE GAYANT',
+		LAND: 'FR',
+		ALKOHOL: '7.2',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '090422'
+	},
+	{
+		ÖLNAMN: 'LA GOUDALE*',
+		BRYGGERI: 'LES BRASSEURS DE GAYANT',
+		LAND: 'FR',
+		ALKOHOL: '7.2',
+		BETYG: '7.67',
+		DELTAGARE: 6,
+		DATUM: '020911'
+	},
+	{
+		ÖLNAMN: 'LA GOUDALE*',
+		BRYGGERI: 'LES BRASSEURS DE GAYANT',
+		LAND: 'FR',
+		ALKOHOL: '7.2',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '031013'
+	},
+	{
+		ÖLNAMN: 'LA GOUDALE*',
+		BRYGGERI: 'LES BRASSEURS DE GAYANT',
+		LAND: 'FR',
+		ALKOHOL: '7.2',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '071212'
+	},
+	{
+		ÖLNAMN: 'LA ROJA',
+		BRYGGERI: 'JOLLY PUMPKIN',
+		LAND: 'US',
+		ALKOHOL: '7.2',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '090520'
+	},
+	{
+		ÖLNAMN: 'LONG TAIL DOUBLE BAG ALE',
+		BRYGGERI: 'LONG TAIL BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '7.2',
+		BETYG: '6.17',
+		DELTAGARE: 5,
+		DATUM: '060705'
+	},
+	{
+		ÖLNAMN: 'PREMIUM QUALITY EXTRA STRONG LAGER',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '7.2',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '010212'
+	},
+	{
+		ÖLNAMN: 'PRIPPS EXTRA STRONG*',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '7.2',
+		BETYG: '5.67',
+		DELTAGARE: 3,
+		DATUM: '950629'
+	},
+	{
+		ÖLNAMN: 'PRIPPS EXTRA STRONG*',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '7.2',
+		BETYG: '3.00',
+		DELTAGARE: 4,
+		DATUM: '971210'
+	},
+	{
+		ÖLNAMN: 'RED RIVER ALE',
+		BRYGGERI: 'W.J. KING & CO.',
+		LAND: 'GB',
+		ALKOHOL: '7.2',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '050511'
+	},
+	{
+		ÖLNAMN: 'THIGERBRYGD',
+		BRYGGERI: 'THIMSFORS',
+		LAND: 'SE',
+		ALKOHOL: '7.2',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '9801..'
+	},
+	{
+		ÖLNAMN: 'TRAQUAIR HOUSE ALE',
+		BRYGGERI: 'TRAQUAIR HOUSE',
+		LAND: 'SCOT',
+		ALKOHOL: '7.2',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '960411'
+	},
+	{
+		ÖLNAMN: 'Traquair House Ale*',
+		BRYGGERI: 'Traquair',
+		LAND: 'SCOT',
+		ALKOHOL: '7.2',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '140212'
+	},
+	{
+		ÖLNAMN: 'TRAQUIR HOUSE ALE',
+		BRYGGERI: 'TRAQUAIR HOUSE INNERLEITHE PEEBLESSHIRE',
+		LAND: 'SCOT',
+		ALKOHOL: '7.2',
+		BETYG: '6.83',
+		DELTAGARE: 5,
+		DATUM: '060705'
+	},
+	{
+		ÖLNAMN: 'VOLL-DAMM EXTRA',
+		BRYGGERI: 'S.A. DAM-ROSSELLÓ',
+		LAND: 'ES',
+		ALKOHOL: '7.2',
+		BETYG: '5.67',
+		DELTAGARE: 3,
+		DATUM: '011129'
+	},
+	{
+		ÖLNAMN: 'CARLSBERG BOCK',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '7.1',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '080910'
+	},
+	{
+		ÖLNAMN: 'JACOBSEN SAAZ BLONDE',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '7.1',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '070124'
+	},
+	{
+		ÖLNAMN: 'South Plains Burning Witches Brew',
+		BRYGGERI: 'South Plain Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '7.1',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '150506'
+	},
+	{
+		ÖLNAMN: 'AMAGER IPA',
+		BRYGGERI: 'AMAGER BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '7.0',
+		BETYG: '6.25',
+		DELTAGARE: 8,
+		DATUM: '120815'
+	},
+	{
+		ÖLNAMN: 'Aurora',
+		BRYGGERI: 'Brekeriet',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '200123'
+	},
+	{
+		ÖLNAMN: 'Baltic Porter',
+		BRYGGERI: 'Stallhagen',
+		LAND: 'FI',
+		ALKOHOL: '7.0',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '171010'
+	},
+	{
+		ÖLNAMN: 'BALTICA PORTER ',
+		BRYGGERI: 'BALTICA BR.',
+		LAND: 'RU',
+		ALKOHOL: '7.0',
+		BETYG: '5.43',
+		DELTAGARE: 7,
+		DATUM: '051115'
+	},
+	{
+		ÖLNAMN: 'BERLINER KINDL BOCK DUNKEL',
+		BRYGGERI: 'BERLINER KINDL BR. AG.',
+		LAND: 'DE',
+		ALKOHOL: '7.0',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '030701'
+	},
+	{
+		ÖLNAMN: 'BERLINER KINDL BOCK HELL',
+		BRYGGERI: 'BERLINER KINDL BR. AG.',
+		LAND: 'DE',
+		ALKOHOL: '7.0',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '030701'
+	},
+	{
+		ÖLNAMN: 'Bianca',
+		BRYGGERI: 'De Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '200319'
+	},
+	{
+		ÖLNAMN: 'BLOND Abbatiale de Saint-Amand',
+		BRYGGERI: 'BR. De SAINT-AMAND',
+		LAND: 'FR',
+		ALKOHOL: '7.0',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '030616'
+	},
+	{
+		ÖLNAMN: 'BROOKLYN LOCAL#',
+		BRYGGERI: 'BROOKLYN BR.',
+		LAND: 'US',
+		ALKOHOL: '7.0',
+		BETYG: '7.14',
+		DELTAGARE: 6,
+		DATUM: '090826'
+	},
+	{
+		ÖLNAMN: 'CHIMAY RÖD*',
+		BRYGGERI: "L'ABBAYE DE SCOURMONT",
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '7.67',
+		DELTAGARE: 3,
+		DATUM: '950629'
+	},
+	{
+		ÖLNAMN: 'CHIMAY RÖD*',
+		BRYGGERI: "L'ABBAYE DE SCOURMONT",
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '991006'
+	},
+	{
+		ÖLNAMN: 'Cuvée de Ranke',
+		BRYGGERI: 'Br. de Ranke',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '200704'
+	},
+	{
+		ÖLNAMN: 'ENAME',
+		BRYGGERI: 'BR. ROMAN',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '071212'
+	},
+	{
+		ÖLNAMN: 'ERIKOIS STRONG BEER IVB ',
+		BRYGGERI: 'AMRI',
+		LAND: 'FI',
+		ALKOHOL: '7.0',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '931104'
+	},
+	{
+		ÖLNAMN: 'FALCON BAYERSKT 7,0*',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '3.50',
+		DELTAGARE: 4,
+		DATUM: '960725'
+	},
+	{
+		ÖLNAMN: 'FALCON BAYERSKT 7,0*',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '3.00',
+		DELTAGARE: 4,
+		DATUM: '971210'
+	},
+	{
+		ÖLNAMN: 'Farmhouse',
+		BRYGGERI: "Birrificio Foglie d'Erba",
+		LAND: 'IT',
+		ALKOHOL: '7.0',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '191017'
+	},
+	{
+		ÖLNAMN: 'FAT CAT IPA',
+		BRYGGERI: 'FAT CAT BR. CO.',
+		LAND: 'GB',
+		ALKOHOL: '7.0',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '091111'
+	},
+	{
+		ÖLNAMN: 'Fathom IPL',
+		BRYGGERI: 'Ballast Point',
+		LAND: 'US',
+		ALKOHOL: '7.0',
+		BETYG: '4.28',
+		DELTAGARE: 7,
+		DATUM: '150708'
+	},
+	{
+		ÖLNAMN: 'HAVRESTOUT',
+		BRYGGERI: 'BR. SKOVLYST',
+		LAND: 'DK',
+		ALKOHOL: '7.0',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '110607'
+	},
+	{
+		ÖLNAMN: 'Hög Standard',
+		BRYGGERI: 'Lundabryggeriet',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '140409'
+	},
+	{
+		ÖLNAMN: 'IMPERIAL STOUT',
+		BRYGGERI: 'SAMUEL SMITH´S',
+		LAND: 'GB',
+		ALKOHOL: '7.0',
+		BETYG: '7.80',
+		DELTAGARE: 5,
+		DATUM: '930331'
+	},
+	{
+		ÖLNAMN: 'INDIA PALE ALE',
+		BRYGGERI: 'PITFIELD BR.',
+		LAND: 'GB',
+		ALKOHOL: '7.0',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '050511'
+	},
+	{
+		ÖLNAMN: 'JULEBRYG',
+		BRYGGERI: 'ALBANI BR.',
+		LAND: 'DK',
+		ALKOHOL: '7.0',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '960116'
+	},
+	{
+		ÖLNAMN: 'KLOSTER',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '8.40',
+		DELTAGARE: 5,
+		DATUM: '000104'
+	},
+	{
+		ÖLNAMN: 'Kriek de Ranke',
+		BRYGGERI: 'Br. de Ranke',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '200704'
+	},
+	{
+		ÖLNAMN: 'KÄLLEFALL STRONG ALE',
+		BRYGGERI: 'KÄLLEFALLS BRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '970707'
+	},
+	{
+		ÖLNAMN: "L'ANGELUS",
+		BRYGGERI: "BR. D'ANNŒULLIN",
+		LAND: 'FR',
+		ALKOHOL: '7.0',
+		BETYG: '7.00',
+		DELTAGARE: 6,
+		DATUM: '120111'
+	},
+	{
+		ÖLNAMN: 'LA BERCLOISE BIERE AU COGNAC',
+		BRYGGERI: 'BR. DU BERCLOUX',
+		LAND: 'FR',
+		ALKOHOL: '7.0',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '0803XX'
+	},
+	{
+		ÖLNAMN: 'La Folie',
+		BRYGGERI: 'New Belgium Br.',
+		LAND: 'US',
+		ALKOHOL: '7.0',
+		BETYG: '7.83',
+		DELTAGARE: 6,
+		DATUM: '151125'
+	},
+	{
+		ÖLNAMN: 'LAPINKULTA PREMIUM ',
+		BRYGGERI: 'HARTWALL PLC',
+		LAND: 'FI',
+		ALKOHOL: '7.0',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '010212'
+	},
+	{
+		ÖLNAMN: 'MASTER TMAVÝ',
+		BRYGGERI: 'PLZUNSKY PRAZDROI AS',
+		LAND: 'CZ',
+		ALKOHOL: '7.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '110807'
+	},
+	{
+		ÖLNAMN: 'Monastic',
+		BRYGGERI: 'Clown Shoes Beer',
+		LAND: 'US',
+		ALKOHOL: '7.0',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '160914'
+	},
+	{
+		ÖLNAMN: 'Mullerbräu Bavariator',
+		BRYGGERI: 'Mullerbräu Pfaffenhofen',
+		LAND: 'DE',
+		ALKOHOL: '7.0',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '121010'
+	},
+	{
+		ÖLNAMN: 'NAPA SMITH ORGANIC IPA',
+		BRYGGERI: 'NAPA SMITH BREWERY',
+		LAND: 'US',
+		ALKOHOL: '7.0',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '120711'
+	},
+	{
+		ÖLNAMN: 'Nedward',
+		BRYGGERI: 'Stockholm Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '8.40',
+		DELTAGARE: 5,
+		DATUM: '170412'
+	},
+	{
+		ÖLNAMN: 'NILS OSCAR IMPERIAL STOUT',
+		BRYGGERI: 'Nils Oscar Bryggerier',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '021009'
+	},
+	{
+		ÖLNAMN: 'Nils Oscar Imperial Stout',
+		BRYGGERI: 'NIls Oscar Br.',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '200213'
+	},
+	{
+		ÖLNAMN: 'NILS OSCARS JULÖL 2003',
+		BRYGGERI: 'NILS OSCAR BR.',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '090826'
+	},
+	{
+		ÖLNAMN: 'Northmaen',
+		BRYGGERI: 'Br. la Chapelle',
+		LAND: 'FR',
+		ALKOHOL: '7.0',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '191219'
+	},
+	{
+		ÖLNAMN: 'NORTHMAEN ROUSSE',
+		BRYGGERI: 'BR. LA CHAPELLE',
+		LAND: 'FR',
+		ALKOHOL: '7.0',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '100728'
+	},
+	{
+		ÖLNAMN: 'NØGNE Ø',
+		BRYGGERI: 'NØGNE Ø',
+		LAND: 'NO',
+		ALKOHOL: '7.0',
+		BETYG: '7.00',
+		DELTAGARE: 6,
+		DATUM: '060510'
+	},
+	{
+		ÖLNAMN: 'OKTOBER CHEST',
+		BRYGGERI: 'COSSEI BR.',
+		LAND: 'IT',
+		ALKOHOL: '7.0',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '090923'
+	},
+	{
+		ÖLNAMN: 'Oud Geueze Boon Bone Dry Mikkeller Selection',
+		BRYGGERI: 'Boon/Mikkeller',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '180412'
+	},
+	{
+		ÖLNAMN: 'Oude Geuze Boon-Black Label',
+		BRYGGERI: 'N.W. Br. Boon',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '161123'
+	},
+	{
+		ÖLNAMN: 'Oude Gueze Tilquin',
+		BRYGGERI: 'Gueuzerie Tilquin',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '7.50',
+		DELTAGARE: 5,
+		DATUM: '190708'
+	},
+	{
+		ÖLNAMN: 'PARANOIA',
+		BRYGGERI: 'ZEEUWSCHE BIERBR.',
+		LAND: 'NL',
+		ALKOHOL: '7.0',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '950126'
+	},
+	{
+		ÖLNAMN: 'Pazeme',
+		BRYGGERI: 'Malduguns',
+		LAND: 'LV',
+		ALKOHOL: '7.0',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '171010'
+	},
+	{
+		ÖLNAMN: 'Pere Noel',
+		BRYGGERI: 'Br. de Ranke',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '7.80',
+		DELTAGARE: 5,
+		DATUM: '160113'
+	},
+	{
+		ÖLNAMN: 'PORTERIS ALDARIS',
+		BRYGGERI: 'ALDARIS',
+		LAND: 'LV',
+		ALKOHOL: '7.0',
+		BETYG: '5.67',
+		DELTAGARE: 3,
+		DATUM: '950629'
+	},
+	{
+		ÖLNAMN: 'Potlatch-Saison',
+		BRYGGERI: 'De Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '200319'
+	},
+	{
+		ÖLNAMN: 'PRETTY THINGS SYLVAN STOUT',
+		BRYGGERI: 'Pretty Things Beer and Ale Project Inc',
+		LAND: 'US',
+		ALKOHOL: '7.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '121114'
+	},
+	{
+		ÖLNAMN: 'RODENBACH 2008 VINTAGE',
+		BRYGGERI: 'RODENBACH BR.',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '9.17',
+		DELTAGARE: 6,
+		DATUM: '111012'
+	},
+	{
+		ÖLNAMN: 'Rodenbach Caractère Rouge*',
+		BRYGGERI: 'Br. Rodenbach',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '8.33',
+		DELTAGARE: 6,
+		DATUM: '181220'
+	},
+	{
+		ÖLNAMN: 'Rodenbach Charactere Rouge*',
+		BRYGGERI: 'Rodenbach Br.',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '151125'
+	},
+	{
+		ÖLNAMN: 'Rodenbach Vintage 2016',
+		BRYGGERI: 'Br. Rodenbach',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '8.50',
+		DELTAGARE: 6,
+		DATUM: '181220'
+	},
+	{
+		ÖLNAMN: 'S:t Eriks Peach IPL',
+		BRYGGERI: 'S:t Eriks Br.',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '150916'
+	},
+	{
+		ÖLNAMN: 'Saison de Cave',
+		BRYGGERI: 'Stockholm Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '200704'
+	},
+	{
+		ÖLNAMN: 'Sculpin IPA',
+		BRYGGERI: 'Ballast Point Br Co',
+		LAND: 'US',
+		ALKOHOL: '7.0',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '160914'
+	},
+	{
+		ÖLNAMN: 'SOTHOLMEN EXTRA STOUT*',
+		BRYGGERI: 'NYNÄSHAMNS ÅNGBR.',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '111214'
+	},
+	{
+		ÖLNAMN: 'SOTHOLMEN EXTRA STOUT*',
+		BRYGGERI: 'NYNÄSHAMNS ÅNGBR.',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '120208'
+	},
+	{
+		ÖLNAMN: 'Sour Wench',
+		BRYGGERI: 'Ballast Point Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '7.0',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '180308'
+	},
+	{
+		ÖLNAMN: 'STARK BOCK',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '950522'
+	},
+	{
+		ÖLNAMN: 'Viola',
+		BRYGGERI: 'Brekeriet',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '7.83',
+		DELTAGARE: 6,
+		DATUM: '200123'
+	},
+	{
+		ÖLNAMN: 'WATOU TRIPEL',
+		BRYGGERI: 'BR. ST. BERNARD NV/SA',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '070726'
+	},
+	{
+		ÖLNAMN: 'WESTMALLE DUBBEL*',
+		BRYGGERI: "D'ABBAYE WESTMALLE",
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '040614'
+	},
+	{
+		ÖLNAMN: 'WESTMALLE DUBBEL*',
+		BRYGGERI: 'BROUWERIJ TRAPPISTEN VAN WESTMALLE',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '081008'
+	},
+	{
+		ÖLNAMN: 'WESTMALLE DUBBEL*',
+		BRYGGERI: "D'ABBAYE WESTMALLE",
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '951107'
+	},
+	{
+		ÖLNAMN: 'ÅBRO 7,0',
+		BRYGGERI: 'ÅBRO BR.',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '950328'
+	},
+	{
+		ÖLNAMN: 'ÅBRO BOCKÖL 7,0',
+		BRYGGERI: 'ÅBRO BR.',
+		LAND: 'SE',
+		ALKOHOL: '7.0',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '010212'
+	},
+	{
+		ÖLNAMN: 'Bock nr 3',
+		BRYGGERI: 'Ebeltoft Gårdbryggeri',
+		LAND: 'DK',
+		ALKOHOL: '6.9',
+		BETYG: '6.86',
+		DELTAGARE: 7,
+		DATUM: '151007'
+	},
+	{
+		ÖLNAMN: 'Hotel Henri',
+		BRYGGERI: 'De Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '6.9',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '180816'
+	},
+	{
+		ÖLNAMN: 'LAHOLMS VAPEN',
+		BRYGGERI: 'SOFIERO',
+		LAND: 'SE',
+		ALKOHOL: '6.9',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '950220'
+	},
+	{
+		ÖLNAMN: 'Majbock',
+		BRYGGERI: 'Ebeltoft Gårdbryggeri',
+		LAND: 'DK',
+		ALKOHOL: '6.9',
+		BETYG: '7.28',
+		DELTAGARE: 7,
+		DATUM: '151007'
+	},
+	{
+		ÖLNAMN: 'MIKKELER WARRIOR SINGLE HOP IPA',
+		BRYGGERI: 'MIKKELER',
+		LAND: 'DK',
+		ALKOHOL: '6.9',
+		BETYG: '7.33',
+		DELTAGARE: 3,
+		DATUM: '090722'
+	},
+	{
+		ÖLNAMN: 'MIKKELLER KOPPI, COFFEE IPA',
+		BRYGGERI: 'MIKKELLER/DE PROEF BR.',
+		LAND: 'BE',
+		ALKOHOL: '6.9',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '110707'
+	},
+	{
+		ÖLNAMN: 'Mikkeller/BAD-Bitter',
+		BRYGGERI: 'de Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '6.9',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '140312'
+	},
+	{
+		ÖLNAMN: 'NILS OSCAR SORACHI BLOND',
+		BRYGGERI: 'TÄRNÖ BRYGGERI AB',
+		LAND: 'SE',
+		ALKOHOL: '6.9',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '100609'
+	},
+	{
+		ÖLNAMN: 'ORVAL*',
+		BRYGGERI: 'Br. Orval',
+		LAND: 'BE',
+		ALKOHOL: '6.9',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '161123'
+	},
+	{
+		ÖLNAMN: 'Rye IPA',
+		BRYGGERI: 'Sibbarps Husbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '6.9',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '160914'
+	},
+	{
+		ÖLNAMN: "Saison d'Erpe Mere",
+		BRYGGERI: 'Br. de Glazen Toren',
+		LAND: 'BE',
+		ALKOHOL: '6.9',
+		BETYG: '7.28',
+		DELTAGARE: 7,
+		DATUM: '150711'
+	},
+	{
+		ÖLNAMN: 'SOFIERO WHISKEY MALT',
+		BRYGGERI: 'SOFIERO',
+		LAND: 'SE',
+		ALKOHOL: '6.9',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '951017'
+	},
+	{
+		ÖLNAMN: 'STÆRKE PREBEN',
+		BRYGGERI: 'BRYGHUSET SVANEKE',
+		LAND: 'DK',
+		ALKOHOL: '6.9',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '091014'
+	},
+	{
+		ÖLNAMN: 'AFFLIGEM DUBBEL',
+		BRYGGERI: 'AFFLIGEM BR. BDS N.V.',
+		LAND: 'BE',
+		ALKOHOL: '6.8',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '040421'
+	},
+	{
+		ÖLNAMN: 'BIÈRE SUR LIE, SCHUTZENBERGER',
+		BRYGGERI: 'BR. SCHUTZENBERGER',
+		LAND: 'FR',
+		ALKOHOL: '6.8',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '020627'
+	},
+	{
+		ÖLNAMN: 'BLANCHE DE BOURGOGNE',
+		BRYGGERI: 'BR. DE CHAMPES',
+		LAND: 'FR',
+		ALKOHOL: '6.8',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '0310..'
+	},
+	{
+		ÖLNAMN: 'BRUNE DE BOURGOGNE',
+		BRYGGERI: 'BR. DE CHAMPES',
+		LAND: 'FR',
+		ALKOHOL: '6.8',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '0310..'
+	},
+	{
+		ÖLNAMN: 'Carlsberg Porter',
+		BRYGGERI: 'Carlsberg BR.',
+		LAND: 'DK',
+		ALKOHOL: '6.8',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '140709'
+	},
+	{
+		ÖLNAMN: 'COOPERS BEST EXTRA STOUT*',
+		BRYGGERI: 'COOPERS BR. LTD.',
+		LAND: 'AU',
+		ALKOHOL: '6.8',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '960411'
+	},
+	{
+		ÖLNAMN: 'Fiordaliso Saison',
+		BRYGGERI: 'Almond 22',
+		LAND: 'IT',
+		ALKOHOL: '6.8',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '191017'
+	},
+	{
+		ÖLNAMN: 'Folle des Bois',
+		BRYGGERI: 'La Br. de Sutter',
+		LAND: 'FR',
+		ALKOHOL: '6.8',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '191219'
+	},
+	{
+		ÖLNAMN: 'HALLSTA JULBOCK',
+		BRYGGERI: 'HALLSTA BR.',
+		LAND: 'SE',
+		ALKOHOL: '6.8',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '970121'
+	},
+	{
+		ÖLNAMN: 'JULBOCK',
+		BRYGGERI: 'ÅBRO BR.',
+		LAND: 'SE',
+		ALKOHOL: '6.8',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '020211'
+	},
+	{
+		ÖLNAMN: 'Modus Hoperandi IPA',
+		BRYGGERI: 'Ska Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '6.8',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '180118'
+	},
+	{
+		ÖLNAMN: 'MOHAWK SUMMER',
+		BRYGGERI: 'SIGTUNA BRYGGHUS',
+		LAND: 'SE',
+		ALKOHOL: '6.8',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '101013'
+	},
+	{
+		ÖLNAMN: 'Nora',
+		BRYGGERI: 'Birrificio Baladin',
+		LAND: 'IT',
+		ALKOHOL: '6.8',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '141112'
+	},
+	{
+		ÖLNAMN: 'OLD NICK*',
+		BRYGGERI: 'YOUNG & CO BR.',
+		LAND: 'GB',
+		ALKOHOL: '6.8',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '950328'
+	},
+	{
+		ÖLNAMN: 'RINGNES GOLD',
+		BRYGGERI: 'RINGNES',
+		LAND: 'NO',
+		ALKOHOL: '6.8',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '951107'
+	},
+	{
+		ÖLNAMN: 'Saison Ale',
+		BRYGGERI: 'Funkwerks',
+		LAND: 'US',
+		ALKOHOL: '6.8',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '141015'
+	},
+	{
+		ÖLNAMN: 'Saison Framboise',
+		BRYGGERI: 'Biere Trois Dames',
+		LAND: 'CH',
+		ALKOHOL: '6.8',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '141015'
+	},
+	{
+		ÖLNAMN: 'Saison Houblon',
+		BRYGGERI: 'Biere Trois Dames',
+		LAND: 'CH',
+		ALKOHOL: '6.8',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '141015'
+	},
+	{
+		ÖLNAMN: 'The Jeenius IPA',
+		BRYGGERI: 'Remmarlöv Gårdsbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '6.8',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '150211'
+	},
+	{
+		ÖLNAMN: 'TRI MEDVEDYA KREPKOE',
+		BRYGGERI: 'PIVOVARNIA IVANA TARANOVA',
+		LAND: 'RU',
+		ALKOHOL: '6.8',
+		BETYG: '4.33',
+		DELTAGARE: 3,
+		DATUM: '080716'
+	},
+	{
+		ÖLNAMN: 'ÅBRO JULBOCK',
+		BRYGGERI: 'ÅBRO BR.',
+		LAND: 'SE',
+		ALKOHOL: '6.8',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '971210'
+	},
+	{
+		ÖLNAMN: 'Aurora - Red Rye IPA',
+		BRYGGERI: 'Modern Times Beer',
+		LAND: 'US',
+		ALKOHOL: '6.7',
+		BETYG: '6.72',
+		DELTAGARE: 7,
+		DATUM: '160210'
+	},
+	{
+		ÖLNAMN: 'CHRISTMAS ALE 2000',
+		BRYGGERI: 'SHEPHARD NEAME BR.',
+		LAND: 'GB',
+		ALKOHOL: '6.7',
+		BETYG: '5.40',
+		DELTAGARE: 4,
+		DATUM: '001214'
+	},
+	{
+		ÖLNAMN: 'FARSONS STRONG',
+		BRYGGERI: 'SIMONDS FARSONS CISK',
+		LAND: 'MT',
+		ALKOHOL: '6.7',
+		BETYG: '8.00',
+		DELTAGARE: 4,
+		DATUM: '960523'
+	},
+	{
+		ÖLNAMN: 'Frydenlunder, Fiin Gammel Bokköl',
+		BRYGGERI: 'FRYDENLUNDS',
+		LAND: 'NO',
+		ALKOHOL: '6.7',
+		BETYG: '6.33',
+		DELTAGARE: 3,
+		DATUM: '940120'
+	},
+	{
+		ÖLNAMN: 'GRIMBERGEN BLONDE',
+		BRYGGERI: 'ABDIJ GRIMBERGEN',
+		LAND: 'BE',
+		ALKOHOL: '6.7',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '040922'
+	},
+	{
+		ÖLNAMN: 'MASTER ZLATÝ',
+		BRYGGERI: 'PLZUNSKY PRAZDROI AS',
+		LAND: 'CZ',
+		ALKOHOL: '6.7',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '110807'
+	},
+	{
+		ÖLNAMN: 'Mikkeller/BAD-Söd',
+		BRYGGERI: 'de Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '6.7',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '140312'
+	},
+	{
+		ÖLNAMN: 'Nils Oscar Pale Ale',
+		BRYGGERI: 'Nils Oscar Br.',
+		LAND: 'SE',
+		ALKOHOL: '6.7',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '200213'
+	},
+	{
+		ÖLNAMN: 'OLD JOCK*',
+		BRYGGERI: 'BROUGHTON ALES LTD',
+		LAND: 'SCOT',
+		ALKOHOL: '6.7',
+		BETYG: '7.25',
+		DELTAGARE: 4,
+		DATUM: '000417'
+	},
+	{
+		ÖLNAMN: 'S:T BERNARDUS PATER 6',
+		BRYGGERI: 'BR. ST. BERNARD NV/SA',
+		LAND: 'BE',
+		ALKOHOL: '6.7',
+		BETYG: '3.67',
+		DELTAGARE: 6,
+		DATUM: '070726'
+	},
+	{
+		ÖLNAMN: 'South Plains IPA',
+		BRYGGERI: 'South Plain Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '6.7',
+		BETYG: '7.67',
+		DELTAGARE: 5,
+		DATUM: '150506'
+	},
+	{
+		ÖLNAMN: 'ADELSCOTT',
+		BRYGGERI: 'BR. ADELSHOFFEN',
+		LAND: 'FR',
+		ALKOHOL: '6.6',
+		BETYG: '0.60',
+		DELTAGARE: 5,
+		DATUM: '951017'
+	},
+	{
+		ÖLNAMN: 'BATTIN EXTRA',
+		BRYGGERI: 'BR. BATTIN',
+		LAND: 'LU',
+		ALKOHOL: '6.6',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '100728'
+	},
+	{
+		ÖLNAMN: 'INNIS AND GUNN OAK AGED BEER',
+		BRYGGERI: 'INNIS AND GUNN BR.',
+		LAND: 'GB',
+		ALKOHOL: '6.60',
+		BETYG: '3.50',
+		DELTAGARE: 4,
+		DATUM: '050112'
+	},
+	{
+		ÖLNAMN: 'KÄLLEFALLS PÅSKÖL',
+		BRYGGERI: 'KÄLLEFALLS BRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '6.6',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '950501'
+	},
+	{
+		ÖLNAMN: 'LEFFE BLONDE',
+		BRYGGERI: 'ST. GUIBERT S.A.',
+		LAND: 'BE',
+		ALKOHOL: '6.6',
+		BETYG: '5.33',
+		DELTAGARE: 3,
+		DATUM: '950921'
+	},
+	{
+		ÖLNAMN: 'MALMÖ BRYGGHUS IPA',
+		BRYGGERI: 'MALMÖ BRYGGHUS',
+		LAND: 'SE',
+		ALKOHOL: '6.6',
+		BETYG: '6.42',
+		DELTAGARE: 7,
+		DATUM: '101110'
+	},
+	{
+		ÖLNAMN: 'MIKKELLER HAPPY EASTER',
+		BRYGGERI: 'MIKKELER',
+		LAND: 'DK',
+		ALKOHOL: '6.6',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '100421'
+	},
+	{
+		ÖLNAMN: 'NILS OSCAR SAISON',
+		BRYGGERI: 'NILS OSCAR BR.',
+		LAND: 'SE',
+		ALKOHOL: '6.6',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '090624'
+	},
+	{
+		ÖLNAMN: 'OPPIGÅRDS INDIAN TRIBUTE',
+		BRYGGERI: 'OPPIGÅRDS BRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '6.6',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '120711'
+	},
+	{
+		ÖLNAMN: 'Oude Geuze',
+		BRYGGERI: 'Mikkeller & Br. Boon',
+		LAND: 'BE',
+		ALKOHOL: '6.6',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '190708'
+	},
+	{
+		ÖLNAMN: 'RUTHLESS RYE',
+		BRYGGERI: 'SIERRA NEVADA BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '6.6',
+		BETYG: '7.17',
+		DELTAGARE: 5,
+		DATUM: '130619'
+	},
+	{
+		ÖLNAMN: 'WILD RAVEN',
+		BRYGGERI: 'THORNBRIDGE BR',
+		LAND: 'GB',
+		ALKOHOL: '6.6',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '130703'
+	},
+	{
+		ÖLNAMN: '1698',
+		BRYGGERI: 'SHEPHARD NEAME',
+		LAND: 'GB',
+		ALKOHOL: '6.5',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '000523'
+	},
+	{
+		ÖLNAMN: '2017 Lutheröl',
+		BRYGGERI: 'Naestved Bryghus',
+		LAND: 'DK',
+		ALKOHOL: '6.5',
+		BETYG: '5.57',
+		DELTAGARE: 7,
+		DATUM: '190821'
+	},
+	{
+		ÖLNAMN: 'AASS BOCK',
+		BRYGGERI: 'AASS BR. AS',
+		LAND: 'NO',
+		ALKOHOL: '6.5',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '070215'
+	},
+	{
+		ÖLNAMN: 'ABBAYE DE S:T LANDELIN',
+		BRYGGERI: 'LES BRASSEURS DE GAYANT',
+		LAND: 'FR',
+		ALKOHOL: '6.5',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '060118'
+	},
+	{
+		ÖLNAMN: 'AGUILA RESERVA',
+		BRYGGERI: 'AMSTEL, S.S. de los REYES',
+		LAND: 'ES',
+		ALKOHOL: '6.5',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '980629'
+	},
+	{
+		ÖLNAMN: 'ALDARIS STIPRAIS',
+		BRYGGERI: '',
+		LAND: 'LV',
+		ALKOHOL: '6.5',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '080227'
+	},
+	{
+		ÖLNAMN: 'AMBRÉE Abbatiale de Saint-Amand',
+		BRYGGERI: 'BR. De SAINT-AMAND',
+		LAND: 'FR',
+		ALKOHOL: '6.5',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '030616'
+	},
+	{
+		ÖLNAMN: 'APHRODISIAQUE',
+		BRYGGERI: 'Br. DIEU DU CIEL',
+		LAND: 'CA',
+		ALKOHOL: '6.5',
+		BETYG: '6.72',
+		DELTAGARE: 7,
+		DATUM: '110413'
+	},
+	{
+		ÖLNAMN: 'BEER HERE HÖSTSTOUT',
+		BRYGGERI: 'SÖGAARD BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '6.5',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '111214'
+	},
+	{
+		ÖLNAMN: 'BEERLAO DARK LAGER',
+		BRYGGERI: 'LAO BR. CO. LTD.',
+		LAND: 'LA',
+		ALKOHOL: '6.5',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '100310'
+	},
+	{
+		ÖLNAMN: 'Birra Nazionale',
+		BRYGGERI: 'Birrificio Baladin',
+		LAND: 'IT',
+		ALKOHOL: '6.5',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '141112'
+	},
+	{
+		ÖLNAMN: 'BLONDE DE BOURGOGNE',
+		BRYGGERI: 'BR. DE CHAMPES',
+		LAND: 'FR',
+		ALKOHOL: '6.5',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '031013'
+	},
+	{
+		ÖLNAMN: 'CARNEVALE ALE 2009',
+		BRYGGERI: 'PORT BREWING/THE LOST ABBEY',
+		LAND: 'US',
+		ALKOHOL: '6.5',
+		BETYG: '6.72',
+		DELTAGARE: 7,
+		DATUM: '110413'
+	},
+	{
+		ÖLNAMN: 'CELTIKA',
+		BRYGGERI: 'Brasserie Celtik',
+		LAND: 'FR',
+		ALKOHOL: '6.5',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '061212'
+	},
+	{
+		ÖLNAMN: 'CHRISTMAS ALE 1999',
+		BRYGGERI: 'SHEPHARD NEAME',
+		LAND: 'GB',
+		ALKOHOL: '6.5',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '000104'
+	},
+	{
+		ÖLNAMN: 'CORNUCOPIA',
+		BRYGGERI: 'KING & BARNES',
+		LAND: 'GB',
+		ALKOHOL: '6.5',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '990519'
+	},
+	{
+		ÖLNAMN: 'CROWN*',
+		BRYGGERI: 'CARLSBERG',
+		LAND: 'DK',
+		ALKOHOL: '6.5',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '040826'
+	},
+	{
+		ÖLNAMN: 'CROWN*',
+		BRYGGERI: 'CARLSBERG',
+		LAND: 'DK',
+		ALKOHOL: '6.5',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '041026'
+	},
+	{
+		ÖLNAMN: "Dale's Pale Ale",
+		BRYGGERI: 'Oskar Blues Br.',
+		LAND: 'US',
+		ALKOHOL: '6.5',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '180118'
+	},
+	{
+		ÖLNAMN: 'Djingis',
+		BRYGGERI: 'Lundabryggeriet',
+		LAND: 'SE',
+		ALKOHOL: '6.5',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '140409'
+	},
+	{
+		ÖLNAMN: 'DOGS BOLLOCKS',
+		BRYGGERI: 'WYCHWOOD BR.',
+		LAND: 'GB',
+		ALKOHOL: '6.5',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '970408'
+	},
+	{
+		ÖLNAMN: 'EINBECKER MAI-UR-BOCK',
+		BRYGGERI: 'EINBECKER BRAUHAUS',
+		LAND: 'DE',
+		ALKOHOL: '6.5',
+		BETYG: '7.17',
+		DELTAGARE: 6,
+		DATUM: '070515'
+	},
+	{
+		ÖLNAMN: 'Elvis Juice',
+		BRYGGERI: 'Brewdog',
+		LAND: 'SCOT',
+		ALKOHOL: '6.5',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '160914'
+	},
+	{
+		ÖLNAMN: 'Envy',
+		BRYGGERI: 'Amager Bryghus',
+		LAND: 'DK',
+		ALKOHOL: '6.5',
+		BETYG: '7.00',
+		DELTAGARE: 7,
+		DATUM: '131009'
+	},
+	{
+		ÖLNAMN: 'Far West  Vlaming',
+		BRYGGERI: 'Logsdon Farmhouse Ale',
+		LAND: 'US',
+		ALKOHOL: '6.5',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '181220'
+	},
+	{
+		ÖLNAMN: 'FORST SIXTUS DOPPELBOCK',
+		BRYGGERI: 'BR. FORST',
+		LAND: 'IT',
+		ALKOHOL: '6.5',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '030526'
+	},
+	{
+		ÖLNAMN: 'FORÅRSALE',
+		BRYGGERI: 'RIBE BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '6.5',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '110607'
+	},
+	{
+		ÖLNAMN: "Founder's Porter",
+		BRYGGERI: 'Founders Br Co',
+		LAND: 'US',
+		ALKOHOL: '6.5',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '140709'
+	},
+	{
+		ÖLNAMN: 'FRYDENLUND BOKKØL',
+		BRYGGERI: 'RINGNES AS',
+		LAND: 'NO',
+		ALKOHOL: '6.5',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '070215'
+	},
+	{
+		ÖLNAMN: 'FUR PORTER',
+		BRYGGERI: 'FUR BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '6.5',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '051011'
+	},
+	{
+		ÖLNAMN: 'Fyr & Flamme*',
+		BRYGGERI: 'Haand Bryggeriet',
+		LAND: 'NO',
+		ALKOHOL: '6.5',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '160615'
+	},
+	{
+		ÖLNAMN: 'Fyr & Flamme*',
+		BRYGGERI: 'Haand Bryggeriet',
+		LAND: 'NO',
+		ALKOHOL: '6.5',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '160914'
+	},
+	{
+		ÖLNAMN: 'GRIMBERGEN DOUBLE',
+		BRYGGERI: 'N.V. ALKEN-MAES S.A.',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '050202'
+	},
+	{
+		ÖLNAMN: 'GROTTENBIER',
+		BRYGGERI: 'BR. ST. BERNARD NV/SA',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '070614'
+	},
+	{
+		ÖLNAMN: "HEN'S TOOTH",
+		BRYGGERI: 'MORLAND',
+		LAND: 'GB',
+		ALKOHOL: '6.5',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '000509'
+	},
+	{
+		ÖLNAMN: 'Hors Piste',
+		BRYGGERI: 'Br. des Cimes',
+		LAND: 'FR',
+		ALKOHOL: '6.5',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '140813'
+	},
+	{
+		ÖLNAMN: "ICHTEGEM'S GRAND CRU",
+		BRYGGERI: 'BR. STRUBBE',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '111012'
+	},
+	{
+		ÖLNAMN: "ICHTEGEM'S GRAND CRU 2006",
+		BRYGGERI: 'BROUWERIJ STRUBBE',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '100210'
+	},
+	{
+		ÖLNAMN: 'India Pale Ale',
+		BRYGGERI: 'Brygghuset Finn',
+		LAND: 'SE',
+		ALKOHOL: '6.5',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '180118'
+	},
+	{
+		ÖLNAMN: 'IPA',
+		BRYGGERI: 'GÅRDSBRYGGERIET PÅ STOCKBODA',
+		LAND: 'SE',
+		ALKOHOL: '6.5',
+		BETYG: '4.17',
+		DELTAGARE: 6,
+		DATUM: '110309'
+	},
+	{
+		ÖLNAMN: 'JENLAIN*',
+		BRYGGERI: 'BRASSERIE DUYCK',
+		LAND: 'FR',
+		ALKOHOL: '6.5',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '020911'
+	},
+	{
+		ÖLNAMN: 'JÄMTLANDS JULÖL',
+		BRYGGERI: 'JÄMTLANDS BR.',
+		LAND: 'SE',
+		ALKOHOL: '6.5',
+		BETYG: '7.25',
+		DELTAGARE: 4,
+		DATUM: '001122'
+	},
+	{
+		ÖLNAMN: 'Jämtlands Julöl',
+		BRYGGERI: 'Jämtlands Br.',
+		LAND: 'SE',
+		ALKOHOL: '6.5',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '131120'
+	},
+	{
+		ÖLNAMN: 'KAPITTEL BLOND',
+		BRYGGERI: 'N.V. van EECKE',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '070726'
+	},
+	{
+		ÖLNAMN: 'Kozlak',
+		BRYGGERI: 'Browar Amber',
+		LAND: 'PL',
+		ALKOHOL: '6.5',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '171115'
+	},
+	{
+		ÖLNAMN: 'Kozlak',
+		BRYGGERI: 'Browar Amber',
+		LAND: 'PL',
+		ALKOHOL: '6.5',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: 'KRIEK BOON',
+		BRYGGERI: 'BR. BOON ',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '050315'
+	},
+	{
+		ÖLNAMN: 'LA CHOUE',
+		BRYGGERI: 'BR. DE VAUCLAIR',
+		LAND: 'FR',
+		ALKOHOL: '6.5',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '020627'
+	},
+	{
+		ÖLNAMN: 'LA TRAPPE DUBBEL',
+		BRYGGERI: 'BIERBR. DE SCHAAPSKOOI',
+		LAND: 'NL',
+		ALKOHOL: '6.5',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '970910'
+	},
+	{
+		ÖLNAMN: 'LAPIN KULTA IVB',
+		BRYGGERI: 'AMRI',
+		LAND: 'FI',
+		ALKOHOL: '6.5',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '940127'
+	},
+	{
+		ÖLNAMN: 'LEFFE BRUN -6-*',
+		BRYGGERI: 'ST. GUIBERT S.A.',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '940915'
+	},
+	{
+		ÖLNAMN: 'LEFFE BRUN -6-*',
+		BRYGGERI: 'ST. GUIBERT S.A.',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '970903'
+	},
+	{
+		ÖLNAMN: 'LIEFMANS GLÜHKRIEK',
+		BRYGGERI: 'LIEFMANS BR.',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '960523'
+	},
+	{
+		ÖLNAMN: 'LIEFMANS KRIEK*',
+		BRYGGERI: 'LIEFMANS BR.',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '960923'
+	},
+	{
+		ÖLNAMN: 'LIEFMANS KRIEK*',
+		BRYGGERI: 'LIEFMANS BR.',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '7.80',
+		DELTAGARE: 5,
+		DATUM: '970625'
+	},
+	{
+		ÖLNAMN: 'MAJBOCK 2008',
+		BRYGGERI: 'GREBBESTAD BR. AB',
+		LAND: 'SE',
+		ALKOHOL: '6.5',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '080507'
+	},
+	{
+		ÖLNAMN: 'Maneblusser Lente',
+		BRYGGERI: 'Br. Het Anker',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '190425'
+	},
+	{
+		ÖLNAMN: 'MEANTIME LONDON PORTER',
+		BRYGGERI: 'MEANTIME BR. CO.',
+		LAND: 'GB',
+		ALKOHOL: '6.5',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '060510'
+	},
+	{
+		ÖLNAMN: 'MEANTIME OLD SMOKED BOCK',
+		BRYGGERI: 'THE GREENWICH BR.',
+		LAND: 'GB',
+		ALKOHOL: '6.5',
+		BETYG: '7.17',
+		DELTAGARE: 6,
+		DATUM: '081126'
+	},
+	{
+		ÖLNAMN: 'Nya Världens IPA',
+		BRYGGERI: 'Poppels',
+		LAND: 'SE',
+		ALKOHOL: '6.5',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '150603'
+	},
+	{
+		ÖLNAMN: 'OLD TOSS',
+		BRYGGERI: 'WORTH BR./KEIGHLY',
+		LAND: 'GB',
+		ALKOHOL: '6.5',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '940614'
+	},
+	{
+		ÖLNAMN: "Papa don't peach",
+		BRYGGERI: 'Pax Brygghus',
+		LAND: 'SE',
+		ALKOHOL: '6.5',
+		BETYG: '5.57',
+		DELTAGARE: 7,
+		DATUM: '200611'
+	},
+	{
+		ÖLNAMN: 'PELFORTH',
+		BRYGGERI: 'PELFORTH',
+		LAND: 'FR',
+		ALKOHOL: '6.5',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '020911'
+	},
+	{
+		ÖLNAMN: 'PELFORTH BRUNE',
+		BRYGGERI: 'PELFORTH',
+		LAND: 'FR',
+		ALKOHOL: '6.5',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '970610'
+	},
+	{
+		ÖLNAMN: 'PENOMBRE',
+		BRYGGERI: 'BR DIEU DU CIEL',
+		LAND: 'CA',
+		ALKOHOL: '6.5',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '130703'
+	},
+	{
+		ÖLNAMN: 'Red Poppy',
+		BRYGGERI: 'The Lost Abbey',
+		LAND: 'US',
+		ALKOHOL: '6.5',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '181220'
+	},
+	{
+		ÖLNAMN: 'RODENBACH GRAND CRU*',
+		BRYGGERI: 'BR. RODENBACH',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '961021'
+	},
+	{
+		ÖLNAMN: 'RODENBACH GRAND CRU*',
+		BRYGGERI: 'BR. RODENBACH',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '970625'
+	},
+	{
+		ÖLNAMN: 'Rousse',
+		BRYGGERI: 'Bieres de la Lezarde',
+		LAND: 'FR - Guad',
+		ALKOHOL: '6.5',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '170831'
+	},
+	{
+		ÖLNAMN: 'S:T PETERS SUMMER ALE',
+		BRYGGERI: 'S:T PETERS BR.',
+		LAND: 'GB',
+		ALKOHOL: '6.5',
+		BETYG: '6.33',
+		DELTAGARE: 5,
+		DATUM: '060705'
+	},
+	{
+		ÖLNAMN: 'Saison',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '6.5',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '141015'
+	},
+	{
+		ÖLNAMN: 'Saison',
+		BRYGGERI: 'Zywiec',
+		LAND: 'PL',
+		ALKOHOL: '6.5',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: "Saison d'Erpe Mere",
+		BRYGGERI: 'Br. de Glazen Toren',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '161123'
+	},
+	{
+		ÖLNAMN: 'Saison Dupont Cuvée Dry Hopping',
+		BRYGGERI: 'Br. Dupont',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '180816'
+	},
+	{
+		ÖLNAMN: 'SAISON DUPONT, VIELLE PROVISION',
+		BRYGGERI: 'Br. Dupont',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '021128'
+	},
+	{
+		ÖLNAMN: "SAMUEL ADAM'S WINTER LAGER",
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '6.5',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '000104'
+	},
+	{
+		ÖLNAMN: 'SPATEN PREMIUM BOCK',
+		BRYGGERI: 'SPATEN-FRANZISKANER BR.',
+		LAND: 'DE',
+		ALKOHOL: '6.5',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '960523'
+	},
+	{
+		ÖLNAMN: 'STARK ODDER',
+		BRYGGERI: 'GAMLESTADENS BR.',
+		LAND: 'SE',
+		ALKOHOL: '6.5',
+		BETYG: '7.25',
+		DELTAGARE: 4,
+		DATUM: '960620'
+	},
+	{
+		ÖLNAMN: 'STÖRTEBEKER BOCKBIER',
+		BRYGGERI: 'STRALSUNDER BR.',
+		LAND: 'DE',
+		ALKOHOL: '6.5',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '110112'
+	},
+	{
+		ÖLNAMN: 'VIKING OUD BRUIN',
+		BRYGGERI: 'NØRREBRO BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '6.5',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '100210'
+	},
+	{
+		ÖLNAMN: 'WARMIAK',
+		BRYGGERI: 'BROWAR KORMORAN',
+		LAND: 'PL',
+		ALKOHOL: '6.5',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '120906'
+	},
+	{
+		ÖLNAMN: 'WILLEMOES 200 ÅR',
+		BRYGGERI: 'VESTFYNS BR.',
+		LAND: 'DK',
+		ALKOHOL: '6.5',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '110914'
+	},
+	{
+		ÖLNAMN: 'WILLEMOES STOUT',
+		BRYGGERI: 'VESTFYNS BR.',
+		LAND: 'DK',
+		ALKOHOL: '6.5',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '110914'
+	},
+	{
+		ÖLNAMN: 'WINTER RYE',
+		BRYGGERI: 'CARLSBERG',
+		LAND: 'DK',
+		ALKOHOL: '6.5',
+		BETYG: '6.57',
+		DELTAGARE: 7,
+		DATUM: '040331'
+	},
+	{
+		ÖLNAMN: 'Wrath',
+		BRYGGERI: 'Amager Bryghus',
+		LAND: 'DK',
+		ALKOHOL: '6.5',
+		BETYG: '6.14',
+		DELTAGARE: 7,
+		DATUM: '131009'
+	},
+	{
+		ÖLNAMN: 'ALHAMBRA RESERVA 1925',
+		BRYGGERI: 'CERVECAS ALHAMBRA',
+		LAND: 'ES',
+		ALKOHOL: '6.4',
+		BETYG: '7.00',
+		DELTAGARE: 3,
+		DATUM: '011129'
+	},
+	{
+		ÖLNAMN: 'BIÈRE TRADITION DU NORD',
+		BRYGGERI: 'LE SAVOIR DES SAVEURS',
+		LAND: 'FR',
+		ALKOHOL: '6.4',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '020911'
+	},
+	{
+		ÖLNAMN: "CH'TI",
+		BRYGGERI: 'BR. CASTELAINE',
+		LAND: 'FR',
+		ALKOHOL: '6.4',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '120111'
+	},
+	{
+		ÖLNAMN: "Ch'ti Blonde",
+		BRYGGERI: 'Br. Castelain',
+		LAND: 'FR',
+		ALKOHOL: '6.4',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '191219'
+	},
+	{
+		ÖLNAMN: 'CH´TI BLONDE',
+		BRYGGERI: 'BR. CASTELAINE',
+		LAND: 'FR',
+		ALKOHOL: '6.4',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '031013'
+	},
+	{
+		ÖLNAMN: 'EDINBURGH STRONG ALE*',
+		BRYGGERI: 'CALEDONIAN BR.',
+		LAND: 'SCOT',
+		ALKOHOL: '6.4',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '001214'
+	},
+	{
+		ÖLNAMN: 'EDINBURGH STRONG ALE*',
+		BRYGGERI: 'CALEDONIAN BR.',
+		LAND: 'SCOT',
+		ALKOHOL: '6.4',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '981005'
+	},
+	{
+		ÖLNAMN: 'EREBUNI',
+		BRYGGERI: 'BR. KOTAYK',
+		LAND: 'AM',
+		ALKOHOL: '6.4',
+		BETYG: '4.43',
+		DELTAGARE: 7,
+		DATUM: '051115'
+	},
+	{
+		ÖLNAMN: 'LAGUNITAS EQUINOX ALE',
+		BRYGGERI: 'THE LAGUNITAS BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '6.4',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '010927'
+	},
+	{
+		ÖLNAMN: 'Lucy Ketchin',
+		BRYGGERI: 'J. Wakefield Brewing',
+		LAND: 'UK',
+		ALKOHOL: '6.4',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '190708'
+	},
+	{
+		ÖLNAMN: 'LUTÈCE',
+		BRYGGERI: 'S.A. INTERBREW',
+		LAND: 'BE',
+		ALKOHOL: '6.4',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '020911'
+	},
+	{
+		ÖLNAMN: 'NILS OSCAR COFFEE STOUT*',
+		BRYGGERI: 'NILS OSCAR BR.',
+		LAND: 'SE',
+		ALKOHOL: '6.4',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '111214'
+	},
+	{
+		ÖLNAMN: 'OUDE GUEUZE TILQUIN ',
+		BRYGGERI: 'GUEUZERIE TILQUIN',
+		LAND: 'BE',
+		ALKOHOL: '6.4',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '130109'
+	},
+	{
+		ÖLNAMN: 'Saison 1858 Bocq',
+		BRYGGERI: 'Br. du Bocq',
+		LAND: 'BE',
+		ALKOHOL: '6.4',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '180816'
+	},
+	{
+		ÖLNAMN: 'WILD GOOSE OUTMEAL STOUT',
+		BRYGGERI: 'WILD GOOSE BR.',
+		LAND: 'US',
+		ALKOHOL: '6.4',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '990104'
+	},
+	{
+		ÖLNAMN: 'YOUNG´S SPECIAL LONDON ALE*',
+		BRYGGERI: 'THE RAM BR.',
+		LAND: 'GB',
+		ALKOHOL: '6.4',
+		BETYG: '8.20',
+		DELTAGARE: 4,
+		DATUM: '001214'
+	},
+	{
+		ÖLNAMN: 'YOUNG´S SPECIAL LONDON ALE*',
+		BRYGGERI: 'THE RAM BR.',
+		LAND: 'GB',
+		ALKOHOL: '6.4',
+		BETYG: '8.20',
+		DELTAGARE: 5,
+		DATUM: '971112'
+	},
+	{
+		ÖLNAMN: "ADNAM'S BROADSIDE STRONG ORIGINAL*",
+		BRYGGERI: 'SOLE BAY BR.',
+		LAND: 'GB',
+		ALKOHOL: '6.3',
+		BETYG: '7.25',
+		DELTAGARE: 8,
+		DATUM: '040204'
+	},
+	{
+		ÖLNAMN: "ADNAM'S BROADSIDE STRONG ORIGINAL*",
+		BRYGGERI: 'SOLE BAY BR.',
+		LAND: 'GB',
+		ALKOHOL: '6.3',
+		BETYG: '7.00',
+		DELTAGARE: 6,
+		DATUM: '040309'
+	},
+	{
+		ÖLNAMN: 'BARON TRENCK',
+		BRYGGERI: 'STAROBRNO BR.',
+		LAND: 'CZ',
+		ALKOHOL: '6.3',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '060830'
+	},
+	{
+		ÖLNAMN: 'BEERSSONS IPA',
+		BRYGGERI: 'MALMÖ BRYGGHUS',
+		LAND: 'SE',
+		ALKOHOL: '6.3',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '120711'
+	},
+	{
+		ÖLNAMN: 'COOPERS BEST EXTRA STOUT',
+		BRYGGERI: 'COOPERS BR.',
+		LAND: 'AU',
+		ALKOHOL: '6.3',
+		BETYG: '6.86',
+		DELTAGARE: 6,
+		DATUM: '080625'
+	},
+	{
+		ÖLNAMN: 'DORELEÏ*',
+		BRYGGERI: 'BR. FISCHER',
+		LAND: 'FR',
+		ALKOHOL: '6.3',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '030616'
+	},
+	{
+		ÖLNAMN: 'DORELEÏ*',
+		BRYGGERI: 'BR. FISCHER',
+		LAND: 'FR',
+		ALKOHOL: '6.3',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '031013'
+	},
+	{
+		ÖLNAMN: 'Fjäll RIPA',
+		BRYGGERI: 'Sälens Fjällbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '6.3',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '170831'
+	},
+	{
+		ÖLNAMN: "FULLER'S 1845*",
+		BRYGGERI: 'FULLER, SMITH & TURNER',
+		LAND: 'GB',
+		ALKOHOL: '6.3',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '031209'
+	},
+	{
+		ÖLNAMN: "FULLER'S 1845*",
+		BRYGGERI: 'FULLER, SMITH & TURNER',
+		LAND: 'GB',
+		ALKOHOL: '6.3',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '050202'
+	},
+	{
+		ÖLNAMN: 'HOFBRÄU OKTOBERFESTBIER',
+		BRYGGERI: 'STATLIG HOFBRÄUHAUS, MÜNCHEN',
+		LAND: 'DE',
+		ALKOHOL: '6.3',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '071025'
+	},
+	{
+		ÖLNAMN: 'Hofbräu Oktoberfestbier',
+		BRYGGERI: 'Staatliches Hofbräuhaus in Munchen',
+		LAND: 'DE',
+		ALKOHOL: '6.3',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '190912'
+	},
+	{
+		ÖLNAMN: 'INDIA PALE ALE',
+		BRYGGERI: 'BR. SKOVLYST',
+		LAND: 'DK',
+		ALKOHOL: '6.3',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '110607'
+	},
+	{
+		ÖLNAMN: 'JACOBSEN SKOVMÆRKE',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '6.3',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '090826'
+	},
+	{
+		ÖLNAMN: 'Magnolia',
+		BRYGGERI: 'Lundabryggeriet',
+		LAND: 'SE',
+		ALKOHOL: '6.3',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '140409'
+	},
+	{
+		ÖLNAMN: 'Mikkeller/BAD-Umami',
+		BRYGGERI: 'de Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '6.3',
+		BETYG: '3.40',
+		DELTAGARE: 5,
+		DATUM: '140312'
+	},
+	{
+		ÖLNAMN: 'Nääs IPA',
+		BRYGGERI: 'Nääs Gårdsbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '6.3',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '150114'
+	},
+	{
+		ÖLNAMN: 'Saison',
+		BRYGGERI: 'Eskilstuna Ölkultur',
+		LAND: 'SE',
+		ALKOHOL: '6.3',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '150311'
+	},
+	{
+		ÖLNAMN: 'Sigurd',
+		BRYGGERI: 'Br. Frejdahl',
+		LAND: 'DK',
+		ALKOHOL: '6.3',
+		BETYG: '5.28',
+		DELTAGARE: 7,
+		DATUM: '190821'
+	},
+	{
+		ÖLNAMN: 'Siidisuka Sweet Stout',
+		BRYGGERI: 'Purtse Pruulikoda Ou',
+		LAND: 'EE',
+		ALKOHOL: '6.3',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '190516'
+	},
+	{
+		ÖLNAMN: 'Yeast is King IPA',
+		BRYGGERI: 'Frau Gruber Craft Brewing',
+		LAND: 'DE',
+		ALKOHOL: '6.3',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '190613'
+	},
+	{
+		ÖLNAMN: 'BLACK ALE',
+		BRYGGERI: 'RIBE BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '6.2',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '110607'
+	},
+	{
+		ÖLNAMN: 'Bluetooth',
+		BRYGGERI: 'Jelling Bryghus',
+		LAND: 'DK',
+		ALKOHOL: '6.2',
+		BETYG: '6.00',
+		DELTAGARE: 7,
+		DATUM: '151007'
+	},
+	{
+		ÖLNAMN: "BREWER'S CHOICE HONEY PORTER*",
+		BRYGGERI: 'THE SHIPYARD BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '6.2',
+		BETYG: '6.42',
+		DELTAGARE: 7,
+		DATUM: '070919'
+	},
+	{
+		ÖLNAMN: "BREWER'S CHOICE HONEY PORTER*",
+		BRYGGERI: 'SHIPYARD BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '6.2',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '080227'
+	},
+	{
+		ÖLNAMN: 'Duchesse de Bourgogne',
+		BRYGGERI: 'Br. Verkaeghe',
+		LAND: 'BE',
+		ALKOHOL: '6.2',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '181220'
+	},
+	{
+		ÖLNAMN: 'FRAMBOISE BOON',
+		BRYGGERI: 'BR. BOON ',
+		LAND: 'BE',
+		ALKOHOL: '6.2',
+		BETYG: '8.17',
+		DELTAGARE: 6,
+		DATUM: '050315'
+	},
+	{
+		ÖLNAMN: 'Great Divide 21st Anniversary',
+		BRYGGERI: 'Great Divide Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '6.2',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '151125'
+	},
+	{
+		ÖLNAMN: 'GRIMBERGEN ROUSSA',
+		BRYGGERI: 'ABDIJ GRIMBERGEN',
+		LAND: 'BE',
+		ALKOHOL: '6.2',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '040922'
+	},
+	{
+		ÖLNAMN: 'Justus',
+		BRYGGERI: 'Höganäs Br.',
+		LAND: 'SE',
+		ALKOHOL: '6.2',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '200416'
+	},
+	{
+		ÖLNAMN: 'MOUNTAIN GOAT RARE BREED',
+		BRYGGERI: 'MOUNTAIN GOAT BEER PTY LTD',
+		LAND: 'AU',
+		ALKOHOL: '6.2',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '121212'
+	},
+	{
+		ÖLNAMN: 'ORVAL*',
+		BRYGGERI: "BR. D'ORVAL",
+		LAND: 'BE',
+		ALKOHOL: '6.2',
+		BETYG: '7.50',
+		DELTAGARE: 4,
+		DATUM: '950328'
+	},
+	{
+		ÖLNAMN: 'ORVAL*',
+		BRYGGERI: "BR. D'ORVAL",
+		LAND: 'BE',
+		ALKOHOL: '6.2',
+		BETYG: '8.00',
+		DELTAGARE: 4,
+		DATUM: '960509'
+	},
+	{
+		ÖLNAMN: 'ORVAL*',
+		BRYGGERI: "BR D'ORVAL",
+		LAND: 'BE',
+		ALKOHOL: '6.2',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '991006'
+	},
+	{
+		ÖLNAMN: 'SCHNEIDER WEISSE TAP 4',
+		BRYGGERI: 'WEISSES BRAUHAUS',
+		LAND: 'DE',
+		ALKOHOL: '6.2',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '120307'
+	},
+	{
+		ÖLNAMN: 'SFF INVIGNINGSÖL',
+		BRYGGERI: 'SINEBRYCHOFF',
+		LAND: 'FI',
+		ALKOHOL: '6.2',
+		BETYG: '3.50',
+		DELTAGARE: 4,
+		DATUM: '931213'
+	},
+	{
+		ÖLNAMN: 'SIGTUNA RÖD PÅSK',
+		BRYGGERI: 'SIGTUNA BRYGGHUS',
+		LAND: 'SE',
+		ALKOHOL: '6.2',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '100421'
+	},
+	{
+		ÖLNAMN: 'Sweet Hoof Milk Stout',
+		BRYGGERI: 'Remmarlöv',
+		LAND: 'SE',
+		ALKOHOL: '6.2',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '180308'
+	},
+	{
+		ÖLNAMN: 'USHER RUBY ALE',
+		BRYGGERI: 'Ushers of Throwbridge',
+		LAND: 'GB',
+		ALKOHOL: '6.20',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '050112'
+	},
+	{
+		ÖLNAMN: 'USHERS RUBY ALE 1998',
+		BRYGGERI: 'USHERS OF TROWBRIDGE PLC',
+		LAND: 'GB',
+		ALKOHOL: '6.2',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '000104'
+	},
+	{
+		ÖLNAMN: 'USHERS TAWNY ALE (1999 VINTAGE)',
+		BRYGGERI: 'USHERS OF TROWBRIDGE PLC',
+		LAND: 'GB',
+		ALKOHOL: '6.2',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '000509'
+	},
+	{
+		ÖLNAMN: 'WINTER PORTER',
+		BRYGGERI: 'BREWDOG',
+		LAND: 'SCOT',
+		ALKOHOL: '6.2',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '120208'
+	},
+	{
+		ÖLNAMN: 'Agrestic',
+		BRYGGERI: 'Firestone Walker Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '6.1',
+		BETYG: '8.17',
+		DELTAGARE: 6,
+		DATUM: '181220'
+	},
+	{
+		ÖLNAMN: 'EFES DARK',
+		BRYGGERI: 'ANADOLU EFES BR.',
+		LAND: 'TU',
+		ALKOHOL: '6.1',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '070215'
+	},
+	{
+		ÖLNAMN: 'EFES DARK (B)',
+		BRYGGERI: 'ANADOLU EFES BR.',
+		LAND: 'TU',
+		ALKOHOL: '6.1',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '070215'
+	},
+	{
+		ÖLNAMN: 'EFES STRONG DARK BEER (B)',
+		BRYGGERI: 'EFES BR.',
+		LAND: 'TR',
+		ALKOHOL: '6.1',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '060920'
+	},
+	{
+		ÖLNAMN: 'LA RÉSERVE',
+		BRYGGERI: 'MAITRE KANTER',
+		LAND: 'FR',
+		ALKOHOL: '6.1',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '020911'
+	},
+	{
+		ÖLNAMN: 'LA RÉSERVE DE MAITRE KANTER',
+		BRYGGERI: 'BR. MAITRE KANTER',
+		LAND: 'FR',
+		ALKOHOL: '6.1',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '030616'
+	},
+	{
+		ÖLNAMN: 'LÖWENBRÄU OKTOBERFESTBIER',
+		BRYGGERI: 'LÖWENBRÄU Br.',
+		LAND: 'DE',
+		ALKOHOL: '6.1',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '071025'
+	},
+	{
+		ÖLNAMN: 'Löwenbräu Oktoberfestbier',
+		BRYGGERI: 'Löwenbräu AG',
+		LAND: 'DE',
+		ALKOHOL: '6.1',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '190912'
+	},
+	{
+		ÖLNAMN: 'MARMARA KIRRMIZI BEER',
+		BRYGGERI: 'EFES BR.',
+		LAND: 'TR',
+		ALKOHOL: '6.1',
+		BETYG: '4.17',
+		DELTAGARE: 6,
+		DATUM: '060920'
+	},
+	{
+		ÖLNAMN: 'Vörös Favago Redlight IPA Sör',
+		BRYGGERI: '',
+		LAND: 'HU',
+		ALKOHOL: '6.1',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '170913'
+	},
+	{
+		ÖLNAMN: '2 CAPS',
+		BRYGGERI: 'BRASSERIE DOS ESAIS',
+		LAND: 'FR',
+		ALKOHOL: '6.0',
+		BETYG: '7.17',
+		DELTAGARE: 6,
+		DATUM: '070315'
+	},
+	{
+		ÖLNAMN: '2 CAPS BIÈRE BLONDE',
+		BRYGGERI: 'BR. ARTISANALE DES 2 CAPS',
+		LAND: 'FR',
+		ALKOHOL: '6.0',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '111123'
+	},
+	{
+		ÖLNAMN: '3 FONTAINEN OUDE GUEUZE*',
+		BRYGGERI: 'BR. Ambachtlijke Geuzestekerij',
+		LAND: 'BE',
+		ALKOHOL: '6.0',
+		BETYG: '7.17',
+		DELTAGARE: 6,
+		DATUM: '050823'
+	},
+	{
+		ÖLNAMN: 'ALEXANDER RODENBACH',
+		BRYGGERI: 'BR. RODENBACH',
+		LAND: 'BE',
+		ALKOHOL: '6.0',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '970625'
+	},
+	{
+		ÖLNAMN: 'American Red Ale',
+		BRYGGERI: 'Birra Perugia SAS',
+		LAND: 'IT',
+		ALKOHOL: '6.0',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '171115'
+	},
+	{
+		ÖLNAMN: 'Björnen Sover',
+		BRYGGERI: 'Lundabryggeriet',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '140409'
+	},
+	{
+		ÖLNAMN: 'Brekeriet Rhuboise',
+		BRYGGERI: 'Brekeriet',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '161208'
+	},
+	{
+		ÖLNAMN: 'BROWN ALE',
+		BRYGGERI: 'MEVASHELET HABAIT',
+		LAND: 'IL',
+		ALKOHOL: '6.0',
+		BETYG: '5.67',
+		DELTAGARE: 3,
+		DATUM: '980623'
+	},
+	{
+		ÖLNAMN: 'Burma Pale Ale',
+		BRYGGERI: 'Burbrit Yangon Craft Br. Co. Ltd.',
+		LAND: 'MM',
+		ALKOHOL: '6.0',
+		BETYG: '4.00',
+		DELTAGARE: 6,
+		DATUM: '180517'
+	},
+	{
+		ÖLNAMN: 'CERVEJA SAMBA',
+		BRYGGERI: 'LES ARTISANS DE LA BIÈRE',
+		LAND: 'FR',
+		ALKOHOL: '6.0',
+		BETYG: '3.00',
+		DELTAGARE: 5,
+		DATUM: '011010'
+	},
+	{
+		ÖLNAMN: 'CERVOISE GUEDELON',
+		BRYGGERI: 'BR. DU CHAUT DU LOUP',
+		LAND: 'FR',
+		ALKOHOL: '6.0',
+		BETYG: '4.17',
+		DELTAGARE: 6,
+		DATUM: '020627'
+	},
+	{
+		ÖLNAMN: 'CERVOISE LANCELOT',
+		BRYGGERI: 'BR. LANCELOT',
+		LAND: 'FR',
+		ALKOHOL: '6.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '100728'
+	},
+	{
+		ÖLNAMN: 'Choose Cherry',
+		BRYGGERI: 'Dugges Ale & Porterbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '8.60',
+		DELTAGARE: 5,
+		DATUM: '160623'
+	},
+	{
+		ÖLNAMN: 'CHRISTMAS ALE 2004',
+		BRYGGERI: 'SHEPHERD NEAME',
+		LAND: 'GB',
+		ALKOHOL: '6.0',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '050406'
+	},
+	{
+		ÖLNAMN: 'DEMO',
+		BRYGGERI: 'MAGIC HAT BR CO',
+		LAND: 'US',
+		ALKOHOL: '6.0',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '130703'
+	},
+	{
+		ÖLNAMN: 'DEN SURE TRÆKANON',
+		BRYGGERI: 'EXBERIMENT',
+		LAND: 'DK',
+		ALKOHOL: '6.0',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '100210'
+	},
+	{
+		ÖLNAMN: 'DUCHESSE ANNE',
+		BRYGGERI: 'BR. LANCELOT',
+		LAND: 'FR',
+		ALKOHOL: '6.0',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '100728'
+	},
+	{
+		ÖLNAMN: 'DUGGES PÅSKÖL',
+		BRYGGERI: 'DUGGES',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '100421'
+	},
+	{
+		ÖLNAMN: 'Fair Christmas Bear Comes',
+		BRYGGERI: 'Lehe Pruulikoda',
+		LAND: 'EE',
+		ALKOHOL: '6.0',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '171010'
+	},
+	{
+		ÖLNAMN: 'Funkyland - a very sour Christmas in Sweden',
+		BRYGGERI: 'South Plains Br.',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '1.33',
+		DELTAGARE: 6,
+		DATUM: '200123'
+	},
+	{
+		ÖLNAMN: 'GL. SKAGEN IPA',
+		BRYGGERI: 'SKAGEN BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '6.0',
+		BETYG: '6.50',
+		DELTAGARE: 5,
+		DATUM: '130619'
+	},
+	{
+		ÖLNAMN: 'Grassroots Brewing Arctic Saison',
+		BRYGGERI: 'Anchorage Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '6.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '141015'
+	},
+	{
+		ÖLNAMN: 'Grebbestad IPL',
+		BRYGGERI: 'Grebbestad Br.',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '6.56',
+		DELTAGARE: 7,
+		DATUM: '150708'
+	},
+	{
+		ÖLNAMN: 'HET KAPITTEL WATOU PATER',
+		BRYGGERI: 'N.V. van EECKE',
+		LAND: 'BE',
+		ALKOHOL: '6.0',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '070726'
+	},
+	{
+		ÖLNAMN: 'HONNING PORTER',
+		BRYGGERI: 'BRYGHUSET MØN',
+		LAND: 'DK',
+		ALKOHOL: '6.0',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '091209'
+	},
+	{
+		ÖLNAMN: 'JACOBSEN BROWN ALE',
+		BRYGGERI: 'CARLSBERG',
+		LAND: 'DK',
+		ALKOHOL: '6.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '061018'
+	},
+	{
+		ÖLNAMN: 'JACOBSEN BROWN ALE',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '6.0',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '070124'
+	},
+	{
+		ÖLNAMN: 'JACOBSEN NORDIC PINE BOCK',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '6.0',
+		BETYG: '5.57',
+		DELTAGARE: 6,
+		DATUM: '090826'
+	},
+	{
+		ÖLNAMN: 'JULENATT',
+		BRYGGERI: 'NØGNE Ø',
+		LAND: 'NO',
+		ALKOHOL: '6.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '060118'
+	},
+	{
+		ÖLNAMN: 'JULEØL ',
+		BRYGGERI: 'GRØNLAND ICE CAP BEER',
+		LAND: 'DK (GRØNL)',
+		ALKOHOL: '6.0',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '081217'
+	},
+	{
+		ÖLNAMN: 'JÄMTLANDS PÅSKÖL',
+		BRYGGERI: 'JÄMTLANDS BR.',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '070425'
+	},
+	{
+		ÖLNAMN: 'KLOEKE BLONDE (KB No. 3)',
+		BRYGGERI: 'DE STRUISE BROUWERS',
+		LAND: 'BE',
+		ALKOHOL: '6.0',
+		BETYG: '5.33',
+		DELTAGARE: 3,
+		DATUM: '090722'
+	},
+	{
+		ÖLNAMN: 'KONRAD JOKER',
+		BRYGGERI: 'PIVOVAR VRATISLAVICE',
+		LAND: 'CZ',
+		ALKOHOL: '6.0',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '080227'
+	},
+	{
+		ÖLNAMN: 'Körsbär Suröl',
+		BRYGGERI: 'Örebro Brygghus',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '200123'
+	},
+	{
+		ÖLNAMN: "L'Ambrée du Hameau",
+		BRYGGERI: 'Br. La Lie',
+		LAND: 'FR',
+		ALKOHOL: '6.0',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '191219'
+	},
+	{
+		ÖLNAMN: 'LA CHOULETTE FRAMBOISE',
+		BRYGGERI: 'BR. LA CHOULETTE',
+		LAND: 'FR',
+		ALKOHOL: '6.0',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '111123'
+	},
+	{
+		ÖLNAMN: 'La Socarrada Cervesa Artensanal Premium',
+		BRYGGERI: 'Cervesa Artensanal La Socarrada',
+		LAND: 'ES',
+		ALKOHOL: '6.0',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '150408'
+	},
+	{
+		ÖLNAMN: 'LAKSEGULD',
+		BRYGGERI: 'THOR BR. AS',
+		LAND: 'DK',
+		ALKOHOL: '6.0',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '990901'
+	},
+	{
+		ÖLNAMN: 'LANCELOT',
+		BRYGGERI: 'Brasserie Lancelot',
+		LAND: 'FR',
+		ALKOHOL: '6.0',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '061212'
+	},
+	{
+		ÖLNAMN: 'LIBERTY ALE*',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '6.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '010815'
+	},
+	{
+		ÖLNAMN: 'Liefmans Craft Blended Kriek Brut 2015',
+		BRYGGERI: 'Br. Liefmans',
+		LAND: 'BE',
+		ALKOHOL: '6.0',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '161123'
+	},
+	{
+		ÖLNAMN: 'Lindemans Ginger Gueuze',
+		BRYGGERI: 'Lindemans',
+		LAND: 'BE',
+		ALKOHOL: '6.0',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '180412'
+	},
+	{
+		ÖLNAMN: 'MAREDSOUS BLOND',
+		BRYGGERI: 'ABBAYE MAREDSOUS',
+		LAND: 'BE',
+		ALKOHOL: '6.0',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '090422'
+	},
+	{
+		ÖLNAMN: 'Maredsous Blonde',
+		BRYGGERI: 'Maredsous Br.',
+		LAND: 'BE',
+		ALKOHOL: '6.0',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '190425'
+	},
+	{
+		ÖLNAMN: 'MEANTIME COFFEE',
+		BRYGGERI: 'MEANTIME BR. CO.',
+		LAND: 'GB',
+		ALKOHOL: '6.0',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '060510'
+	},
+	{
+		ÖLNAMN: 'Memento Imperial Sour Ale w Cherry and Cranberry',
+		BRYGGERI: 'Bakunin Br.',
+		LAND: 'LV',
+		ALKOHOL: '6.0',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '190117'
+	},
+	{
+		ÖLNAMN: 'MIKKELER JACKIE BROWN',
+		BRYGGERI: 'MIKKELER',
+		LAND: 'DK',
+		ALKOHOL: '6.0',
+		BETYG: '7.00',
+		DELTAGARE: 3,
+		DATUM: '090722'
+	},
+	{
+		ÖLNAMN: 'Milk Stout Nitro',
+		BRYGGERI: 'Left Hand Br.',
+		LAND: 'US',
+		ALKOHOL: '6.0',
+		BETYG: '5.83',
+		DELTAGARE: 7,
+		DATUM: '190228'
+	},
+	{
+		ÖLNAMN: 'Miss Behave Ale',
+		BRYGGERI: 'Höganäs Br.',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '180118'
+	},
+	{
+		ÖLNAMN: 'Moo-Hoo Chocolate Milk Stout',
+		BRYGGERI: 'Terrapin Beer Co.',
+		LAND: 'US',
+		ALKOHOL: '6.0',
+		BETYG: '7.00',
+		DELTAGARE: 7,
+		DATUM: '160210'
+	},
+	{
+		ÖLNAMN: 'MORBRAZ',
+		BRYGGERI: 'Brasserie MorBraz',
+		LAND: 'FR',
+		ALKOHOL: '6.0',
+		BETYG: '4.00',
+		DELTAGARE: 6,
+		DATUM: '061212'
+	},
+	{
+		ÖLNAMN: 'MR. NEAME´S STRONG ALE',
+		BRYGGERI: 'SHEPHERD NEAME',
+		LAND: 'GB',
+		ALKOHOL: '6.0',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '951114'
+	},
+	{
+		ÖLNAMN: 'MYSINGENS MIDVINTERBRYGD',
+		BRYGGERI: 'NYNÄSHAMNS ÅNGBR.',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '070425'
+	},
+	{
+		ÖLNAMN: 'Nezinomas Krantas',
+		BRYGGERI: 'Raudonu Plyto',
+		LAND: 'LT',
+		ALKOHOL: '6.0',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '170215'
+	},
+	{
+		ÖLNAMN: 'NILS OSCAR COFFEE STOUT*',
+		BRYGGERI: 'NILS OSCAR BRYGGERIER',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '090226'
+	},
+	{
+		ÖLNAMN: 'NILS OSCAR RÖKPORTER',
+		BRYGGERI: 'Nils Oscar Bryggerier',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '7.00',
+		DELTAGARE: 6,
+		DATUM: '080227'
+	},
+	{
+		ÖLNAMN: 'Oude Geueze',
+		BRYGGERI: 'Br. Fonteinen',
+		LAND: 'BE',
+		ALKOHOL: '6.0',
+		BETYG: '8.33',
+		DELTAGARE: 6,
+		DATUM: '150603'
+	},
+	{
+		ÖLNAMN: 'OUDE GUEUZE',
+		BRYGGERI: 'HANSSENS ARTISANAAL',
+		LAND: 'BE',
+		ALKOHOL: '6.0',
+		BETYG: '6.87',
+		DELTAGARE: 6,
+		DATUM: '050823'
+	},
+	{
+		ÖLNAMN: 'OUDE GUEUZE',
+		BRYGGERI: 'BROUWERI 3 FONTEINEN',
+		LAND: 'BE',
+		ALKOHOL: '6.0',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '130109'
+	},
+	{
+		ÖLNAMN: 'OUDE GUEUZE VIEILLE OUD BEERSEL',
+		BRYGGERI: 'BR. OUD BEERSEL',
+		LAND: 'BE',
+		ALKOHOL: '6.0',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '130109'
+	},
+	{
+		ÖLNAMN: 'Oude Kriek - Hansens Artisanal',
+		BRYGGERI: 'Dworp',
+		LAND: 'BE',
+		ALKOHOL: '6.0',
+		BETYG: '8.20',
+		DELTAGARE: 5,
+		DATUM: '161123'
+	},
+	{
+		ÖLNAMN: 'PAULANER OKTEBERFESTBIER',
+		BRYGGERI: 'PAULANER BR. AG',
+		LAND: 'DE',
+		ALKOHOL: '6.0',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '071025'
+	},
+	{
+		ÖLNAMN: 'PAULANER OKTOBERFEST BIER',
+		BRYGGERI: 'PAULANER BR. AG',
+		LAND: 'DE',
+		ALKOHOL: '6.0',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '090923'
+	},
+	{
+		ÖLNAMN: 'PIETRA',
+		BRYGGERI: 'BR. PIETRA',
+		LAND: 'FR',
+		ALKOHOL: '6.0',
+		BETYG: '4.00',
+		DELTAGARE: 6,
+		DATUM: '120111'
+	},
+	{
+		ÖLNAMN: 'Poppy',
+		BRYGGERI: 'Br. de Clerck',
+		LAND: 'FR',
+		ALKOHOL: '6.0',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '141112'
+	},
+	{
+		ÖLNAMN: 'PUNK IPA',
+		BRYGGERI: "ABERDEENSHIRE'S MEGA MICROBR.",
+		LAND: 'SCOT',
+		ALKOHOL: '6.0',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '080507'
+	},
+	{
+		ÖLNAMN: 'RIBES JUBILEUMS ALE',
+		BRYGGERI: 'RIBE BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '6.0',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '110607'
+	},
+	{
+		ÖLNAMN: 'Rodenbach Grand Cru*',
+		BRYGGERI: 'Br. Rodenback',
+		LAND: 'BE',
+		ALKOHOL: '6.0',
+		BETYG: '7.17',
+		DELTAGARE: 6,
+		DATUM: '200704'
+	},
+	{
+		ÖLNAMN: 'ROYAL STOUT',
+		BRYGGERI: 'MEVASHELET HABAIT',
+		LAND: 'IL',
+		ALKOHOL: '6.0',
+		BETYG: '5.33',
+		DELTAGARE: 3,
+		DATUM: '980623'
+	},
+	{
+		ÖLNAMN: 'Råå Kellerbier',
+		BRYGGERI: 'Råå Bryggeri',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '190328'
+	},
+	{
+		ÖLNAMN: 'Sigtuna Winter IPA Organic',
+		BRYGGERI: 'Sigtuna Brygghus',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '131120'
+	},
+	{
+		ÖLNAMN: 'SINGHA*',
+		BRYGGERI: 'BOON RAWD BR. CO., LTD',
+		LAND: 'TH',
+		ALKOHOL: '6.0',
+		BETYG: '3.50',
+		DELTAGARE: 4,
+		DATUM: '980922'
+	},
+	{
+		ÖLNAMN: 'SINGHA*',
+		BRYGGERI: 'BOON RAWD BR. CO., LTD.',
+		LAND: 'TH',
+		ALKOHOL: '6.0',
+		BETYG: '3.40',
+		DELTAGARE: 5,
+		DATUM: '990812'
+	},
+	{
+		ÖLNAMN: 'SKÄRGAARDS PORTER',
+		BRYGGERI: 'NØRREBRO BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '6.0',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '090226'
+	},
+	{
+		ÖLNAMN: 'SLOTH',
+		BRYGGERI: 'AMAGER BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '6.0',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '130417'
+	},
+	{
+		ÖLNAMN: 'Sloth',
+		BRYGGERI: 'Amager Bryghus',
+		LAND: 'DK',
+		ALKOHOL: '6.0',
+		BETYG: '6.14',
+		DELTAGARE: 7,
+		DATUM: '131009'
+	},
+	{
+		ÖLNAMN: 'SOLOGNE BLONDE, Reserve de Chateau',
+		BRYGGERI: 'BR. DE MONCEAU SAINT-WAAST',
+		LAND: 'FR',
+		ALKOHOL: '6.0',
+		BETYG: '3.00',
+		DELTAGARE: 6,
+		DATUM: '0803XX'
+	},
+	{
+		ÖLNAMN: 'South Plains APA',
+		BRYGGERI: 'South Plain Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '150506'
+	},
+	{
+		ÖLNAMN: 'SPECIAL LIMITED AUTUMN BREW',
+		BRYGGERI: 'KIRIN BR.',
+		LAND: 'JP',
+		ALKOHOL: '6.0',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '030115'
+	},
+	{
+		ÖLNAMN: 'STRONG SUFFOLK VINTAGE ALE',
+		BRYGGERI: 'GREEN KING BR.',
+		LAND: 'GB',
+		ALKOHOL: '6.00',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '050112'
+	},
+	{
+		ÖLNAMN: 'Tanker Checkmate Porter',
+		BRYGGERI: '59N Brewing Ou',
+		LAND: 'EE',
+		ALKOHOL: '6.0',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '190516'
+	},
+	{
+		ÖLNAMN: 'TAYBEH BEER DARK',
+		BRYGGERI: 'TAYBEH BR. CO.',
+		LAND: 'IL (W. BANK)',
+		ALKOHOL: '6.0',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '000830'
+	},
+	{
+		ÖLNAMN: 'Tempelier',
+		BRYGGERI: 'Br. Corsendonk',
+		LAND: 'BE',
+		ALKOHOL: '6.0',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '200514'
+	},
+	{
+		ÖLNAMN: 'Tepache',
+		BRYGGERI: 'The Wild Beer Co.',
+		LAND: 'UK',
+		ALKOHOL: '6.0',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '180412'
+	},
+	{
+		ÖLNAMN: 'USHERS 1824 PARTICULAR',
+		BRYGGERI: 'USHERS OF TROWBRIDGE PLC',
+		LAND: 'GB',
+		ALKOHOL: '6.0',
+		BETYG: '7.80',
+		DELTAGARE: 5,
+		DATUM: '981005'
+	},
+	{
+		ÖLNAMN: 'USHERS TAWNY ALE (1997 VINTAGE)',
+		BRYGGERI: 'USHERS OF TROWBRIDGE PLC',
+		LAND: 'GB',
+		ALKOHOL: '6.0',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '981005'
+	},
+	{
+		ÖLNAMN: 'Voluptuosa The Black Truffle Beer',
+		BRYGGERI: 'Cervesa Artensanal La Socarrada',
+		LAND: 'ES',
+		ALKOHOL: '6.0',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '150408'
+	},
+	{
+		ÖLNAMN: 'WISBY KLOSTERÖL*',
+		BRYGGERI: 'GOTLANDS BRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '960716'
+	},
+	{
+		ÖLNAMN: 'WISBY KLOSTERÖL*',
+		BRYGGERI: 'GOTLANDS BRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '7.80',
+		DELTAGARE: 5,
+		DATUM: '961021'
+	},
+	{
+		ÖLNAMN: 'WISBY KLOSTERÖL*',
+		BRYGGERI: 'GOTLANDS BRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '971203'
+	},
+	{
+		ÖLNAMN: 'ØLSMEDEN',
+		BRYGGERI: 'SLOTSBRYGGERIET FØNIKS',
+		LAND: 'DK',
+		ALKOHOL: '6.0',
+		BETYG: '4.67',
+		DELTAGARE: 6,
+		DATUM: '110707'
+	},
+	{
+		ÖLNAMN: 'A LA CHICORÉE Page 24',
+		BRYGGERI: 'BR. S:T GERMAIN',
+		LAND: 'FR',
+		ALKOHOL: '5.9',
+		BETYG: '4.17',
+		DELTAGARE: 6,
+		DATUM: '111123'
+	},
+	{
+		ÖLNAMN: 'A LA RHUBARBE Page 24',
+		BRYGGERI: 'BR. S:T GERMAIN',
+		LAND: 'FR',
+		ALKOHOL: '5.9',
+		BETYG: '3.33',
+		DELTAGARE: 6,
+		DATUM: '111123'
+	},
+	{
+		ÖLNAMN: 'Biere de Rose',
+		BRYGGERI: 'Åre Bryggcompagni',
+		LAND: 'SE',
+		ALKOHOL: '5.9',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '161208'
+	},
+	{
+		ÖLNAMN: 'BOWMORE FEIS ILA',
+		BRYGGERI: 'THE  BREWERY ISLAY HOUSE',
+		LAND: 'SCOT',
+		ALKOHOL: '5.9',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '130918'
+	},
+	{
+		ÖLNAMN: 'DAI VIET BIA DEN',
+		BRYGGERI: 'SENPRODIMEX',
+		LAND: 'VN',
+		ALKOHOL: '5.9',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '100310'
+	},
+	{
+		ÖLNAMN: 'DESPERADOS*',
+		BRYGGERI: 'BR. FISCHER',
+		LAND: 'FR',
+		ALKOHOL: '5.9',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '011107'
+	},
+	{
+		ÖLNAMN: 'DESPERADOS*',
+		BRYGGERI: 'BR. FISCHER',
+		LAND: 'FR',
+		ALKOHOL: '5.9',
+		BETYG: '2.25',
+		DELTAGARE: 4,
+		DATUM: '970204'
+	},
+	{
+		ÖLNAMN: "Fuller's ESB",
+		BRYGGERI: 'Fuller, Smith & Turner',
+		LAND: 'GB',
+		ALKOHOL: '5.9',
+		BETYG: '6.28',
+		DELTAGARE: 7,
+		DATUM: '131211'
+	},
+	{
+		ÖLNAMN: "FULLER'S ESB*",
+		BRYGGERI: 'FULLER, SMITH & TURNER',
+		LAND: 'GB',
+		ALKOHOL: '5.9',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '061115'
+	},
+	{
+		ÖLNAMN: 'FULLER´S ESB EXPORT*',
+		BRYGGERI: 'GRIFFIN BREWERIES',
+		LAND: 'GB',
+		ALKOHOL: '5.9',
+		BETYG: '8.50',
+		DELTAGARE: 4,
+		DATUM: '940609'
+	},
+	{
+		ÖLNAMN: 'FULLER´S ESB EXPORT*',
+		BRYGGERI: 'GRIFFIN BREWERIES',
+		LAND: 'GB',
+		ALKOHOL: '5.9',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '950522'
+	},
+	{
+		ÖLNAMN: 'FULLER´S ESB EXPORT*',
+		BRYGGERI: 'GRIFFIN BREWERIES',
+		LAND: 'GB',
+		ALKOHOL: '5.9',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '951128'
+	},
+	{
+		ÖLNAMN: 'Grebbestad Saison',
+		BRYGGERI: 'GREBBESTAD BR. AB',
+		LAND: 'SE',
+		ALKOHOL: '5.9',
+		BETYG: '5.50',
+		DELTAGARE: 5,
+		DATUM: '180816'
+	},
+	{
+		ÖLNAMN: 'HARBOE BEER GULDØL',
+		BRYGGERI: 'HARBOE',
+		LAND: 'DK',
+		ALKOHOL: '5.9',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '960123'
+	},
+	{
+		ÖLNAMN: 'HARBOE JULEBRYG',
+		BRYGGERI: 'HARBOE',
+		LAND: 'DK',
+		ALKOHOL: '5.9',
+		BETYG: '5.00',
+		DELTAGARE: 3,
+		DATUM: '940120'
+	},
+	{
+		ÖLNAMN: 'JAIPUR',
+		BRYGGERI: 'THORNBRIDGE',
+		LAND: 'UK',
+		ALKOHOL: '5.9',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '130417'
+	},
+	{
+		ÖLNAMN: 'LA VERTE AU GENEPI',
+		BRYGGERI: 'BRASSERIE DU MT BLANC',
+		LAND: 'FR',
+		ALKOHOL: '5.9',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '130821'
+	},
+	{
+		ÖLNAMN: 'MIKKELLER JACKIE BROWN',
+		BRYGGERI: 'MIKKELLER/DE PROEF BR.',
+		LAND: 'BE',
+		ALKOHOL: '5.9',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '110707'
+	},
+	{
+		ÖLNAMN: 'Nils Oscar Rökporter',
+		BRYGGERI: 'NIls Oscar Br.',
+		LAND: 'SE',
+		ALKOHOL: '5.9',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '200213'
+	},
+	{
+		ÖLNAMN: 'OKTOBERFESTBIER SPATEN MÜNCHEN',
+		BRYGGERI: 'SPATEN FRANZISKANER BRÄU',
+		LAND: 'DE',
+		ALKOHOL: '5.9',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '071025'
+	},
+	{
+		ÖLNAMN: 'Oppigårds Amarillo',
+		BRYGGERI: 'Oppigård Br.',
+		LAND: 'SE',
+		ALKOHOL: '5.9',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '141210'
+	},
+	{
+		ÖLNAMN: 'OPPIGÅRDS AMARILLO ',
+		BRYGGERI: 'OPPIGÅRDS BRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '5.9',
+		BETYG: '7.00',
+		DELTAGARE: 8,
+		DATUM: '120815'
+	},
+	{
+		ÖLNAMN: 'OPPIGÅRDS STARKPORTER*',
+		BRYGGERI: 'OPPIGÅRDS BRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '5.9',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '090226'
+	},
+	{
+		ÖLNAMN: 'OPPIGÅRDS STARKPORTER*',
+		BRYGGERI: 'OPPIGÅRD BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.9',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '111214'
+	},
+	{
+		ÖLNAMN: 'Piersëch',
+		BRYGGERI: 'Monpiër de Gherdënia',
+		LAND: 'IT',
+		ALKOHOL: '5.9',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '191017'
+	},
+	{
+		ÖLNAMN: 'PISTE NOIR, BIÉRE AMBRÉ',
+		BRYGGERI: 'Br. Des cimes aix les bains',
+		LAND: 'FR',
+		ALKOHOL: '5.9',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '021128'
+	},
+	{
+		ÖLNAMN: 'Piste Noire',
+		BRYGGERI: 'Br. des Cimes',
+		LAND: 'FR',
+		ALKOHOL: '5.9',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '140813'
+	},
+	{
+		ÖLNAMN: 'PORTER ÅRGÅNG 2007',
+		BRYGGERI: 'MARIESTADS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.9',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '080116'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S SCOTCH ALE',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '5.9',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '960213'
+	},
+	{
+		ÖLNAMN: 'SEA DOG HAZELNUT PORTER',
+		BRYGGERI: 'SEA DOG BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.9',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '981116'
+	},
+	{
+		ÖLNAMN: 'SIERRA NEVADA ANNIVERSARY ALE',
+		BRYGGERI: 'SIERRA NEVADA BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '5.9',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '071212'
+	},
+	{
+		ÖLNAMN: 'SOLOGNE MIEL',
+		BRYGGERI: 'BR. DE MONCEAU SAINT-WAAST',
+		LAND: 'FR',
+		ALKOHOL: '5.9',
+		BETYG: '4.17',
+		DELTAGARE: 6,
+		DATUM: '0803XX'
+	},
+	{
+		ÖLNAMN: 'Spaten Oktoberfestbier',
+		BRYGGERI: 'Spaten-Franziskaner Bräu',
+		LAND: 'DE',
+		ALKOHOL: '5.9',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '190912'
+	},
+	{
+		ÖLNAMN: 'UL FUR IPA NR 3',
+		BRYGGERI: 'BORG BRUGGHUS',
+		LAND: 'IS',
+		ALKOHOL: '5.9',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '121212'
+	},
+	{
+		ÖLNAMN: 'X.O. BEER',
+		BRYGGERI: 'L & LS.A.S.',
+		LAND: 'FR',
+		ALKOHOL: '5.9',
+		BETYG: '4.14',
+		DELTAGARE: 7,
+		DATUM: '040630'
+	},
+	{
+		ÖLNAMN: 'Alt Irlbacher Dunkel',
+		BRYGGERI: 'Schlossbrauerei Irlbach',
+		LAND: 'DE',
+		ALKOHOL: '5.8',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '121010'
+	},
+	{
+		ÖLNAMN: 'ANCHOR CHRISTMAS BEER 1996',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.8',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '970121'
+	},
+	{
+		ÖLNAMN: 'ANCHOR CHRISTMAS BEER 1998',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.8',
+		BETYG: '8.50',
+		DELTAGARE: 4,
+		DATUM: '001122'
+	},
+	{
+		ÖLNAMN: 'AYINGER UR-WEIßE*',
+		BRYGGERI: 'PRIVATBR. AYINGER',
+		LAND: 'DE',
+		ALKOHOL: '5.8',
+		BETYG: '7.50',
+		DELTAGARE: 4,
+		DATUM: '960620'
+	},
+	{
+		ÖLNAMN: 'Birra Saison Wasan',
+		BRYGGERI: 'Baladin',
+		LAND: 'IT',
+		ALKOHOL: '5.8',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '141015'
+	},
+	{
+		ÖLNAMN: 'BISON GULDÖL',
+		BRYGGERI: 'THISTED BRYGGHUS',
+		LAND: 'DK',
+		ALKOHOL: '5.8',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '9801..'
+	},
+	{
+		ÖLNAMN: 'BLACK JACK PORTER',
+		BRYGGERI: 'LEFT HAND BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '5.8',
+		BETYG: '7.14',
+		DELTAGARE: 7,
+		DATUM: '070919'
+	},
+	{
+		ÖLNAMN: 'BLACK JACK PORTER',
+		BRYGGERI: 'LEFT HAND BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '5.8',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '080227'
+	},
+	{
+		ÖLNAMN: 'BØGEDAL No. 202',
+		BRYGGERI: 'BØGEDAL',
+		LAND: 'DK',
+		ALKOHOL: '5.8',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '110707'
+	},
+	{
+		ÖLNAMN: 'CARLSBERG RED X',
+		BRYGGERI: 'CARLSBERG',
+		LAND: 'DK',
+		ALKOHOL: '5.8',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '961112'
+	},
+	{
+		ÖLNAMN: 'CERES ROYAL ALL MALT',
+		BRYGGERI: 'CERES BR.',
+		LAND: 'DK',
+		ALKOHOL: '5.8',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '001018'
+	},
+	{
+		ÖLNAMN: 'CERES ROYAL EXPORT ',
+		BRYGGERI: 'CERES BR.',
+		LAND: 'DK',
+		ALKOHOL: '5.8',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '001018'
+	},
+	{
+		ÖLNAMN: 'COOPERS SPARKLING ALE',
+		BRYGGERI: 'COOPERS BR. LTD.',
+		LAND: 'AU',
+		ALKOHOL: '5.8',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '960411'
+	},
+	{
+		ÖLNAMN: 'Flygande Tunnan',
+		BRYGGERI: 'Lundabryggeriet',
+		LAND: 'SE',
+		ALKOHOL: '5.8',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '140409'
+	},
+	{
+		ÖLNAMN: 'FÖROYA BJÖR BLACK SHEEP',
+		BRYGGERI: 'FÖROYA Bjór',
+		LAND: 'FO',
+		ALKOHOL: '5.8',
+		BETYG: '5.14',
+		DELTAGARE: 7,
+		DATUM: '130206'
+	},
+	{
+		ÖLNAMN: 'FÖROYA BJÖR GREEN ISLAND STOUT',
+		BRYGGERI: 'FÖROYA Bjór',
+		LAND: 'FO',
+		ALKOHOL: '5.8',
+		BETYG: '5.72',
+		DELTAGARE: 7,
+		DATUM: '130206'
+	},
+	{
+		ÖLNAMN: 'FÖROYA BJÖR GULL',
+		BRYGGERI: 'FÖROYA Bjór',
+		LAND: 'FO',
+		ALKOHOL: '5.8',
+		BETYG: '5.72',
+		DELTAGARE: 7,
+		DATUM: '130206'
+	},
+	{
+		ÖLNAMN: 'FÖROYA BJÖR SLUPP ÖL',
+		BRYGGERI: 'FÖROYA Bjór',
+		LAND: 'FO',
+		ALKOHOL: '5.8',
+		BETYG: '4.72',
+		DELTAGARE: 7,
+		DATUM: '130206'
+	},
+	{
+		ÖLNAMN: 'HR. SKOVS SOMMERFRISK',
+		BRYGGERI: 'DET LILLE BRYGGERI',
+		LAND: 'DK',
+		ALKOHOL: '5.8',
+		BETYG: '5.67',
+		DELTAGARE: 5,
+		DATUM: '130619'
+	},
+	{
+		ÖLNAMN: 'HØSTBRYG',
+		BRYGGERI: 'THISTED BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '5.8',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '071121'
+	},
+	{
+		ÖLNAMN: 'JACOBSEN DARK LAGER',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '5.8',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '070124'
+	},
+	{
+		ÖLNAMN: 'LONGFELLOW WINTER ALE',
+		BRYGGERI: 'SHIPYARD BR.',
+		LAND: 'US',
+		ALKOHOL: '5.8',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '061115'
+	},
+	{
+		ÖLNAMN: "MARTIN'S PALE ALE",
+		BRYGGERI: 'N.V. JOHN MARTIN S.A.',
+		LAND: 'BE?',
+		ALKOHOL: '5.8',
+		BETYG: '6.29',
+		DELTAGARE: 7,
+		DATUM: '040630'
+	},
+	{
+		ÖLNAMN: 'MÖRK GULD',
+		BRYGGERI: 'BRYGHUSET SVANEKE',
+		LAND: 'DK',
+		ALKOHOL: '5.8',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '041026'
+	},
+	{
+		ÖLNAMN: 'NATURAL MYSTICK',
+		BRYGGERI: '',
+		LAND: 'FR',
+		ALKOHOL: '5.8',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '100728'
+	},
+	{
+		ÖLNAMN: 'NEW STOUT',
+		BRYGGERI: 'BRYGGERIET SKANDS',
+		LAND: 'DK',
+		ALKOHOL: '5.8',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '041026'
+	},
+	{
+		ÖLNAMN: 'OstronPorter',
+		BRYGGERI: 'GREBBESTAD BR. AB',
+		LAND: 'SE',
+		ALKOHOL: '5.8',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '160316'
+	},
+	{
+		ÖLNAMN: 'Pax Citra Pale Ale',
+		BRYGGERI: 'Paxbrygghus',
+		LAND: 'SE',
+		ALKOHOL: '5.8',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '180118'
+	},
+	{
+		ÖLNAMN: 'PORSE GULD',
+		BRYGGERI: 'THISTED BRYGGHUS',
+		LAND: 'DK',
+		ALKOHOL: '5.8',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '081022'
+	},
+	{
+		ÖLNAMN: 'POSTILJON ESB',
+		BRYGGERI: 'JÄMTLANDS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.8',
+		BETYG: '7.75',
+		DELTAGARE: 4,
+		DATUM: '001122'
+	},
+	{
+		ÖLNAMN: 'PUMPVIKENS PÅSKÖL',
+		BRYGGERI: 'NYNÄSHAMNS ÅNGBR.',
+		LAND: 'SE',
+		ALKOHOL: '5.8',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '070425'
+	},
+	{
+		ÖLNAMN: 'PUMPVIKENS PÅSKÖL',
+		BRYGGERI: 'NYNÄSHAMNS ÅNGBR.',
+		LAND: 'SE',
+		ALKOHOL: '5.8',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '100421'
+	},
+	{
+		ÖLNAMN: 'RIPON JEWEL',
+		BRYGGERI: 'DALESIDE BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.8',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '060118'
+	},
+	{
+		ÖLNAMN: 'ROYAL EXPORT',
+		BRYGGERI: 'CERES BR.',
+		LAND: 'DK',
+		ALKOHOL: '5.8',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '000216'
+	},
+	{
+		ÖLNAMN: 'Röde Orm 7',
+		BRYGGERI: 'Lundabryggeriet',
+		LAND: 'SE',
+		ALKOHOL: '5.8',
+		BETYG: '6.42',
+		DELTAGARE: 7,
+		DATUM: '160210'
+	},
+	{
+		ÖLNAMN: "SAMUEL ADAM'S HOLIDAY PORTER",
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '5.8',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '080227'
+	},
+	{
+		ÖLNAMN: 'SKANDS NEW STOUT',
+		BRYGGERI: 'BRYGGERIET SKANDS',
+		LAND: 'DK',
+		ALKOHOL: '5.8',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '051011'
+	},
+	{
+		ÖLNAMN: 'SORT GULD*',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '5.8',
+		BETYG: '5.67',
+		DELTAGARE: 3,
+		DATUM: '0006'
+	},
+	{
+		ÖLNAMN: 'SORT GULD*',
+		BRYGGERI: 'CARLBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '5.8',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '960123'
+	},
+	{
+		ÖLNAMN: 'SUPERBOCK',
+		BRYGGERI: 'UNICER',
+		LAND: 'PT',
+		ALKOHOL: '5.8',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '000417'
+	},
+	{
+		ÖLNAMN: 'THY ØKOLOGISK PILSNER',
+		BRYGGERI: 'THISTED BRYGGHUS',
+		LAND: 'DK',
+		ALKOHOL: '5.8',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '081022'
+	},
+	{
+		ÖLNAMN: 'TUBORG GULD',
+		BRYGGERI: 'TUBORG',
+		LAND: 'DK',
+		ALKOHOL: '5.8',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '960123'
+	},
+	{
+		ÖLNAMN: 'VINTERNATTENS LJUS',
+		BRYGGERI: 'GÅRDSBRYGGERIET PÅ STOCKBODA',
+		LAND: 'SE',
+		ALKOHOL: '5.8',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '110309'
+	},
+	{
+		ÖLNAMN: 'Aegte Fynsk Az Ale nr 16',
+		BRYGGERI: 'Refsvindinge bryggeri',
+		LAND: 'DK',
+		ALKOHOL: '5.7',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '030922'
+	},
+	{
+		ÖLNAMN: 'AZ ALE No 16',
+		BRYGGERI: 'BR. REFSVINDINGE',
+		LAND: 'DK',
+		ALKOHOL: '5.7',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '051011'
+	},
+	{
+		ÖLNAMN: 'CHOKO STOUT',
+		BRYGGERI: 'BRYGHUSET SVANEKE',
+		LAND: 'DK',
+		ALKOHOL: '5.7',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '091014'
+	},
+	{
+		ÖLNAMN: 'EGILS PREMIUM EXPORT',
+		BRYGGERI: 'EGIL SKALLAGRIMSON hf',
+		LAND: 'IS',
+		ALKOHOL: '5.7',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '090325'
+	},
+	{
+		ÖLNAMN: 'ERDINGER OKTOBERFESTBIER',
+		BRYGGERI: 'ERDINGER BR.',
+		LAND: 'DE',
+		ALKOHOL: '5.7',
+		BETYG: '4.67',
+		DELTAGARE: 6,
+		DATUM: '071025'
+	},
+	{
+		ÖLNAMN: 'Fruit Wit Sour - Barrel Aged',
+		BRYGGERI: 'Monpiër de Gherdënia',
+		LAND: 'IT',
+		ALKOHOL: '5.7',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '191017'
+	},
+	{
+		ÖLNAMN: 'Giesingen Märzen',
+		BRYGGERI: 'Giesinger Bräu',
+		LAND: 'DE',
+		ALKOHOL: '5.7',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '190613'
+	},
+	{
+		ÖLNAMN: 'HANCOCK BEER',
+		BRYGGERI: 'HANCOCK BR.',
+		LAND: 'DK',
+		ALKOHOL: '5.7',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '941115'
+	},
+	{
+		ÖLNAMN: 'Hirond Ale',
+		BRYGGERI: 'Br. Dupont',
+		LAND: 'BE',
+		ALKOHOL: '5.7',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '180816'
+	},
+	{
+		ÖLNAMN: 'Höglwörther Festbier ',
+		BRYGGERI: 'Privatbr. M.C. Wieninger',
+		LAND: 'DE',
+		ALKOHOL: '5.7',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '190912'
+	},
+	{
+		ÖLNAMN: 'HØSTBRYG',
+		BRYGGERI: 'BRYGHUSET SVANEKE',
+		LAND: 'DK',
+		ALKOHOL: '5.7',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '091014'
+	},
+	{
+		ÖLNAMN: 'KRUDTUGLE GULD',
+		BRYGGERI: 'MARIBO',
+		LAND: 'DK',
+		ALKOHOL: '5.7',
+		BETYG: '3.50',
+		DELTAGARE: 4,
+		DATUM: '941115'
+	},
+	{
+		ÖLNAMN: 'KYLLE KYLLE',
+		BRYGGERI: 'TUBORG',
+		LAND: 'DK',
+		ALKOHOL: '5.7',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '940407'
+	},
+	{
+		ÖLNAMN: "MARSTON'S OLD EMPIRE",
+		BRYGGERI: "MARSTON'S BR.",
+		LAND: 'GB',
+		ALKOHOL: '5.7',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '050406'
+	},
+	{
+		ÖLNAMN: "Mountain Livin' Pale Ale",
+		BRYGGERI: 'Crazy Mountain Br Co.',
+		LAND: 'US',
+		ALKOHOL: '5.7',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '140507'
+	},
+	{
+		ÖLNAMN: 'MØRK GULD',
+		BRYGGERI: 'BRYGHUSET SVANEKE',
+		LAND: 'DK',
+		ALKOHOL: '5.7',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '091014'
+	},
+	{
+		ÖLNAMN: 'PRINS KRISTIAN',
+		BRYGGERI: 'VESTFYNS BR.',
+		LAND: 'DK',
+		ALKOHOL: '5.7',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '961112'
+	},
+	{
+		ÖLNAMN: 'RIGGWELTER',
+		BRYGGERI: 'BLACK SHEEP BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.7',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '011212'
+	},
+	{
+		ÖLNAMN: 'Rogue Fresh Roast',
+		BRYGGERI: 'Rogue Ales Br.',
+		LAND: 'US',
+		ALKOHOL: '5.7',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '180308'
+	},
+	{
+		ÖLNAMN: 'ROGUE MOCHA PORTER',
+		BRYGGERI: 'ROGUE ALES NEWPORT',
+		LAND: 'US',
+		ALKOHOL: '5.7',
+		BETYG: '7.00',
+		DELTAGARE: 6,
+		DATUM: '060510'
+	},
+	{
+		ÖLNAMN: 'Saison Noble',
+		BRYGGERI: 'Brekeriet',
+		LAND: 'SE',
+		ALKOHOL: '5.7',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '180906'
+	},
+	{
+		ÖLNAMN: 'South Plains GB Golden Bitter',
+		BRYGGERI: 'South Plain Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '5.7',
+		BETYG: '6.67',
+		DELTAGARE: 5,
+		DATUM: '150506'
+	},
+	{
+		ÖLNAMN: 'STOUT',
+		BRYGGERI: 'BRYGHUSET SVANEKE',
+		LAND: 'DK',
+		ALKOHOL: '5.7',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '091014'
+	},
+	{
+		ÖLNAMN: 'Surpene',
+		BRYGGERI: 'Tempel Brygghus',
+		LAND: 'SE',
+		ALKOHOL: '5.7',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '161208'
+	},
+	{
+		ÖLNAMN: 'WIIBROE FLAG',
+		BRYGGERI: 'WIIBROE BR.',
+		LAND: 'DK',
+		ALKOHOL: '5.7',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '941115'
+	},
+	{
+		ÖLNAMN: 'AASS AMBER',
+		BRYGGERI: 'AASS',
+		LAND: 'NO',
+		ALKOHOL: '5.6',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '930505'
+	},
+	{
+		ÖLNAMN: 'Alexander Rodenbach',
+		BRYGGERI: 'Br. Rodenbach',
+		LAND: 'BE',
+		ALKOHOL: '5.6',
+		BETYG: '8.00',
+		DELTAGARE: 6,
+		DATUM: '181112'
+	},
+	{
+		ÖLNAMN: 'ANCHOR CHRISTMAS BEER 1993',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.6',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '960116'
+	},
+	{
+		ÖLNAMN: 'ANCHOR CHRISTMAS BEER 1994',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.6',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '941215'
+	},
+	{
+		ÖLNAMN: 'ANCHOR PORTER*',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.6',
+		BETYG: '7.17',
+		DELTAGARE: 6,
+		DATUM: '031209'
+	},
+	{
+		ÖLNAMN: 'APOLDAER',
+		BRYGGERI: 'THÜRLINGEN VEREINSBR.',
+		LAND: 'DE',
+		ALKOHOL: '5.6',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '940801'
+	},
+	{
+		ÖLNAMN: 'APPELTOFFTS JUBILEUM EXPORT',
+		BRYGGERI: 'APPELTOFFTSKA',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '950608'
+	},
+	{
+		ÖLNAMN: 'BANCO JULÖL ´93',
+		BRYGGERI: 'BANCO BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '931202'
+	},
+	{
+		ÖLNAMN: 'BANCO JULÖL ´95',
+		BRYGGERI: 'BANCO BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '951214'
+	},
+	{
+		ÖLNAMN: 'BANCO WERDE',
+		BRYGGERI: 'BANCO BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.00',
+		DELTAGARE: 3,
+		DATUM: '941027'
+	},
+	{
+		ÖLNAMN: 'BASS PALE ALE*',
+		BRYGGERI: 'BASS',
+		LAND: 'GB',
+		ALKOHOL: '5.6',
+		BETYG: '7.25',
+		DELTAGARE: 4,
+		DATUM: '931111'
+	},
+	{
+		ÖLNAMN: 'BASS PALE ALE*',
+		BRYGGERI: 'BASS',
+		LAND: 'GB',
+		ALKOHOL: '5.6',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '940215'
+	},
+	{
+		ÖLNAMN: 'BERLINER FASS',
+		BRYGGERI: 'APPELTOFTSKA',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.50',
+		DELTAGARE: 4,
+		DATUM: '930421'
+	},
+	{
+		ÖLNAMN: 'Birra Speciale Rossa Non Filtrata',
+		BRYGGERI: 'Mastri Birrai Umbri',
+		LAND: 'IT',
+		ALKOHOL: '5.6',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '171115'
+	},
+	{
+		ÖLNAMN: 'BITBURGER*',
+		BRYGGERI: 'BITBURGER BRAUEREI',
+		LAND: 'DE',
+		ALKOHOL: '5.6',
+		BETYG: '5.67',
+		DELTAGARE: 3,
+		DATUM: '941027'
+	},
+	{
+		ÖLNAMN: 'BULLEPHANT',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '940203'
+	},
+	{
+		ÖLNAMN: 'CALENBERGERS SPEZIAL PREMIUM',
+		BRYGGERI: 'GILDE BR.',
+		LAND: 'DE',
+		ALKOHOL: '5.6',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '950220'
+	},
+	{
+		ÖLNAMN: 'CARLSBERG PÅSKE BRYG*',
+		BRYGGERI: 'FALKEN (licens)',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '940407'
+	},
+	{
+		ÖLNAMN: 'CARLSBERG SORT GULD',
+		BRYGGERI: 'FALCON (licens)',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '940324'
+	},
+	{
+		ÖLNAMN: 'CARLSKRONA EXPORT BEER',
+		BRYGGERI: 'BANCO BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '940308'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNGSPORTER 1985',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '980429'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNGSPORTER 1986',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '980429'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNGSPORTER 1987*',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '8.00',
+		DELTAGARE: 3,
+		DATUM: '940120'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNGSPORTER 1987*',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '970707'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNGSPORTER 1987*',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '980429'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNGSPORTER 1988*',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '8.33',
+		DELTAGARE: 3,
+		DATUM: '940330'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNGSPORTER 1988*',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '970707'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNGSPORTER 1988*',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '1.80',
+		DELTAGARE: 5,
+		DATUM: '980429'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNGSPORTER 1989*',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '7.00',
+		DELTAGARE: 3,
+		DATUM: '940330'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNGSPORTER 1989*',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '950501'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNGSPORTER 1989*',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.60',
+		DELTAGARE: 5,
+		DATUM: '980429'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNGSPORTER 1990',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '980429'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNGSPORTER 1993',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.00',
+		DELTAGARE: 3,
+		DATUM: '940120'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNGSPORTER 1994*',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.67',
+		DELTAGARE: 3,
+		DATUM: '940421'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNGSPORTER 1994*',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '950501'
+	},
+	{
+		ÖLNAMN: 'DALA STARK',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '940203'
+	},
+	{
+		ÖLNAMN: 'DARK LABEL ',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '930414'
+	},
+	{
+		ÖLNAMN: 'DAS FEINE HOFMARK',
+		BRYGGERI: 'HOFMARK BR.',
+		LAND: 'DE',
+		ALKOHOL: '5.6',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '970610'
+	},
+	{
+		ÖLNAMN: 'DE KONINCK*',
+		BRYGGERI: 'BR. DE KONINCK',
+		LAND: 'BE',
+		ALKOHOL: '5.6',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '940315'
+	},
+	{
+		ÖLNAMN: 'DIEBELS ALT*',
+		BRYGGERI: 'PRIVATBRAUEREI DIEBELS',
+		LAND: 'DE',
+		ALKOHOL: '5.6',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '940315'
+	},
+	{
+		ÖLNAMN: 'EGILS MALTBJÖR',
+		BRYGGERI: 'EGIL SKALLAGRIMSON hf',
+		LAND: 'IS',
+		ALKOHOL: '5.6',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '090325'
+	},
+	{
+		ÖLNAMN: 'Einstök Ölgerd Icelandic Pale Ale',
+		BRYGGERI: 'Einstök Beer Co.',
+		LAND: 'IS',
+		ALKOHOL: '5.6',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '150408'
+	},
+	{
+		ÖLNAMN: 'EKU KRISTALL WEISSBIER KLAR',
+		BRYGGERI: 'DEININGER KRONENBR. HOF',
+		LAND: 'DE',
+		ALKOHOL: '5.6',
+		BETYG: '5.00',
+		DELTAGARE: 3,
+		DATUM: '941006'
+	},
+	{
+		ÖLNAMN: 'Electric Nurse Winter Brown Ale',
+		BRYGGERI: 'Dugges Ale och Por Br. AB',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '160113'
+	},
+	{
+		ÖLNAMN: 'ERDINGER WEISSBIER DUNKEL*',
+		BRYGGERI: 'PRIVATBRAUEREI ERDINGER WEISSBR.',
+		LAND: 'DE',
+		ALKOHOL: '5.6',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '081008'
+	},
+	{
+		ÖLNAMN: 'ERDINGER WEISSBIER DUNKEL*',
+		BRYGGERI: 'ERDINGER WEIßBRÄU',
+		LAND: 'DE',
+		ALKOHOL: '5.6',
+		BETYG: '4.67',
+		DELTAGARE: 3,
+		DATUM: '941006'
+	},
+	{
+		ÖLNAMN: 'ERDINGER WEISSBIER DUNKEL*',
+		BRYGGERI: 'ERDINGER WEIßBRÄU',
+		LAND: 'DE',
+		ALKOHOL: '5.6',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '951017'
+	},
+	{
+		ÖLNAMN: 'ERDINGER WEISSBIER DUNKEL*',
+		BRYGGERI: 'ERDINGER WEIßBRÄU',
+		LAND: 'DE',
+		ALKOHOL: '5.6',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '981207'
+	},
+	{
+		ÖLNAMN: 'FALCON BAYERSKT',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.90',
+		DELTAGARE: 5,
+		DATUM: '930414'
+	},
+	{
+		ÖLNAMN: 'FALCON EXPORT*',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '940127'
+	},
+	{
+		ÖLNAMN: 'FALCON EXPORT*',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '940324'
+	},
+	{
+		ÖLNAMN: 'FALCON EXPORT*',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.67',
+		DELTAGARE: 6,
+		DATUM: '950608'
+	},
+	{
+		ÖLNAMN: 'FALCON GAMMELBRYGD 1992',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '950328'
+	},
+	{
+		ÖLNAMN: 'FALCON JULBRYGD ´93',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.40',
+		DELTAGARE: 5,
+		DATUM: '931202'
+	},
+	{
+		ÖLNAMN: 'FIFTY/FIFTY',
+		BRYGGERI: 'Spendrups/Maclay´s',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '940407'
+	},
+	{
+		ÖLNAMN: 'FIFTY/FIFTY*',
+		BRYGGERI: 'Spendrups/Sam. Smith´s',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '931111'
+	},
+	{
+		ÖLNAMN: 'FIFTY/FIFTY*',
+		BRYGGERI: 'Spendrups/Sam. Smith´s',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '940407'
+	},
+	{
+		ÖLNAMN: 'FIRE ROTECKIE CIEMNE',
+		BRYGGERI: 'BROWAR CZARNKOW',
+		LAND: 'PL',
+		ALKOHOL: '5.6',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '120906'
+	},
+	{
+		ÖLNAMN: 'FRIS & FRUITIG',
+		BRYGGERI: 'BROUWERIJ DE MOLEN',
+		LAND: 'NL',
+		ALKOHOL: '5.6',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '100210'
+	},
+	{
+		ÖLNAMN: 'Frölunda IPA',
+		BRYGGERI: 'Göteborgs Nya Br.',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: 'FULLER´S LONDON PRIDE',
+		BRYGGERI: 'GRIFFIN BREWERIES',
+		LAND: 'GB',
+		ALKOHOL: '5.6',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '940215'
+	},
+	{
+		ÖLNAMN: 'GAFFEL KÖLSCH ',
+		BRYGGERI: 'GAFFEL',
+		LAND: 'DE',
+		ALKOHOL: '5.6',
+		BETYG: '4.00',
+		DELTAGARE: 3,
+		DATUM: '930428'
+	},
+	{
+		ÖLNAMN: 'GAMMELBRYGGD 1992',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '970218'
+	},
+	{
+		ÖLNAMN: 'GAMMELBRYGGD 1993',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '970218'
+	},
+	{
+		ÖLNAMN: 'GAMMELBRYGGD 1994',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '970218'
+	},
+	{
+		ÖLNAMN: 'GAMMELBRYGGD 1995',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '970218'
+	},
+	{
+		ÖLNAMN: 'GILDE PILSENER',
+		BRYGGERI: 'GILDE BRAUEREI',
+		LAND: 'DE',
+		ALKOHOL: '5.6',
+		BETYG: '7.00',
+		DELTAGARE: 3,
+		DATUM: '941027'
+	},
+	{
+		ÖLNAMN: 'GIRAF GOLD*',
+		BRYGGERI: 'ALBANI BR.',
+		LAND: 'DK',
+		ALKOHOL: '5.6',
+		BETYG: '2.25',
+		DELTAGARE: 4,
+		DATUM: '941115'
+	},
+	{
+		ÖLNAMN: 'GIRAF GOLD*',
+		BRYGGERI: 'ALBANI BR.',
+		LAND: 'DK',
+		ALKOHOL: '5.6',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '960123'
+	},
+	{
+		ÖLNAMN: 'GROLSCH*',
+		BRYGGERI: 'BR. GROENLO',
+		LAND: 'NL',
+		ALKOHOL: '5.6',
+		BETYG: '4.67',
+		DELTAGARE: 3,
+		DATUM: '940503'
+	},
+	{
+		ÖLNAMN: 'GROLSCH*',
+		BRYGGERI: 'GROLSCHE BR.',
+		LAND: 'NL',
+		ALKOHOL: '5.6',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '950220'
+	},
+	{
+		ÖLNAMN: 'GÖSSER',
+		BRYGGERI: 'ÅBRO, licensbryggt',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '931012'
+	},
+	{
+		ÖLNAMN: 'GÖSSER GOLD',
+		BRYGGERI: 'ÅBRO, licensbryggt',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '931012'
+	},
+	{
+		ÖLNAMN: 'HEINEKEN',
+		BRYGGERI: 'HEINEKEN BREWERY',
+		LAND: 'NL',
+		ALKOHOL: '5.6',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '940324'
+	},
+	{
+		ÖLNAMN: 'HELSINGBORG IPA',
+		BRYGGERI: 'HELSINGBORGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '120411'
+	},
+	{
+		ÖLNAMN: 'HUMMEL ORIGINAL*',
+		BRYGGERI: 'BANCO BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '930310'
+	},
+	{
+		ÖLNAMN: 'HUMMEL ORIGINAL*',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '930310'
+	},
+	{
+		ÖLNAMN: 'HUMMEL ORIGINAL*',
+		BRYGGERI: 'BANCO BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.00',
+		DELTAGARE: 4,
+		DATUM: '931012'
+	},
+	{
+		ÖLNAMN: 'HUMMEL ORIGINAL*',
+		BRYGGERI: 'ÅBRO',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '931012'
+	},
+	{
+		ÖLNAMN: 'JOHN BULL BITTER*',
+		BRYGGERI: 'IND. COOPE LTD.',
+		LAND: 'GB',
+		ALKOHOL: '5.6',
+		BETYG: '5.00',
+		DELTAGARE: 3,
+		DATUM: '940120'
+	},
+	{
+		ÖLNAMN: 'JOHN BULL BITTER*',
+		BRYGGERI: 'IND. COOPE LTD.',
+		LAND: 'GB',
+		ALKOHOL: '5.6',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '940215'
+	},
+	{
+		ÖLNAMN: 'KALTENBERG OKTOBERFEST BIER',
+		BRYGGERI: 'FALKEN (Licens)',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.33',
+		DELTAGARE: 3,
+		DATUM: '940915'
+	},
+	{
+		ÖLNAMN: 'KOPPARBERGS FAT',
+		BRYGGERI: 'KOPPARBERGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '941215'
+	},
+	{
+		ÖLNAMN: 'KOPPARBERGS JULÖL*',
+		BRYGGERI: 'KOPPARBERGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '951214'
+	},
+	{
+		ÖLNAMN: 'KÖNIG LUDWIG DUNKEL*',
+		BRYGGERI: 'FALCON, licensbryggt',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '930414'
+	},
+	{
+		ÖLNAMN: 'La Font Del Bisbe Pale Ale',
+		BRYGGERI: 'Alpha Br',
+		LAND: 'AD',
+		ALKOHOL: '5.6',
+		BETYG: '7.50',
+		DELTAGARE: 4,
+		DATUM: '150408'
+	},
+	{
+		ÖLNAMN: 'LAPIN KULTA',
+		BRYGGERI: 'AMRI',
+		LAND: 'FI',
+		ALKOHOL: '5.6',
+		BETYG: '3.50',
+		DELTAGARE: 4,
+		DATUM: '940127'
+	},
+	{
+		ÖLNAMN: 'LAPIN KULTA JUBILEUM',
+		BRYGGERI: 'AMRI',
+		LAND: 'FI',
+		ALKOHOL: '5.6',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '940127'
+	},
+	{
+		ÖLNAMN: 'LINDEMANS GUEUZE*',
+		BRYGGERI: 'LINDEMANS BR.',
+		LAND: 'BE',
+		ALKOHOL: '5.6',
+		BETYG: '3.40',
+		DELTAGARE: 5,
+		DATUM: '950807'
+	},
+	{
+		ÖLNAMN: 'LINDEMANS GUEUZE*',
+		BRYGGERI: 'LINDEMANS BR.',
+		LAND: 'BE',
+		ALKOHOL: '5.6',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '961021'
+	},
+	{
+		ÖLNAMN: 'LJUS ALE',
+		BRYGGERI: 'GÅRDSBRYGGERIET PÅ STOCKBODA',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '110309'
+	},
+	{
+		ÖLNAMN: 'MALMÖFESTIVALÖL 1994',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '940801'
+	},
+	{
+		ÖLNAMN: 'MILLER GENUINE DRAFT*',
+		BRYGGERI: 'MILLER BR. COMPANY',
+		LAND: 'US',
+		ALKOHOL: '5.6',
+		BETYG: '3.67',
+		DELTAGARE: 3,
+		DATUM: '940503'
+	},
+	{
+		ÖLNAMN: 'MÖRK GULD*',
+		BRYGGERI: 'SOFIERO',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '930414'
+	},
+	{
+		ÖLNAMN: 'MÖRK GULD*',
+		BRYGGERI: 'SOFIERO',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '950522'
+	},
+	{
+		ÖLNAMN: 'NORRLANDS GULD EXPORT*',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '940203'
+	},
+	{
+		ÖLNAMN: 'NORRLANDS GULD EXPORT*',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '940324'
+	},
+	{
+		ÖLNAMN: 'NORRLANDS TOP (B)',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '940915'
+	},
+	{
+		ÖLNAMN: 'OLD BREWERY PALE ALE*',
+		BRYGGERI: 'SAMUEL SMITH´S',
+		LAND: 'GB',
+		ALKOHOL: '5.6',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '940215'
+	},
+	{
+		ÖLNAMN: 'OLD GOLD',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '940203'
+	},
+	{
+		ÖLNAMN: 'OLVI EXPORT',
+		BRYGGERI: 'OLVI Iisalmi',
+		LAND: 'FI',
+		ALKOHOL: '5.6',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '931213'
+	},
+	{
+		ÖLNAMN: 'PRIPPS BLÅ EXPORT*',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '930310'
+	},
+	{
+		ÖLNAMN: 'PRIPPS BLÅ EXPORT*',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.67',
+		DELTAGARE: 3,
+		DATUM: '931118'
+	},
+	{
+		ÖLNAMN: 'PRIPPS BLÅ EXPORT*',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '2.40',
+		DELTAGARE: 5,
+		DATUM: '940324'
+	},
+	{
+		ÖLNAMN: 'PRIPPS DARK LAGER',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '940315'
+	},
+	{
+		ÖLNAMN: 'PRIPPS EXPORT (B)',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '930310'
+	},
+	{
+		ÖLNAMN: 'PRIPPS EXPORT LIGHT & DRY ',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.00',
+		DELTAGARE: 3,
+		DATUM: '931118'
+	},
+	{
+		ÖLNAMN: 'PRIPPS JULÖL ´93',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '931202'
+	},
+	{
+		ÖLNAMN: 'PRIPPS SPECIAL BREW',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '5.33',
+		DELTAGARE: 3,
+		DATUM: '931118'
+	},
+	{
+		ÖLNAMN: 'PRIPPS ÅRGÅNGSPORTER 1985',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '960213'
+	},
+	{
+		ÖLNAMN: 'Quai des Brunes',
+		BRYGGERI: 'Br. La Lie',
+		LAND: 'FR',
+		ALKOHOL: '5.6',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '191219'
+	},
+	{
+		ÖLNAMN: 'RAM ROD',
+		BRYGGERI: 'YOUNG´S',
+		LAND: 'GB',
+		ALKOHOL: '5.6',
+		BETYG: '7.50',
+		DELTAGARE: 4,
+		DATUM: '940215'
+	},
+	{
+		ÖLNAMN: 'RED SEAL ALE',
+		BRYGGERI: 'NORTH COAST BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '5.6',
+		BETYG: '6.33',
+		DELTAGARE: 5,
+		DATUM: '060705'
+	},
+	{
+		ÖLNAMN: 'ROCK',
+		BRYGGERI: 'APPELTOFTSKA',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.70',
+		DELTAGARE: 3,
+		DATUM: '930428'
+	},
+	{
+		ÖLNAMN: 'Rodenbach Alexander',
+		BRYGGERI: 'Br. Rodenback',
+		LAND: 'BE',
+		ALKOHOL: '5.6',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '200704'
+	},
+	{
+		ÖLNAMN: 'RÖDE ORM',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '930414'
+	},
+	{
+		ÖLNAMN: "SAMUEL ADAM'S WINTER LAGER",
+		BRYGGERI: "SAMUEL ADAM'S BR.",
+		LAND: 'US',
+		ALKOHOL: '5.6',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '091209'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S BOSTON LAGER*',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '5.6',
+		BETYG: '7.75',
+		DELTAGARE: 4,
+		DATUM: '940315'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S OCTOBERFEST',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '5.6',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '971112'
+	},
+	{
+		ÖLNAMN: 'SCHLOSSBRÄU MÄRZEN',
+		BRYGGERI: 'PRINZING',
+		LAND: 'DE',
+		ALKOHOL: '5.6',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '940801'
+	},
+	{
+		ÖLNAMN: 'SIERRA NEVADA PALE ALE*',
+		BRYGGERI: 'SIERRA NEVADA BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '5.60',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '050112'
+	},
+	{
+		ÖLNAMN: 'SIERRA NEVADA PALE ALE*',
+		BRYGGERI: 'SIERRA NEVADA BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '5.6',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '971029'
+	},
+	{
+		ÖLNAMN: 'SIERRA NEVADA PALE ALE*',
+		BRYGGERI: 'SIERRA NEVADA BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '5.6',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '990104'
+	},
+	{
+		ÖLNAMN: 'SIGTUNA EASTER ALE',
+		BRYGGERI: 'SIGTUNA BRYGGHUS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '100421'
+	},
+	{
+		ÖLNAMN: 'SKÅNE GULD EXPORT',
+		BRYGGERI: 'APPELTOFFTSKA BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '941215'
+	},
+	{
+		ÖLNAMN: 'SOFIERO 1888*',
+		BRYGGERI: 'SOFIERO',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '7.33',
+		DELTAGARE: 3,
+		DATUM: '940503'
+	},
+	{
+		ÖLNAMN: 'SOFIERO MJÖD',
+		BRYGGERI: 'SOFIERO',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '951017'
+	},
+	{
+		ÖLNAMN: 'SPENDRUPS DARK LABEL',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '5.00',
+		DELTAGARE: 3,
+		DATUM: '940421'
+	},
+	{
+		ÖLNAMN: 'SPENDRUPS EXPORT',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '940203'
+	},
+	{
+		ÖLNAMN: 'SPENDRUPS FAT SPECIAL',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.50',
+		DELTAGARE: 4,
+		DATUM: '940127'
+	},
+	{
+		ÖLNAMN: 'SPENDRUPS GRAND EXPORT',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '940203'
+	},
+	{
+		ÖLNAMN: 'SPENDRUPS JULÖL',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.60',
+		DELTAGARE: 5,
+		DATUM: '931202'
+	},
+	{
+		ÖLNAMN: 'STELLA ARTOIS',
+		BRYGGERI: 'SPENDRUPS, licens',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '930407'
+	},
+	{
+		ÖLNAMN: 'STOCKHOLM FINE FESTIVAL BEER (1995)',
+		BRYGGERI: 'APPELTOFFTSKA',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.67',
+		DELTAGARE: 6,
+		DATUM: '950608'
+	},
+	{
+		ÖLNAMN: 'The Crimson American Style Red Ale*',
+		BRYGGERI: 'Remmarlöv Gårdsbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '150211'
+	},
+	{
+		ÖLNAMN: 'The Crimson American Style Red Ale*',
+		BRYGGERI: 'Remmarlöv Gårdsbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.28',
+		DELTAGARE: 7,
+		DATUM: '160210'
+	},
+	{
+		ÖLNAMN: 'THEAKSTON OLD PECULIER',
+		BRYGGERI: 'THEAKSTON LTD.',
+		LAND: 'GB',
+		ALKOHOL: '5.6',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '010425'
+	},
+	{
+		ÖLNAMN: 'THIMSFORS LAGER*',
+		BRYGGERI: 'THIMSFORS BRYGGERI AB',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '3.00',
+		DELTAGARE: 3,
+		DATUM: '950411'
+	},
+	{
+		ÖLNAMN: 'THREE HEARTS JULÖL ´93',
+		BRYGGERI: 'APPELTOFFTSKA',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '931202'
+	},
+	{
+		ÖLNAMN: 'THREE HEARTS JULÖL ´95',
+		BRYGGERI: 'APPELTOFFTSKA',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '951214'
+	},
+	{
+		ÖLNAMN: 'TUBORG GOLD LABEL',
+		BRYGGERI: 'PRIPPS (licens)',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '2.80',
+		DELTAGARE: 5,
+		DATUM: '940324'
+	},
+	{
+		ÖLNAMN: 'TUBORG JULEBRYG ´93',
+		BRYGGERI: 'PRIPPS, licensbryggt',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '931202'
+	},
+	{
+		ÖLNAMN: 'TUBORG JULEBRYG ´93',
+		BRYGGERI: 'TUBORG',
+		LAND: 'DK',
+		ALKOHOL: '5.6',
+		BETYG: '2.67',
+		DELTAGARE: 3,
+		DATUM: '940120'
+	},
+	{
+		ÖLNAMN: 'UPPER CANADA LAGER*',
+		BRYGGERI: 'UPPER CANADA BR. CO.',
+		LAND: 'CA',
+		ALKOHOL: '5.6',
+		BETYG: '2.25',
+		DELTAGARE: 4,
+		DATUM: '930421'
+	},
+	{
+		ÖLNAMN: 'UPPER CANADA LAGER*',
+		BRYGGERI: 'UPPER CANADA BR. CO.',
+		LAND: 'CA',
+		ALKOHOL: '5.6',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '931111'
+	},
+	{
+		ÖLNAMN: 'VIKING GYLLFUR',
+		BRYGGERI: 'VIFILFELLI ehf',
+		LAND: 'IS',
+		ALKOHOL: '5.6',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '090325'
+	},
+	{
+		ÖLNAMN: 'VÄRNAMO MARKNADSÖL',
+		BRYGGERI: 'SOFIERO',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.67',
+		DELTAGARE: 6,
+		DATUM: '950608'
+	},
+	{
+		ÖLNAMN: 'WEIHENSTEPHAN HEFE WEISSBIER*',
+		BRYGGERI: 'WEIHENSTEPHAN',
+		LAND: 'DE',
+		ALKOHOL: '5.6',
+		BETYG: '7.67',
+		DELTAGARE: 3,
+		DATUM: '941006'
+	},
+	{
+		ÖLNAMN: 'White Rascal',
+		BRYGGERI: 'Avery Br.',
+		LAND: 'US',
+		ALKOHOL: '5.6',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '150603'
+	},
+	{
+		ÖLNAMN: 'WIESGICKL PILS',
+		BRYGGERI: 'ÅBRO',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '7.30',
+		DELTAGARE: 3,
+		DATUM: '930428'
+	},
+	{
+		ÖLNAMN: "WORTHINGTON'S WHITE SHIELD",
+		BRYGGERI: 'KING & BARNES',
+		LAND: 'GB',
+		ALKOHOL: '5.6',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '990519'
+	},
+	{
+		ÖLNAMN: 'WORTHINGTON´S WHITE SHIELD',
+		BRYGGERI: 'BASS BR. LTD.',
+		LAND: 'GB',
+		ALKOHOL: '5.6',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '940901'
+	},
+	{
+		ÖLNAMN: 'Wrapped in red',
+		BRYGGERI: 'Brekeriet',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '191017'
+	},
+	{
+		ÖLNAMN: 'Wrapped in Red',
+		BRYGGERI: 'Brekeriet',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '200123'
+	},
+	{
+		ÖLNAMN: 'X-MAS JULEGULD',
+		BRYGGERI: 'THOR BR. AS',
+		LAND: 'DK',
+		ALKOHOL: '5.6',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '960116'
+	},
+	{
+		ÖLNAMN: 'XPP',
+		BRYGGERI: 'ÅBRO',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.67',
+		DELTAGARE: 3,
+		DATUM: '941027'
+	},
+	{
+		ÖLNAMN: 'YOUNG´S RAMROD PALE ALE',
+		BRYGGERI: 'THE RAM BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.6',
+		BETYG: '6.67',
+		DELTAGARE: 3,
+		DATUM: '950921'
+	},
+	{
+		ÖLNAMN: 'YOUNG´S WINTER ALE',
+		BRYGGERI: 'THE RAM BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.6',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '931202'
+	},
+	{
+		ÖLNAMN: 'ZEUNERTS MERKE',
+		BRYGGERI: 'ZEUNERTS',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '4.67',
+		DELTAGARE: 3,
+		DATUM: '940503'
+	},
+	{
+		ÖLNAMN: 'ZIPFER URTYP ',
+		BRYGGERI: 'BRAU AG',
+		LAND: 'AT',
+		ALKOHOL: '5.6',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '930421'
+	},
+	{
+		ÖLNAMN: 'Zxotelwy',
+		BRYGGERI: 'Browar Amber',
+		LAND: 'PL',
+		ALKOHOL: '5.6',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: 'ÅBRO BAYERSKT ',
+		BRYGGERI: 'ÅBRO BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '930414'
+	},
+	{
+		ÖLNAMN: 'ÅBRO GULD*',
+		BRYGGERI: 'ÅBRO BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '931012'
+	},
+	{
+		ÖLNAMN: 'ÅBRO GULD* (B)',
+		BRYGGERI: 'ÅBRO BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '931012'
+	},
+	{
+		ÖLNAMN: 'ÅBRO JULÖL ´93',
+		BRYGGERI: 'ÅBRO BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '931202'
+	},
+	{
+		ÖLNAMN: '15 Minutes of Flame',
+		BRYGGERI: 'Chad Beer',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '3.67',
+		DELTAGARE: 6,
+		DATUM: '160914'
+	},
+	{
+		ÖLNAMN: '4780 PILSNER*',
+		BRYGGERI: 'BRYGHUSET MØN',
+		LAND: 'DK',
+		ALKOHOL: '5.5',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '070215'
+	},
+	{
+		ÖLNAMN: 'ANCHOR BOCK BEER',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '070515'
+	},
+	{
+		ÖLNAMN: 'ANCHOR CHRISTMAS 2002 (Populus fremonti)',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '7.17',
+		DELTAGARE: 6,
+		DATUM: '101208'
+	},
+	{
+		ÖLNAMN: 'ANCHOR CHRISTMAS 2003 (Picca sitchensis)',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '101208'
+	},
+	{
+		ÖLNAMN: 'ANCHOR CHRISTMAS 2004* (Julgran)',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '101208'
+	},
+	{
+		ÖLNAMN: 'ANCHOR CHRISTMAS 2005 (Quercus aqvifolia)',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '101208'
+	},
+	{
+		ÖLNAMN: 'ANCHOR CHRISTMAS 2006 (Fagus)',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '101208'
+	},
+	{
+		ÖLNAMN: 'ANCHOR CHRISTMAS 2007 (Quercus labata)',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '101208'
+	},
+	{
+		ÖLNAMN: 'ANCHOR CHRISTMAS 2008 (Pinus jeffiagi)',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '101208'
+	},
+	{
+		ÖLNAMN: 'ANCHOR CHRISTMAS 2009* (Cypressus macrocarpa)',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '8.20',
+		DELTAGARE: 5,
+		DATUM: '091209'
+	},
+	{
+		ÖLNAMN: 'ANCHOR CHRISTMAS 2009* (Cypressus macrocarpa)',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '101208'
+	},
+	{
+		ÖLNAMN: 'ANCHOR CHRISTMAS 2010 (Ginko)',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '101208'
+	},
+	{
+		ÖLNAMN: 'Anchor Christmas 2015',
+		BRYGGERI: 'Anchor Br.',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '160113'
+	},
+	{
+		ÖLNAMN: 'ANCHOR CHRISTMAS BEER 2001',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '080409'
+	},
+	{
+		ÖLNAMN: 'ANCHOR CHRISTMAS BEER 2004* (Julgran)',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '080409'
+	},
+	{
+		ÖLNAMN: 'AURUM',
+		BRYGGERI: 'BRYGHUSET SVANEKE',
+		LAND: 'DK',
+		ALKOHOL: '5.5',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '091014'
+	},
+	{
+		ÖLNAMN: 'AYINGER UR-WEIßE*',
+		BRYGGERI: 'PRIVATBR. AYINGER',
+		LAND: 'DE',
+		ALKOHOL: '5.5',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '930324'
+	},
+	{
+		ÖLNAMN: 'B+RP',
+		BRYGGERI: 'SLOTTSKÄLLAN',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '6.72',
+		DELTAGARE: 7,
+		DATUM: '100120'
+	},
+	{
+		ÖLNAMN: 'BEER TASTE',
+		BRYGGERI: 'TENNENS HUGI BR.',
+		LAND: 'JP',
+		ALKOHOL: '5.5',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '0010'
+	},
+	{
+		ÖLNAMN: 'BELLEVUE GEUEZE',
+		BRYGGERI: 'N.V.INTERBREW',
+		LAND: 'BE',
+		ALKOHOL: '5.5',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '040922'
+	},
+	{
+		ÖLNAMN: 'Brooklyn Oktoberfest',
+		BRYGGERI: 'Brooklyn Br.',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '181011'
+	},
+	{
+		ÖLNAMN: 'Carnegie Porter',
+		BRYGGERI: 'Carlsberg Br.',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '160316'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE STARK PORTER 2000',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '080409'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE STARK PORTER 2006',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '060510'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNG 1999',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '000119'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNG 2000',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '7.00',
+		DELTAGARE: 6,
+		DATUM: '010620'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE ÅRGÅNG 2001',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '7.17',
+		DELTAGARE: 6,
+		DATUM: '010620'
+	},
+	{
+		ÖLNAMN: 'Cascadian Dark Ale',
+		BRYGGERI: 'Oppigårds',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '200416'
+	},
+	{
+		ÖLNAMN: 'Chocolat Stout',
+		BRYGGERI: 'Pasteur Str. Br. Co.',
+		LAND: 'VN',
+		ALKOHOL: '5.5',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '151209'
+	},
+	{
+		ÖLNAMN: 'Citrux Helles Lager',
+		BRYGGERI: 'Remmarlöv Gårdsbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '190708'
+	},
+	{
+		ÖLNAMN: 'Clara',
+		BRYGGERI: 'Meravèa',
+		LAND: 'IT',
+		ALKOHOL: '5.5',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '160623'
+	},
+	{
+		ÖLNAMN: 'COPPERCAST',
+		BRYGGERI: 'KING & BARNES',
+		LAND: 'GB',
+		ALKOHOL: '5.5',
+		BETYG: '4.85',
+		DELTAGARE: 6,
+		DATUM: '990519'
+	},
+	{
+		ÖLNAMN: 'COQ HARDI',
+		BRYGGERI: 'BR. DU COQ HARDI',
+		LAND: 'BE',
+		ALKOHOL: '5.5',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '100728'
+	},
+	{
+		ÖLNAMN: 'Cuvée des Jacobins Rouge',
+		BRYGGERI: 'Br. Omer Van der Ghinste',
+		LAND: 'BE',
+		ALKOHOL: '5.5',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '181220'
+	},
+	{
+		ÖLNAMN: 'DORADA',
+		BRYGGERI: 'Compañia Cerveceria de Canarias Tenerife',
+		LAND: 'ES',
+		ALKOHOL: '5.5',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '061212'
+	},
+	{
+		ÖLNAMN: 'EASTER BIRD',
+		BRYGGERI: 'BR. S.C. FUGLSANG',
+		LAND: 'DK',
+		ALKOHOL: '5.5',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '100421'
+	},
+	{
+		ÖLNAMN: 'Edelweiss Weissbier Kristalklar',
+		BRYGGERI: 'HOFBR. KALTENHAUSEN',
+		LAND: 'AT',
+		ALKOHOL: '5.5',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '030326'
+	},
+	{
+		ÖLNAMN: 'Edelwiess Weissbier Dunkel',
+		BRYGGERI: 'HOFBR. KALTENHAUSEN',
+		LAND: 'AT',
+		ALKOHOL: '5.5',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '030326'
+	},
+	{
+		ÖLNAMN: 'Egtvedpigens Bryg',
+		BRYGGERI: 'Skands',
+		LAND: 'DK',
+		ALKOHOL: '5.5',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '170215'
+	},
+	{
+		ÖLNAMN: 'FALCON JULBRYGD ´95',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '951214'
+	},
+	{
+		ÖLNAMN: 'Grimbergen Belgian Pale Ale',
+		BRYGGERI: 'Kronenbourg',
+		LAND: 'FR',
+		ALKOHOL: '5.5',
+		BETYG: '6.28',
+		DELTAGARE: 7,
+		DATUM: '190821'
+	},
+	{
+		ÖLNAMN: 'Gwozey Peyi',
+		BRYGGERI: 'Bieres de la Lezarde',
+		LAND: 'FR - Guad',
+		ALKOHOL: '5.5',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '170831'
+	},
+	{
+		ÖLNAMN: 'HIPPOFOE',
+		BRYGGERI: 'DUGGES & KISSMEYER',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '6.33',
+		DELTAGARE: 5,
+		DATUM: '130619'
+	},
+	{
+		ÖLNAMN: 'Hofbräu Dunkel',
+		BRYGGERI: 'Hofbräu Munchen',
+		LAND: 'DE',
+		ALKOHOL: '5.5',
+		BETYG: '5.86',
+		DELTAGARE: 7,
+		DATUM: '140611'
+	},
+	{
+		ÖLNAMN: 'HUMLE FRYD',
+		BRYGGERI: 'BRYGGERIET SKANDS',
+		LAND: 'DK',
+		ALKOHOL: '5.5',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '041026'
+	},
+	{
+		ÖLNAMN: 'IPA',
+		BRYGGERI: '7Bräu',
+		LAND: 'KR',
+		ALKOHOL: '5.5',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '160914'
+	},
+	{
+		ÖLNAMN: 'Jämtlands IPA',
+		BRYGGERI: 'Jämtlands Br.',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '160316'
+	},
+	{
+		ÖLNAMN: 'Karmeliten Brocardus 1844',
+		BRYGGERI: 'Karmeliten Brauerei Karl Sturm',
+		LAND: 'DE',
+		ALKOHOL: '5.5',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '121010'
+	},
+	{
+		ÖLNAMN: 'KING & BARNES OLD PORTER',
+		BRYGGERI: 'KING & BARNES LTD.',
+		LAND: 'GB',
+		ALKOHOL: '5.5',
+		BETYG: '7.50',
+		DELTAGARE: 4,
+		DATUM: '970204'
+	},
+	{
+		ÖLNAMN: 'KIRIN ICHIBAN ORIGINAL BREW FESTIVAL 2000',
+		BRYGGERI: 'KIRIN BR.',
+		LAND: 'JP',
+		ALKOHOL: '5.5',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '0010'
+	},
+	{
+		ÖLNAMN: 'KIRIN ISHIBAN',
+		BRYGGERI: 'KIRIN BR.',
+		LAND: 'JP',
+		ALKOHOL: '5.5',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '030115'
+	},
+	{
+		ÖLNAMN: 'LA TRAPPE ENKEL',
+		BRYGGERI: 'BIERBR. DE SCHAAPSKOOI',
+		LAND: 'NL',
+		ALKOHOL: '5.5',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '970910'
+	},
+	{
+		ÖLNAMN: 'LANEXANG LAGER BEER',
+		BRYGGERI: 'LAO BR. CO. LTD.',
+		LAND: 'LA',
+		ALKOHOL: '5.5',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '100310'
+	},
+	{
+		ÖLNAMN: 'LIEFMANS GOUDENBAND*',
+		BRYGGERI: 'LIEFMANS BR.',
+		LAND: 'BE',
+		ALKOHOL: '5.5',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '930331'
+	},
+	{
+		ÖLNAMN: 'Lorem Ipsum White IPA',
+		BRYGGERI: 'Brewski Br.',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '150211'
+	},
+	{
+		ÖLNAMN: 'LUPINUS',
+		BRYGGERI: 'AH BRAU',
+		LAND: 'IT',
+		ALKOHOL: '5.5',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '130821'
+	},
+	{
+		ÖLNAMN: 'MARSTON´S INDIA EXPORT',
+		BRYGGERI: 'Marston, Thompson & Evershed',
+		LAND: 'GB',
+		ALKOHOL: '5.5',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '9801'
+	},
+	{
+		ÖLNAMN: 'Mikkeller Xmas Wish',
+		BRYGGERI: 'De Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '5.5',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '160113'
+	},
+	{
+		ÖLNAMN: 'MOHAWK vs AMARILLO',
+		BRYGGERI: 'SIGTUNA BRYGGHUS',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '5.87',
+		DELTAGARE: 8,
+		DATUM: '120815'
+	},
+	{
+		ÖLNAMN: 'MOLSON ICE BEER',
+		BRYGGERI: 'MOLSON BR.',
+		LAND: 'CA',
+		ALKOHOL: '5.5',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '950220'
+	},
+	{
+		ÖLNAMN: 'MORI',
+		BRYGGERI: 'ÖLVISHOLT BRYGGHUS',
+		LAND: 'IS',
+		ALKOHOL: '5.5',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '121212'
+	},
+	{
+		ÖLNAMN: 'Nakd Tonight IPA',
+		BRYGGERI: 'Remmarlöv Gårdsbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '150211'
+	},
+	{
+		ÖLNAMN: 'Nerafina',
+		BRYGGERI: 'Meravèa',
+		LAND: 'IT',
+		ALKOHOL: '5.5',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '160623'
+	},
+	{
+		ÖLNAMN: 'NITRO LAGER BEER',
+		BRYGGERI: 'PIVOVAR NYMBURK',
+		LAND: 'CZ',
+		ALKOHOL: '5.5',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '0803XX'
+	},
+	{
+		ÖLNAMN: 'Nymph Saison',
+		BRYGGERI: 'Åre Bryggcompagni',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '180906'
+	},
+	{
+		ÖLNAMN: 'OLD GROWLER ',
+		BRYGGERI: 'NETHERGATE',
+		LAND: 'GB',
+		ALKOHOL: '5.5',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '930331'
+	},
+	{
+		ÖLNAMN: 'OLD PORTER',
+		BRYGGERI: 'KING & BARNES',
+		LAND: 'GB',
+		ALKOHOL: '5.5',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '950328'
+	},
+	{
+		ÖLNAMN: 'PAULANER HEFEWEISSBIER*',
+		BRYGGERI: 'PAULANER BR. AG',
+		LAND: 'DE',
+		ALKOHOL: '5.5',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '120307'
+	},
+	{
+		ÖLNAMN: 'PAULANER HEFEWEISSBIER*',
+		BRYGGERI: 'PAULANER BR. AG',
+		LAND: 'DE',
+		ALKOHOL: '5.5',
+		BETYG: '8.00',
+		DELTAGARE: 4,
+		DATUM: '960620'
+	},
+	{
+		ÖLNAMN: 'PAULANER HEFEWEISSBIER*',
+		BRYGGERI: 'PAULANER BR. AG',
+		LAND: 'DE',
+		ALKOHOL: '5.5',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '990922'
+	},
+	{
+		ÖLNAMN: 'PAULANER HEFEWEISSBIER* (B)',
+		BRYGGERI: 'PAULANER BR. AG',
+		LAND: 'DE',
+		ALKOHOL: '5.5',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '050315'
+	},
+	{
+		ÖLNAMN: 'PennQuarter Porter',
+		BRYGGERI: 'DC Brau Brewing',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '6.00',
+		DELTAGARE: 7,
+		DATUM: '190228'
+	},
+	{
+		ÖLNAMN: "Polly's Pale Ale",
+		BRYGGERI: "Polly's Br. Co.",
+		LAND: 'WALES',
+		ALKOHOL: '5.5',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '200319'
+	},
+	{
+		ÖLNAMN: 'Primator Oktober Festive Lager',
+		BRYGGERI: 'Primator',
+		LAND: 'CZ',
+		ALKOHOL: '5.5',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '190912'
+	},
+	{
+		ÖLNAMN: 'PRIPPS STARK-PORTER',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '970423'
+	},
+	{
+		ÖLNAMN: 'Rimenta',
+		BRYGGERI: 'Meravèa',
+		LAND: 'IT',
+		ALKOHOL: '5.5',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '160623'
+	},
+	{
+		ÖLNAMN: 'S:t Bernardus Wit Ab',
+		BRYGGERI: "Bière d'Abbaye",
+		LAND: 'BE',
+		ALKOHOL: '5.5',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '180215'
+	},
+	{
+		ÖLNAMN: 'Saision Dupont Biologique',
+		BRYGGERI: 'Br. Dupont',
+		LAND: 'BE',
+		ALKOHOL: '5.5',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '180816'
+	},
+	{
+		ÖLNAMN: 'Samuel Adams Winter Lager',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '160113'
+	},
+	{
+		ÖLNAMN: 'SARANAC ADIRONDACK AMBER',
+		BRYGGERI: 'MATT BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.5',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '990104'
+	},
+	{
+		ÖLNAMN: 'Schlappeseppel Kellerbier',
+		BRYGGERI: 'Eder & Heylands Br.',
+		LAND: 'DE',
+		ALKOHOL: '5.5',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '121010'
+	},
+	{
+		ÖLNAMN: 'SCHNEIDER WEISSE*',
+		BRYGGERI: 'WEISSES BRAUHAUS',
+		LAND: 'DE',
+		ALKOHOL: '5.5',
+		BETYG: '7.67',
+		DELTAGARE: 3,
+		DATUM: '941006'
+	},
+	{
+		ÖLNAMN: 'SIERRVOISE ROUSSE',
+		BRYGGERI: 'BR.ARTISANALE',
+		LAND: 'CH',
+		ALKOHOL: '5.5',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '130821'
+	},
+	{
+		ÖLNAMN: 'SIGTUNA OKTOBERFEST',
+		BRYGGERI: 'SIGTUNA BRYGGHUS',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '090923'
+	},
+	{
+		ÖLNAMN: 'SKANDS HUMLEFRYD',
+		BRYGGERI: 'BR. SKANDS',
+		LAND: 'DK',
+		ALKOHOL: '5.5',
+		BETYG: '5.50',
+		DELTAGARE: 5,
+		DATUM: '130619'
+	},
+	{
+		ÖLNAMN: 'SORT GULD',
+		BRYGGERI: '',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '5.00',
+		DELTAGARE: 3,
+		DATUM: '0006'
+	},
+	{
+		ÖLNAMN: 'SOUR MALT MALT',
+		BRYGGERI: 'TAKARA BR.',
+		LAND: 'JP',
+		ALKOHOL: '5.5',
+		BETYG: '3.00',
+		DELTAGARE: 4,
+		DATUM: '0010'
+	},
+	{
+		ÖLNAMN: 'South Plains HOW',
+		BRYGGERI: 'South Plain Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '3.60',
+		DELTAGARE: 5,
+		DATUM: '150506'
+	},
+	{
+		ÖLNAMN: 'STALLHAGEN OKTOBERFESTBIER',
+		BRYGGERI: 'ÅLANDS BR. AB',
+		LAND: 'FI',
+		ALKOHOL: '5.5',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '071025'
+	},
+	{
+		ÖLNAMN: 'STARKPORTER ÅRGÅNG 2000',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '8.20',
+		DELTAGARE: 5,
+		DATUM: '000523'
+	},
+	{
+		ÖLNAMN: 'Svart Porter',
+		BRYGGERI: 'Slottskällan ',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '4.83',
+		DELTAGARE: 7,
+		DATUM: '190228'
+	},
+	{
+		ÖLNAMN: 'SVART*',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '000104'
+	},
+	{
+		ÖLNAMN: 'SVART*',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '6.00',
+		DELTAGARE: 7,
+		DATUM: '031117'
+	},
+	{
+		ÖLNAMN: 'THE RAVEN',
+		BRYGGERI: 'ANKER BR. (licens)',
+		LAND: 'DE',
+		ALKOHOL: '5.5',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '010510'
+	},
+	{
+		ÖLNAMN: 'TIGER SPECIAL CLASSIC EDITION',
+		BRYGGERI: 'ASIA PACIFIC BR.',
+		LAND: 'SG',
+		ALKOHOL: '5.5',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '060622'
+	},
+	{
+		ÖLNAMN: 'TIMMERMANS OUDE GUEUZE',
+		BRYGGERI: 'BR. TIMMERMANS',
+		LAND: 'BE',
+		ALKOHOL: '5.5',
+		BETYG: '7.17',
+		DELTAGARE: 6,
+		DATUM: '110309'
+	},
+	{
+		ÖLNAMN: 'Trooper Jane Ingilby Crack Shot Classic 17th Century Ale',
+		BRYGGERI: 'DALESIDE BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.5',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '010116'
+	},
+	{
+		ÖLNAMN: 'TSINGTAO BEER',
+		BRYGGERI: 'TSINGTAO BREWERY',
+		LAND: 'CN',
+		ALKOHOL: '5.5',
+		BETYG: '6.00',
+		DELTAGARE: 3,
+		DATUM: '950411'
+	},
+	{
+		ÖLNAMN: 'BISHOP´S FINGER*',
+		BRYGGERI: 'SHEPHARD NEAME',
+		LAND: 'GB',
+		ALKOHOL: '5.4',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '000523'
+	},
+	{
+		ÖLNAMN: 'BISHOP´S FINGER*',
+		BRYGGERI: 'SHEPHARD NEAME',
+		LAND: 'GB',
+		ALKOHOL: '5.4',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '940315'
+	},
+	{
+		ÖLNAMN: 'BRITT',
+		BRYGGERI: 'BR. DE BRETAGNE',
+		LAND: 'FR',
+		ALKOHOL: '5.4',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '061212'
+	},
+	{
+		ÖLNAMN: 'CUBANERO',
+		BRYGGERI: 'CERVECERIA BUCANERO S.A.',
+		LAND: 'CU',
+		ALKOHOL: '5.4',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '081217'
+	},
+	{
+		ÖLNAMN: 'CUMBERLAND ALE',
+		BRYGGERI: 'JENNINGS BROTHERS PLC',
+		LAND: 'GB',
+		ALKOHOL: '5.4',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '050511'
+	},
+	{
+		ÖLNAMN: 'EB SPECIAL',
+		BRYGGERI: 'WLBREWERY CO. LTD.',
+		LAND: 'PL',
+		ALKOHOL: '5.4',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '941115'
+	},
+	{
+		ÖLNAMN: 'ESTRELLA DAMM',
+		BRYGGERI: 'S.A. DAMM',
+		LAND: 'ES',
+		ALKOHOL: '5.4',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '000216'
+	},
+	{
+		ÖLNAMN: "Fuller's London Porter",
+		BRYGGERI: 'Fuller, Smith & Turner',
+		LAND: 'GB',
+		ALKOHOL: '5.4',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '140709'
+	},
+	{
+		ÖLNAMN: 'GWINIZ DU',
+		BRYGGERI: 'BR. DE BRETAGNE',
+		LAND: 'FR',
+		ALKOHOL: '5.4',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '020627'
+	},
+	{
+		ÖLNAMN: 'KARLOVACKO PIVO',
+		BRYGGERI: 'KARLOVACKA PIVOVARA',
+		LAND: 'HR',
+		ALKOHOL: '5.4',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '991104'
+	},
+	{
+		ÖLNAMN: "Liliko'i Kepolo",
+		BRYGGERI: 'Avery Br.',
+		LAND: 'US',
+		ALKOHOL: '5.4',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '160615'
+	},
+	{
+		ÖLNAMN: 'NIKOLAI',
+		BRYGGERI: 'SINEBRYCHOFF',
+		LAND: 'FI',
+		ALKOHOL: '5.4',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '931213'
+	},
+	{
+		ÖLNAMN: 'NORDAN KALDI',
+		BRYGGERI: 'BRUGGSMIDJAN',
+		LAND: 'IS',
+		ALKOHOL: '5.4',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '121212'
+	},
+	{
+		ÖLNAMN: "OLD LUXTER'S BARN ALE*",
+		BRYGGERI: 'OLD LUXTERS FARM BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.4',
+		BETYG: '7.00',
+		DELTAGARE: 3,
+		DATUM: '941201'
+	},
+	{
+		ÖLNAMN: "OLD LUXTER'S BARN ALE*",
+		BRYGGERI: "OLD LUXTER'S FARM BR.",
+		LAND: 'GB',
+		ALKOHOL: '5.4',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '951128'
+	},
+	{
+		ÖLNAMN: 'OLD LUXTER´S BARN ALE*',
+		BRYGGERI: 'OLD LUXTER´S FARM BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.4',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '960704'
+	},
+	{
+		ÖLNAMN: 'Pczeniczne',
+		BRYGGERI: 'Browar Zankowy Clezyn',
+		LAND: 'PL',
+		ALKOHOL: '5.4',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: 'PIAST',
+		BRYGGERI: 'PIAST BR.',
+		LAND: 'PL',
+		ALKOHOL: '5.4',
+		BETYG: '3.83',
+		DELTAGARE: 6,
+		DATUM: '950608'
+	},
+	{
+		ÖLNAMN: 'Pszeniczne',
+		BRYGGERI: '',
+		LAND: 'PL',
+		ALKOHOL: '5.4',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '171115'
+	},
+	{
+		ÖLNAMN: 'Raschhofer Zwicklbier',
+		BRYGGERI: 'BR. RASCHHOFER',
+		LAND: 'AT',
+		ALKOHOL: '5.4',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '030326'
+	},
+	{
+		ÖLNAMN: 'S:T ERIKS POMPONA PORTER',
+		BRYGGERI: 'THREE TOWN BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.4',
+		BETYG: '6.28',
+		DELTAGARE: 7,
+		DATUM: '101110'
+	},
+	{
+		ÖLNAMN: "SAMUEL ADAM'S CHERRY WHEAT",
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '5.4',
+		BETYG: '3.17',
+		DELTAGARE: 6,
+		DATUM: '050315'
+	},
+	{
+		ÖLNAMN: 'SAN MIGUEL*',
+		BRYGGERI: 'SAN MIGUEL FABRICAS DE CERVECERIA Y MALTA',
+		LAND: 'ES',
+		ALKOHOL: '5.4',
+		BETYG: '5.33',
+		DELTAGARE: 3,
+		DATUM: '011129'
+	},
+	{
+		ÖLNAMN: 'SAN MIGUEL*',
+		BRYGGERI: 'SAN MIGUEL',
+		LAND: 'ES',
+		ALKOHOL: '5.4',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '940303'
+	},
+	{
+		ÖLNAMN: 'SARANAC BLACK AND TAN*',
+		BRYGGERI: 'MATT BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.4',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '980311'
+	},
+	{
+		ÖLNAMN: 'THIMSFORS LAGER*',
+		BRYGGERI: 'THIMSFORS BRYGGERI AB',
+		LAND: 'SE',
+		ALKOHOL: '5.4',
+		BETYG: '3.67',
+		DELTAGARE: 3,
+		DATUM: '941027'
+	},
+	{
+		ÖLNAMN: 'THIMSFORS LAGERÖL, klass 3 (B)',
+		BRYGGERI: 'THIMSFORS',
+		LAND: 'SE',
+		ALKOHOL: '5.4',
+		BETYG: '2.50',
+		DELTAGARE: 4,
+		DATUM: '940308'
+	},
+	{
+		ÖLNAMN: 'VRAK',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.4',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '000823'
+	},
+	{
+		ÖLNAMN: 'WEIHENSTEPHAN HEFE WEISSBIER*',
+		BRYGGERI: 'WEIHENSTEPHAN',
+		LAND: 'DE',
+		ALKOHOL: '5.4',
+		BETYG: '8.25',
+		DELTAGARE: 4,
+		DATUM: '930324'
+	},
+	{
+		ÖLNAMN: 'WEIHENSTEPHANER HEFE WEISSBIER*',
+		BRYGGERI: 'STAATSBR. WEIHENSTEPHAN',
+		LAND: 'DE',
+		ALKOHOL: '5.4',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '120307'
+	},
+	{
+		ÖLNAMN: 'WEIHENSTEPHANER*',
+		BRYGGERI: 'BAYERISCHE STAATSBR. WEIHENSTEPHAN',
+		LAND: 'DE',
+		ALKOHOL: '5.4',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '020514'
+	},
+	{
+		ÖLNAMN: 'Wieselburger Bier',
+		BRYGGERI: 'BR. WIESELBURGER',
+		LAND: 'AT',
+		ALKOHOL: '5.4',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '030326'
+	},
+	{
+		ÖLNAMN: 'ATNA HVETEØL#',
+		BRYGGERI: 'ATNA BR. AS',
+		LAND: 'NO',
+		ALKOHOL: '5.3',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '070215'
+	},
+	{
+		ÖLNAMN: 'BIG BERTHA',
+		BRYGGERI: 'HALLSTA BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '990812'
+	},
+	{
+		ÖLNAMN: 'Burbrit London Porter',
+		BRYGGERI: 'Burbrit Yangon Craft Br. Co. Ltd.',
+		LAND: 'MM',
+		ALKOHOL: '5.3',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '180517'
+	},
+	{
+		ÖLNAMN: 'CARLSBERG HONNING ALE',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '5.3',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '080910'
+	},
+	{
+		ÖLNAMN: 'ERDINGER KRISTALL*',
+		BRYGGERI: 'ERDINGER WEIßBRÄU',
+		LAND: 'DE',
+		ALKOHOL: '5.3',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '120307'
+	},
+	{
+		ÖLNAMN: 'ERDINGER WEISSBIER KRISTALLBIER*',
+		BRYGGERI: 'ERDINGER WEIßBRÄU',
+		LAND: 'DE',
+		ALKOHOL: '5.3',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '981207'
+	},
+	{
+		ÖLNAMN: 'ERDINGER WEISSBIER Kristallklar*',
+		BRYGGERI: 'ERDINGER WEIßBRÄU',
+		LAND: 'DE',
+		ALKOHOL: '5.3',
+		BETYG: '5.67',
+		DELTAGARE: 3,
+		DATUM: '941006'
+	},
+	{
+		ÖLNAMN: 'ERDINGER WEISSBIER MIT HEFE',
+		BRYGGERI: 'ERDINGER WEIßBRÄU',
+		LAND: 'DE',
+		ALKOHOL: '5.3',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '120307'
+	},
+	{
+		ÖLNAMN: 'FESTIVE ALE',
+		BRYGGERI: 'KING & BARNES',
+		LAND: 'GB',
+		ALKOHOL: '5.3',
+		BETYG: '7.67',
+		DELTAGARE: 3,
+		DATUM: '950921'
+	},
+	{
+		ÖLNAMN: "Fuller's IPA",
+		BRYGGERI: 'Fuller, Smith & Turner',
+		LAND: 'GB',
+		ALKOHOL: '5.3',
+		BETYG: '5.72',
+		DELTAGARE: 7,
+		DATUM: '131211'
+	},
+	{
+		ÖLNAMN: "Fuller's Old Winter Ale",
+		BRYGGERI: 'Fuller, Smith & Turner',
+		LAND: 'GB',
+		ALKOHOL: '5.3',
+		BETYG: '6.14',
+		DELTAGARE: 7,
+		DATUM: '131211'
+	},
+	{
+		ÖLNAMN: 'FÜRSTENBERG',
+		BRYGGERI: 'FÜRSTENBERGISCHE BR.',
+		LAND: 'DE',
+		ALKOHOL: '5.3',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '940801'
+	},
+	{
+		ÖLNAMN: 'GAMMELDAGS STARKDRICKA',
+		BRYGGERI: 'KOPPARBERGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '951114'
+	},
+	{
+		ÖLNAMN: 'Giesingen Kellerbier Untergiesinger Erhellung',
+		BRYGGERI: 'Giesinger Bräu',
+		LAND: 'DE',
+		ALKOHOL: '5.3',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '190613'
+	},
+	{
+		ÖLNAMN: 'HIGHLANDER',
+		BRYGGERI: 'HENNINGER-BRÄU AG',
+		LAND: 'DE',
+		ALKOHOL: '5.3',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '970707'
+	},
+	{
+		ÖLNAMN: 'Hop Federation Pils',
+		BRYGGERI: 'Hop Federation Br.',
+		LAND: 'NZ',
+		ALKOHOL: '5.3',
+		BETYG: '6.28',
+		DELTAGARE: 7,
+		DATUM: '180712'
+	},
+	{
+		ÖLNAMN: 'HOPFEN KÖNIG',
+		BRYGGERI: 'EGGENBERGER SCHLOßBR.',
+		LAND: 'AT',
+		ALKOHOL: '5.3',
+		BETYG: '5.33',
+		DELTAGARE: 3,
+		DATUM: '960319'
+	},
+	{
+		ÖLNAMN: 'HUMMEL ORIGINAL*',
+		BRYGGERI: 'ÅRE BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '3.00',
+		DELTAGARE: 5,
+		DATUM: '970408'
+	},
+	{
+		ÖLNAMN: 'HUMMEL*',
+		BRYGGERI: 'ÅRE BRYGGERI AB',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '960509'
+	},
+	{
+		ÖLNAMN: 'INDIA PALE ALE',
+		BRYGGERI: 'STENSBOGAARD',
+		LAND: 'DK',
+		ALKOHOL: '5.3',
+		BETYG: '4.17',
+		DELTAGARE: 6,
+		DATUM: '101013'
+	},
+	{
+		ÖLNAMN: 'Karett Blonde',
+		BRYGGERI: 'Karett',
+		LAND: 'FR - Guad',
+		ALKOHOL: '5.3',
+		BETYG: '3.67',
+		DELTAGARE: 6,
+		DATUM: '170831'
+	},
+	{
+		ÖLNAMN: 'KING & BARNES FESTIVE ALE*',
+		BRYGGERI: 'KING & BARNES',
+		LAND: 'GB',
+		ALKOHOL: '5.3',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '950522'
+	},
+	{
+		ÖLNAMN: 'KING & BARNES FESTIVE ALE*',
+		BRYGGERI: 'KING & BARNES LTD.',
+		LAND: 'GB',
+		ALKOHOL: '5.3',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '960509'
+	},
+	{
+		ÖLNAMN: 'KOPPARBERG STOUT',
+		BRYGGERI: 'KOPPARBERGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '951114'
+	},
+	{
+		ÖLNAMN: 'KOPPARBERGS STOUT*',
+		BRYGGERI: 'KOPPARBERGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '7.25',
+		DELTAGARE: 4,
+		DATUM: '970204'
+	},
+	{
+		ÖLNAMN: 'KOPPARBERGS STOUT*',
+		BRYGGERI: 'KOPPARBERGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '971203'
+	},
+	{
+		ÖLNAMN: 'Landbier Hell',
+		BRYGGERI: 'BR. KAPSREITER',
+		LAND: 'AT',
+		ALKOHOL: '5.3',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '030326'
+	},
+	{
+		ÖLNAMN: 'LANDSORT LAGER',
+		BRYGGERI: 'NYNÄSHAMNS ÅNGBR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '090422'
+	},
+	{
+		ÖLNAMN: 'MAGNAT LIGHT BEER',
+		BRYGGERI: 'OBOLON BR.',
+		LAND: 'UA',
+		ALKOHOL: '5.3',
+		BETYG: '4.43',
+		DELTAGARE: 7,
+		DATUM: '051115'
+	},
+	{
+		ÖLNAMN: 'MARIESTAD EXPORT',
+		BRYGGERI: 'MARIESTADS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '080507'
+	},
+	{
+		ÖLNAMN: 'MARIESTADS SOMMARBRYGD',
+		BRYGGERI: 'MARIESTADS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '4.86',
+		DELTAGARE: 6,
+		DATUM: '080625'
+	},
+	{
+		ÖLNAMN: 'MASTER POLOTMAVÝ',
+		BRYGGERI: 'PLZUNSKY PRAZDROI AS',
+		LAND: 'CZ',
+		ALKOHOL: '5.3',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '110807'
+	},
+	{
+		ÖLNAMN: 'MILLENIUM STARKÖL',
+		BRYGGERI: 'FALCON BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '000410'
+	},
+	{
+		ÖLNAMN: 'MOHAWK RYE LAGER',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '110914'
+	},
+	{
+		ÖLNAMN: 'NEGRA MODELO',
+		BRYGGERI: 'CERVECERIA MODELO S.A. de C.V.',
+		LAND: 'MX',
+		ALKOHOL: '5.3',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '991104'
+	},
+	{
+		ÖLNAMN: 'NILS OSCAR GOD LAGER',
+		BRYGGERI: 'Nils Oscar Bryggerier',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '021009'
+	},
+	{
+		ÖLNAMN: 'NILS OSCAR No:3 GOD LAGER',
+		BRYGGERI: 'TÄRNÖ BRYGGERI AB',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '981005'
+	},
+	{
+		ÖLNAMN: 'NISSE',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '3.71',
+		DELTAGARE: 7,
+		DATUM: '031117'
+	},
+	{
+		ÖLNAMN: 'NISSE JULÖL',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '070425'
+	},
+	{
+		ÖLNAMN: 'OKOCIM EXPORT',
+		BRYGGERI: 'OKOCIM',
+		LAND: 'PL',
+		ALKOHOL: '5.3',
+		BETYG: '2.67',
+		DELTAGARE: 3,
+		DATUM: '941201'
+	},
+	{
+		ÖLNAMN: 'OPPIGÅRDS EASTER ALE',
+		BRYGGERI: 'OPPIGÅRD BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '100421'
+	},
+	{
+		ÖLNAMN: 'OPPIGÅRDS WINTER ALE',
+		BRYGGERI: 'OPPIGÅRDS BRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '061115'
+	},
+	{
+		ÖLNAMN: 'Oppigårds Winter Ale',
+		BRYGGERI: 'Oppigård Br.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '131120'
+	},
+	{
+		ÖLNAMN: 'Rådanäs California Common',
+		BRYGGERI: 'Rådanäs Br.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '150311'
+	},
+	{
+		ÖLNAMN: 'S:T ERIKS IPA*',
+		BRYGGERI: 'THREE TOWN BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '101013'
+	},
+	{
+		ÖLNAMN: 'S:T ERIKS IPA*',
+		BRYGGERI: 'THREE TOWN BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '6.42',
+		DELTAGARE: 7,
+		DATUM: '101110'
+	},
+	{
+		ÖLNAMN: 'S:T ERIKS PILSNER',
+		BRYGGERI: 'THREE TOWN BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '6.86',
+		DELTAGARE: 7,
+		DATUM: '101110'
+	},
+	{
+		ÖLNAMN: "SAMUEL ADAM'S OKTOBERFEST",
+		BRYGGERI: "SAMUEL ADAM'S BR.",
+		LAND: 'US',
+		ALKOHOL: '5.3',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '090923'
+	},
+	{
+		ÖLNAMN: 'SCHLOSS WEISSE',
+		BRYGGERI: 'SCHLOSSBR. SÖLDENAU',
+		LAND: 'DE',
+		ALKOHOL: '5.3',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '020514'
+	},
+	{
+		ÖLNAMN: 'SCHUSSENRIEDER ORIGINAL SPEZIAL',
+		BRYGGERI: 'BR. SCHUSSENRIEDER',
+		LAND: 'DE',
+		ALKOHOL: '5.3',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '040512'
+	},
+	{
+		ÖLNAMN: 'SCHUSSENRIEDER SCHWARZBIER',
+		BRYGGERI: 'BR. SCHUSSENRIEDER',
+		LAND: 'DE',
+		ALKOHOL: '5.3',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '040512'
+	},
+	{
+		ÖLNAMN: 'SINEBRYCHOFF PORTER',
+		BRYGGERI: 'SINEBRYCHOFF',
+		LAND: 'FI',
+		ALKOHOL: '5.3',
+		BETYG: '6.67',
+		DELTAGARE: 3,
+		DATUM: '940826'
+	},
+	{
+		ÖLNAMN: 'SONJA BENGTSSONS TJEJÖL',
+		BRYGGERI: 'KOPPARBERGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '6.00',
+		DELTAGARE: 3,
+		DATUM: '950921'
+	},
+	{
+		ÖLNAMN: 'STAROPRAMEN VELVET',
+		BRYGGERI: 'PRASKE PIVOVARY',
+		LAND: 'CZ',
+		ALKOHOL: '5.3',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '001107'
+	},
+	{
+		ÖLNAMN: 'STOCKHOLM FINE FESTIVAL BEER (1997)',
+		BRYGGERI: 'KRÖNLEIN BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '970121'
+	},
+	{
+		ÖLNAMN: 'STÖRTEBEKER BERNSTEINWEIZEN*',
+		BRYGGERI: 'STRALSUNDER BR.',
+		LAND: 'DE',
+		ALKOHOL: '5.3',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '110112'
+	},
+	{
+		ÖLNAMN: 'STÖRTEBEKER BERNSTEINWEIZEN*',
+		BRYGGERI: 'STRALSUNDER BR.',
+		LAND: 'DE',
+		ALKOHOL: '5.3',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '110512'
+	},
+	{
+		ÖLNAMN: 'STÖRTEBEKER ROGGEN-WEIZEN*',
+		BRYGGERI: 'STRALSUNDER BR.',
+		LAND: 'DE',
+		ALKOHOL: '5.3',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '110112'
+	},
+	{
+		ÖLNAMN: 'STÖRTEBEKER ROGGEN-WEIZEN*',
+		BRYGGERI: 'STRALSUNDER BR.',
+		LAND: 'DE',
+		ALKOHOL: '5.3',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '110512'
+	},
+	{
+		ÖLNAMN: 'SVENSK GULD TJEJÖL',
+		BRYGGERI: 'KOPPARBERGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '980922'
+	},
+	{
+		ÖLNAMN: 'THREE HEART´S FAMOUS EXPORT',
+		BRYGGERI: 'APPELTOFFTSKA',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '960725'
+	},
+	{
+		ÖLNAMN: 'WELTENBERGER KLOSTER BAROCK-HELL',
+		BRYGGERI: 'WELTENBERGER BR.',
+		LAND: 'DE',
+		ALKOHOL: '5.3',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '981207'
+	},
+	{
+		ÖLNAMN: 'WELTENBERGER KLOSTER OKTOBER FESTBIER',
+		BRYGGERI: 'WELTENBERGER BR.',
+		LAND: 'DE',
+		ALKOHOL: '5.3',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '090923'
+	},
+	{
+		ÖLNAMN: 'WITTMANN HEFE-WEISSE',
+		BRYGGERI: 'BR. C.WITTMANN',
+		LAND: 'DE',
+		ALKOHOL: '5.3',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '981207'
+	},
+	{
+		ÖLNAMN: 'Zeunerts Höga Kusten',
+		BRYGGERI: 'Zeunerts',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '150916'
+	},
+	{
+		ÖLNAMN: 'ÖSTERLEN ÄPPELWIT',
+		BRYGGERI: 'GÅRDSBRYGGERIET PÅ STOCKBODA',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '110309'
+	},
+	{
+		ÖLNAMN: 'AMBER ARTON56',
+		BRYGGERI: 'ÅBRO BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '070515'
+	},
+	{
+		ÖLNAMN: 'American Pale Ale',
+		BRYGGERI: 'Brygghuset Finn',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '180118'
+	},
+	{
+		ÖLNAMN: 'AURA IVA*',
+		BRYGGERI: 'AMRI',
+		LAND: 'FI',
+		ALKOHOL: '5.2',
+		BETYG: '3.50',
+		DELTAGARE: 4,
+		DATUM: '931104'
+	},
+	{
+		ÖLNAMN: 'AURA IVA*',
+		BRYGGERI: 'AMRI',
+		LAND: 'FI',
+		ALKOHOL: '5.2',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '931104'
+	},
+	{
+		ÖLNAMN: 'BATTIN GAMBRINUS',
+		BRYGGERI: 'BR. BATTIN',
+		LAND: 'LU',
+		ALKOHOL: '5.2',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '100728'
+	},
+	{
+		ÖLNAMN: 'BELLE-VUE',
+		BRYGGERI: 'BELLE-VUE P.B.',
+		LAND: 'BE',
+		ALKOHOL: '5.2',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '040614'
+	},
+	{
+		ÖLNAMN: 'Benahoare',
+		BRYGGERI: 'La Palma Distillers',
+		LAND: 'ES',
+		ALKOHOL: '5.2',
+		BETYG: '5.14',
+		DELTAGARE: 7,
+		DATUM: '180712'
+	},
+	{
+		ÖLNAMN: 'BIRKEBRYG',
+		BRYGGERI: 'BR. SKOVLYST',
+		LAND: 'DK',
+		ALKOHOL: '5.2',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '110607'
+	},
+	{
+		ÖLNAMN: 'BLACK DOUGLAS',
+		BRYGGERI: 'BROUGHTON ALES LTD',
+		LAND: 'SCOT',
+		ALKOHOL: '5.2',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '000509'
+	},
+	{
+		ÖLNAMN: 'BLANDFORD FLY PREMIUM ALE',
+		BRYGGERI: 'BADGER BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.2',
+		BETYG: '4.67',
+		DELTAGARE: 6,
+		DATUM: '021212'
+	},
+	{
+		ÖLNAMN: 'BLUE TIGER',
+		BRYGGERI: 'SPENDRUP',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '000410'
+	},
+	{
+		ÖLNAMN: 'BROOKLYN BROWN ALE',
+		BRYGGERI: 'BROOKLYN BR.',
+		LAND: 'US',
+		ALKOHOL: '5.2',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '000104'
+	},
+	{
+		ÖLNAMN: 'Brooklyn Lager',
+		BRYGGERI: 'Brooklyn Br.',
+		LAND: 'US',
+		ALKOHOL: '5.2',
+		BETYG: '5.42',
+		DELTAGARE: 7,
+		DATUM: '150708'
+	},
+	{
+		ÖLNAMN: 'BØGEBRYG',
+		BRYGGERI: 'BR. SKOVLYST',
+		LAND: 'DK',
+		ALKOHOL: '5.2',
+		BETYG: '7.00',
+		DELTAGARE: 6,
+		DATUM: '110607'
+	},
+	{
+		ÖLNAMN: 'CALVINUS',
+		BRYGGERI: 'LES FRERES PAPINOT',
+		LAND: 'CH',
+		ALKOHOL: '5.2',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '130821'
+	},
+	{
+		ÖLNAMN: 'CRISTAL',
+		BRYGGERI: 'UNICER',
+		LAND: 'PT',
+		ALKOHOL: '5.2',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '000417'
+	},
+	{
+		ÖLNAMN: 'DAI VIET BIA VANG',
+		BRYGGERI: 'SENPRODIMEX',
+		LAND: 'VN',
+		ALKOHOL: '5.2',
+		BETYG: '4.00',
+		DELTAGARE: 6,
+		DATUM: '100310'
+	},
+	{
+		ÖLNAMN: 'DE KRONENBOURG',
+		BRYGGERI: 'BR. KRONENBOURG',
+		LAND: 'FR',
+		ALKOHOL: '5.2',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '961007'
+	},
+	{
+		ÖLNAMN: 'DOUBLE DIAMOND',
+		BRYGGERI: 'IND. COOPE LTD.',
+		LAND: 'GB',
+		ALKOHOL: '5.2',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '951114'
+	},
+	{
+		ÖLNAMN: 'DREHER CLASSIC',
+		BRYGGERI: 'DREHER SÖRGYÁRAK',
+		LAND: 'HU',
+		ALKOHOL: '5.2',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '041117'
+	},
+	{
+		ÖLNAMN: 'FALCON JUBILEUM',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '960725'
+	},
+	{
+		ÖLNAMN: 'FORST KRON SPECIALE',
+		BRYGGERI: 'BR. FORST',
+		LAND: 'IT',
+		ALKOHOL: '5.2',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '030526'
+	},
+	{
+		ÖLNAMN: 'GIPFELSTURMER',
+		BRYGGERI: 'Stiegl-Br. zu Salzburg',
+		LAND: 'AU',
+		ALKOHOL: '5.2',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '170607'
+	},
+	{
+		ÖLNAMN: 'Gutmann Dunkel Hefeweizen',
+		BRYGGERI: 'Br. Gutmann',
+		LAND: 'DE',
+		ALKOHOL: '5.2',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '190613'
+	},
+	{
+		ÖLNAMN: 'Gutmann Hefeweizen',
+		BRYGGERI: 'Br. Gutmann',
+		LAND: 'DE',
+		ALKOHOL: '5.2',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '190613'
+	},
+	{
+		ÖLNAMN: 'Gårdbryg',
+		BRYGGERI: 'Ebeltoft Gårdbryggeri',
+		LAND: 'DK',
+		ALKOHOL: '5.2',
+		BETYG: '5.28',
+		DELTAGARE: 7,
+		DATUM: '151007'
+	},
+	{
+		ÖLNAMN: 'Hobgoblin',
+		BRYGGERI: 'Wychwood Br.',
+		LAND: 'UK',
+		ALKOHOL: '5.2',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '190912'
+	},
+	{
+		ÖLNAMN: 'HOLSTEN',
+		BRYGGERI: 'HOLSTEN Br AG',
+		LAND: 'DE',
+		ALKOHOL: '5.2',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '930421'
+	},
+	{
+		ÖLNAMN: 'Hr Skovs Lyngöl',
+		BRYGGERI: 'Blåvand',
+		LAND: 'DK',
+		ALKOHOL: '5.2',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '161208'
+	},
+	{
+		ÖLNAMN: 'Huvila ESB',
+		BRYGGERI: 'Malmgårdin Panimo',
+		LAND: 'FI',
+		ALKOHOL: '5.2',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '150408'
+	},
+	{
+		ÖLNAMN: 'IGUAZU',
+		BRYGGERI: 'CERVECERIA Y MALTERIA QUILMES',
+		LAND: 'AR',
+		ALKOHOL: '5.2',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '011010'
+	},
+	{
+		ÖLNAMN: 'JOHN L´S GULDÖL*',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '960509'
+	},
+	{
+		ÖLNAMN: 'JÄMTLANDS PRESIDENT',
+		BRYGGERI: 'JÄMTLANDS BRYGGERI AB',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '990308'
+	},
+	{
+		ÖLNAMN: 'KARJALA IVA ',
+		BRYGGERI: 'AMRI',
+		LAND: 'FI',
+		ALKOHOL: '5.2',
+		BETYG: '3.50',
+		DELTAGARE: 5,
+		DATUM: '930505'
+	},
+	{
+		ÖLNAMN: 'KOTAYK',
+		BRYGGERI: 'KOTAYK BR.',
+		LAND: 'AR',
+		ALKOHOL: '5.2',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '071121'
+	},
+	{
+		ÖLNAMN: 'LAPIN KULTA IVA',
+		BRYGGERI: 'HARTWALL',
+		LAND: 'FI',
+		ALKOHOL: '5.2',
+		BETYG: '3.00',
+		DELTAGARE: 4,
+		DATUM: '940127'
+	},
+	{
+		ÖLNAMN: 'M/52',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '000410'
+	},
+	{
+		ÖLNAMN: 'MILK STOUT',
+		BRYGGERI: 'LEFT HAND BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '5.2',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '080116'
+	},
+	{
+		ÖLNAMN: 'NASTRO AZZURRO* (B)',
+		BRYGGERI: 'BIRRA PERONI',
+		LAND: 'IT',
+		ALKOHOL: '5.2',
+		BETYG: '5.67',
+		DELTAGARE: 3,
+		DATUM: '941201'
+	},
+	{
+		ÖLNAMN: 'NEW YORK LAGER',
+		BRYGGERI: 'NØRREBRO BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '5.2',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '110216'
+	},
+	{
+		ÖLNAMN: 'New York Lager',
+		BRYGGERI: 'Nörrebro Brygghus',
+		LAND: 'DK',
+		ALKOHOL: '5.2',
+		BETYG: '5.28',
+		DELTAGARE: 7,
+		DATUM: '150708'
+	},
+	{
+		ÖLNAMN: 'NILS OSCAR JULÖL',
+		BRYGGERI: 'TÄRNÖ BR. AB',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '010425'
+	},
+	{
+		ÖLNAMN: 'Nils Oscar Kalasjulöl',
+		BRYGGERI: 'Nils Oscar',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '131120'
+	},
+	{
+		ÖLNAMN: 'NILS OSCAR KALASPÅSKÖL',
+		BRYGGERI: 'NILS OSCAR COMP. AB',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '070425'
+	},
+	{
+		ÖLNAMN: 'NILS OSCAR KALASÖL',
+		BRYGGERI: 'Nils Oscar Bryggerier',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '021009'
+	},
+	{
+		ÖLNAMN: 'Oechsner Edelhell',
+		BRYGGERI: 'Oechsner Ankerbräu',
+		LAND: 'DE',
+		ALKOHOL: '5.2',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '121010'
+	},
+	{
+		ÖLNAMN: 'OLD SPECKLED HEN',
+		BRYGGERI: 'MORLAND',
+		LAND: 'GB',
+		ALKOHOL: '5.2',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '961112'
+	},
+	{
+		ÖLNAMN: 'OPPIGÅRDS GOLDEN ALE',
+		BRYGGERI: 'OPPIGÅRDS BRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '071212'
+	},
+	{
+		ÖLNAMN: 'ORIGINAL CROCODILE',
+		BRYGGERI: 'KROENLEINS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '4.71',
+		DELTAGARE: 7,
+		DATUM: '060215'
+	},
+	{
+		ÖLNAMN: 'OZUJSKO',
+		BRYGGERI: 'ZAGREBACKA PIVOVARA',
+		LAND: 'HR',
+		ALKOHOL: '5.2',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '991104'
+	},
+	{
+		ÖLNAMN: 'PALM SPECIALE*',
+		BRYGGERI: 'N.V. PALM BR.',
+		LAND: 'BE',
+		ALKOHOL: '5.2',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '040614'
+	},
+	{
+		ÖLNAMN: 'PAN',
+		BRYGGERI: 'PANONSKA PIVOVARA',
+		LAND: 'HR',
+		ALKOHOL: '5.2',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '991104'
+	},
+	{
+		ÖLNAMN: 'PILS',
+		BRYGGERI: 'GÅRDSBRYGGERIET PÅ STOCKBODA',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '110309'
+	},
+	{
+		ÖLNAMN: 'PORTER',
+		BRYGGERI: 'GRAIN NORFOLK BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.2',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '091111'
+	},
+	{
+		ÖLNAMN: 'Pszeniczniak',
+		BRYGGERI: 'Browar Amber',
+		LAND: 'PL',
+		ALKOHOL: '5.2',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: 'SAKU REVAL ',
+		BRYGGERI: 'AMRI (licens; Estland)',
+		LAND: 'FI',
+		ALKOHOL: '5.2',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '931213'
+	},
+	{
+		ÖLNAMN: "SAMUEL ADAM'S OCTOBERFEST",
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '5.2',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '040922'
+	},
+	{
+		ÖLNAMN: "SAMUEL ADAM'S OCTOBERFEST",
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '5.2',
+		BETYG: '5.28',
+		DELTAGARE: 7,
+		DATUM: '070919'
+	},
+	{
+		ÖLNAMN: "SAMUEL ADAM'S OCTOBERFEST",
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '5.2',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '080910'
+	},
+	{
+		ÖLNAMN: 'SAREMAA TUULIK',
+		BRYGGERI: 'ASA LECOQ TARTUÖLLETAHAS',
+		LAND: 'EE',
+		ALKOHOL: '5.2',
+		BETYG: '6.37',
+		DELTAGARE: 6,
+		DATUM: '060920'
+	},
+	{
+		ÖLNAMN: 'SCHREMSER ROGGEN BIER',
+		BRYGGERI: 'Privatbr. Karl Theodor Trojan Schrems',
+		LAND: 'AT',
+		ALKOHOL: '5.2',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '041117'
+	},
+	{
+		ÖLNAMN: 'Shipyard Winter Ale special brew',
+		BRYGGERI: 'Shipyard br',
+		LAND: 'US',
+		ALKOHOL: '5.2',
+		BETYG: '7.17',
+		DELTAGARE: 6,
+		DATUM: '030922'
+	},
+	{
+		ÖLNAMN: 'SLOTTSKÄLLANS OKTOBERFEST 2007',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '071025'
+	},
+	{
+		ÖLNAMN: 'SLOTTSKÄLLANS VIT SOMMARÖL',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '6.72',
+		DELTAGARE: 6,
+		DATUM: '080625'
+	},
+	{
+		ÖLNAMN: 'SPATEN MÜNCHEN',
+		BRYGGERI: 'SPATEN-FRANZISKANER BR.',
+		LAND: 'DE',
+		ALKOHOL: '5.2',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '090422'
+	},
+	{
+		ÖLNAMN: 'Speciale',
+		BRYGGERI: 'Br. du Maroc',
+		LAND: 'MA',
+		ALKOHOL: '5.2',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '141112'
+	},
+	{
+		ÖLNAMN: 'SPENDRUPS ORIGINAL',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '971210'
+	},
+	{
+		ÖLNAMN: 'ST.ÖL',
+		BRYGGERI: 'SPENDRUP',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '000410'
+	},
+	{
+		ÖLNAMN: 'STELLA ARTOIS',
+		BRYGGERI: 'STELLA',
+		LAND: 'BE',
+		ALKOHOL: '5.2',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '930407'
+	},
+	{
+		ÖLNAMN: 'SVYTURYS',
+		BRYGGERI: 'ALAUS DARYKLA',
+		LAND: 'LT',
+		ALKOHOL: '5.2',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '011107'
+	},
+	{
+		ÖLNAMN: 'TOPVAR VALHALL',
+		BRYGGERI: 'TOPVAR BR.',
+		LAND: 'SI',
+		ALKOHOL: '5.2',
+		BETYG: '2.60',
+		DELTAGARE: 5,
+		DATUM: '981116'
+	},
+	{
+		ÖLNAMN: 'VIMMERBY PILSNER',
+		BRYGGERI: 'ÅBRO BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '080507'
+	},
+	{
+		ÖLNAMN: 'WELLS BANANA BREAD BEER',
+		BRYGGERI: 'WELLS EAGLE BR. BEDFORD',
+		LAND: 'GB',
+		ALKOHOL: '5.2',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '060622'
+	},
+	{
+		ÖLNAMN: 'WILLEMOES ALE',
+		BRYGGERI: 'VESTFYNS BR.',
+		LAND: 'DK',
+		ALKOHOL: '5.2',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '110914'
+	},
+	{
+		ÖLNAMN: 'ÅBRO SPECIAL JULÖL ´95',
+		BRYGGERI: 'ÅBRO BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '951214'
+	},
+	{
+		ÖLNAMN: 'AECHT SCHLENKERLAU RAUCHBIER*',
+		BRYGGERI: 'BR. HELLER BAMBERG',
+		LAND: 'DE',
+		ALKOHOL: '5.1',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '000119'
+	},
+	{
+		ÖLNAMN: 'AYINGER, Bräu-Weisse',
+		BRYGGERI: 'PRIVATBR. AYINGER',
+		LAND: 'DE',
+		ALKOHOL: '5.1',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '930324'
+	},
+	{
+		ÖLNAMN: 'BASS*',
+		BRYGGERI: 'INBEV UK LTD',
+		LAND: 'GB',
+		ALKOHOL: '5.1',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '061018'
+	},
+	{
+		ÖLNAMN: 'BLUE ZEBRA',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '5.1',
+		BETYG: '4.14',
+		DELTAGARE: 7,
+		DATUM: '060215'
+	},
+	{
+		ÖLNAMN: 'BŘEZNAK',
+		BRYGGERI: 'BR. VELKÉ BŘEZNO',
+		LAND: 'CZ',
+		ALKOHOL: '5.1',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '060419'
+	},
+	{
+		ÖLNAMN: 'Das Helle',
+		BRYGGERI: 'Br. Tilmansbiere',
+		LAND: 'DE',
+		ALKOHOL: '5.1',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '190613'
+	},
+	{
+		ÖLNAMN: 'Eagle Blond Ale',
+		BRYGGERI: 'Alpha Br.',
+		LAND: 'AD',
+		ALKOHOL: '5.1',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '150408'
+	},
+	{
+		ÖLNAMN: 'Grieskirchner Jörger Weisse',
+		BRYGGERI: 'Br. GRIESKIRCHNER',
+		LAND: 'AT',
+		ALKOHOL: '5.1',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '030326'
+	},
+	{
+		ÖLNAMN: 'HELL',
+		BRYGGERI: 'JÄMTLANDS BRYGGERI AB',
+		LAND: 'SE',
+		ALKOHOL: '5.1',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '060419'
+	},
+	{
+		ÖLNAMN: 'HEROLD',
+		BRYGGERI: 'PIVOVAR HEROLD BŘEZNICE A.S.',
+		LAND: 'CZ',
+		ALKOHOL: '5.1',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '050913'
+	},
+	{
+		ÖLNAMN: 'Hofbräu Muncherner Weisse',
+		BRYGGERI: 'Hofbräu Munchen',
+		LAND: 'DE',
+		ALKOHOL: '5.1',
+		BETYG: '6.00',
+		DELTAGARE: 7,
+		DATUM: '140611'
+	},
+	{
+		ÖLNAMN: 'Hofbräu Original',
+		BRYGGERI: 'Hofbräu Munchen',
+		LAND: 'DE',
+		ALKOHOL: '5.1',
+		BETYG: '5.00',
+		DELTAGARE: 7,
+		DATUM: '140611'
+	},
+	{
+		ÖLNAMN: 'Hofbräu Schwarze Weisse',
+		BRYGGERI: 'Hofbräu Munchen',
+		LAND: 'DE',
+		ALKOHOL: '5.1',
+		BETYG: '6.00',
+		DELTAGARE: 7,
+		DATUM: '140611'
+	},
+	{
+		ÖLNAMN: 'HUMMEL*',
+		BRYGGERI: 'ÅRE BRYGGERI AB',
+		LAND: 'SE',
+		ALKOHOL: '5.1',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '990308'
+	},
+	{
+		ÖLNAMN: 'Karett Blanche',
+		BRYGGERI: 'Karett',
+		LAND: 'FR - Guad',
+		ALKOHOL: '5.1',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '170831'
+	},
+	{
+		ÖLNAMN: 'KÖNIG LUDWIG DUNKEL*',
+		BRYGGERI: 'SCHLOSS BR. KALTENBERG',
+		LAND: 'DE',
+		ALKOHOL: '5.10',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '990922'
+	},
+	{
+		ÖLNAMN: 'MALMÖ BRYGGHUS VETEÖL',
+		BRYGGERI: 'MALMÖ BRYGGHUS',
+		LAND: 'SE',
+		ALKOHOL: '5.1',
+		BETYG: '5.28',
+		DELTAGARE: 7,
+		DATUM: '101110'
+	},
+	{
+		ÖLNAMN: 'MARIESTAD PRIMA LAGER',
+		BRYGGERI: 'MARIESTADS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.1',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '080507'
+	},
+	{
+		ÖLNAMN: 'MECKLENBURGER LANDBIER',
+		BRYGGERI: 'MV Getränkenertrieb GMBH',
+		LAND: 'DE',
+		ALKOHOL: '5.1',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '980629'
+	},
+	{
+		ÖLNAMN: "NICK'S ALE",
+		BRYGGERI: 'BRYGGERIET SKANDS',
+		LAND: 'DK',
+		ALKOHOL: '5.1',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '041026'
+	},
+	{
+		ÖLNAMN: 'Nils Oscar Kellerbier',
+		BRYGGERI: 'Nils Oscar Br.',
+		LAND: 'SE',
+		ALKOHOL: '5.1',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '200213'
+	},
+	{
+		ÖLNAMN: 'Nääs Lager',
+		BRYGGERI: 'Nääs Gårdsbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '5.1',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '150114'
+	},
+	{
+		ÖLNAMN: 'Pale Ale',
+		BRYGGERI: 'Sälens Fjällbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '5.1',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '170831'
+	},
+	{
+		ÖLNAMN: 'PENDLE WITCHES BREW*',
+		BRYGGERI: 'MOORHOUSE´S BREWERY',
+		LAND: 'GB',
+		ALKOHOL: '5.1',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '980311'
+	},
+	{
+		ÖLNAMN: 'PENDLE WITCHES BREW*',
+		BRYGGERI: 'MOORHOUSE´S BREWERY',
+		LAND: 'GB',
+		ALKOHOL: '5.1',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '980629'
+	},
+	{
+		ÖLNAMN: 'PETE´S WICKED ALE',
+		BRYGGERI: 'PETE´S BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.1',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '980311'
+	},
+	{
+		ÖLNAMN: 'PETE´S WICKED STRAWBERRY BLONDE',
+		BRYGGERI: 'PETE´S BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.1',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '980311'
+	},
+	{
+		ÖLNAMN: 'PINKUS SPECIAL',
+		BRYGGERI: 'BR. PINKUS MULLER',
+		LAND: 'DE',
+		ALKOHOL: '5.1',
+		BETYG: '4.67',
+		DELTAGARE: 6,
+		DATUM: '050614'
+	},
+	{
+		ÖLNAMN: "S:T PETER'S OLD STYLE PORTER",
+		BRYGGERI: "S:T PETER'S BR.",
+		LAND: 'GB',
+		ALKOHOL: '5.1',
+		BETYG: '6.43',
+		DELTAGARE: 7,
+		DATUM: '040331'
+	},
+	{
+		ÖLNAMN: 'Sailor (B)',
+		BRYGGERI: 'TT',
+		LAND: 'SE',
+		ALKOHOL: '5.1',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '030922'
+	},
+	{
+		ÖLNAMN: 'SARANAC BLACK AND TAN*',
+		BRYGGERI: 'MATT BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.1',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '981116'
+	},
+	{
+		ÖLNAMN: 'SCHUSSENRIEDER WEISSE',
+		BRYGGERI: 'BR. SCHUSSENRIEDER',
+		LAND: 'DE',
+		ALKOHOL: '5.1',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '040512'
+	},
+	{
+		ÖLNAMN: 'TRÄTÄLJA',
+		BRYGGERI: 'HALLSTA BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.1',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '990120'
+	},
+	{
+		ÖLNAMN: 'VULKANÖL',
+		BRYGGERI: 'HALLSTA BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.1',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '000417'
+	},
+	{
+		ÖLNAMN: 'ZLATOPRAMEN',
+		BRYGGERI: 'KRÁSNÉ BŘEZNO',
+		LAND: 'CZ',
+		ALKOHOL: '5.1',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '060830'
+	},
+	{
+		ÖLNAMN: '1828',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '981005'
+	},
+	{
+		ÖLNAMN: '#Selfie',
+		BRYGGERI: 'Nakd',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '6.14',
+		DELTAGARE: 7,
+		DATUM: '150708'
+	},
+	{
+		ÖLNAMN: '3 FONTAINEN OUDE GUEUZE*',
+		BRYGGERI: 'BR. Ambachtlijke Geuzestekerij',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '8.00',
+		DELTAGARE: 6,
+		DATUM: '031209'
+	},
+	{
+		ÖLNAMN: '4780 PILSNER*',
+		BRYGGERI: 'BRYGHUSET MØN',
+		LAND: 'DK',
+		ALKOHOL: '5.0',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '091209'
+	},
+	{
+		ÖLNAMN: 'ABBOT ALE',
+		BRYGGERI: 'GREEN KING BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '951114'
+	},
+	{
+		ÖLNAMN: 'Aiguille Blanche',
+		BRYGGERI: 'Br. des Cimes',
+		LAND: 'FR',
+		ALKOHOL: '5.0',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '140813'
+	},
+	{
+		ÖLNAMN: "AK'S PALE ALE 2004",
+		BRYGGERI: 'SCHOTTIS BREWERY',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '040826'
+	},
+	{
+		ÖLNAMN: 'ALBERT HEIJN PILSENER',
+		BRYGGERI: 'ALBERT HEIJN ZAANDAM',
+		LAND: 'NL',
+		ALKOHOL: '5.0',
+		BETYG: '3.20',
+		DELTAGARE: 5,
+		DATUM: '000209'
+	},
+	{
+		ÖLNAMN: 'Alfa',
+		BRYGGERI: 'Alfabeer.gr',
+		LAND: 'GR',
+		ALKOHOL: '5.0',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '190328'
+	},
+	{
+		ÖLNAMN: 'ALFA EDELPILS',
+		BRYGGERI: 'BIERBR. SCHINNEN',
+		LAND: 'NL',
+		ALKOHOL: '5.0',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '951107'
+	},
+	{
+		ÖLNAMN: 'ALFA HELLENIC BEER',
+		BRYGGERI: 'ATHENIAN BR. S.A. GR.',
+		LAND: 'GR',
+		ALKOHOL: '5.0',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '000823'
+	},
+	{
+		ÖLNAMN: 'Amber Pils',
+		BRYGGERI: 'Br. Amber',
+		LAND: 'PL',
+		ALKOHOL: '5.0',
+		BETYG: '4.28',
+		DELTAGARE: 7,
+		DATUM: '180712'
+	},
+	{
+		ÖLNAMN: 'Amstel Bright',
+		BRYGGERI: 'Amstel Br. B.V.',
+		LAND: 'NL',
+		ALKOHOL: '5.0',
+		BETYG: '4.67',
+		DELTAGARE: 6,
+		DATUM: '160817'
+	},
+	{
+		ÖLNAMN: 'ANCHOR PORTER*',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '010815'
+	},
+	{
+		ÖLNAMN: 'ANCHOR PORTER*',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '950501'
+	},
+	{
+		ÖLNAMN: 'ANCHOR SMALL BEER',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '2.80',
+		DELTAGARE: 5,
+		DATUM: '010815'
+	},
+	{
+		ÖLNAMN: 'ANCHOR STEAM BEER*',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '010815'
+	},
+	{
+		ÖLNAMN: 'ANCHOR STEAM BEER*',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '931111'
+	},
+	{
+		ÖLNAMN: 'ANCHOR STEAM BEER*',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '941215'
+	},
+	{
+		ÖLNAMN: 'ANCHOR WHEAT BEER',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '010815'
+	},
+	{
+		ÖLNAMN: 'ANDECHSER DUNKLES WEISSBIER',
+		BRYGGERI: 'KLOSTER ANDECHS',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '081008'
+	},
+	{
+		ÖLNAMN: 'ANTARCTICA',
+		BRYGGERI: 'Comp. Antarctica Paulista',
+		LAND: 'BR',
+		ALKOHOL: '5.0',
+		BETYG: '3.00',
+		DELTAGARE: 3,
+		DATUM: '950411'
+	},
+	{
+		ÖLNAMN: 'ARCENER TARWE ',
+		BRYGGERI: 'ARCENER',
+		LAND: 'NL',
+		ALKOHOL: '5.0',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '930609'
+	},
+	{
+		ÖLNAMN: 'Asahi',
+		BRYGGERI: 'Ahasi Br.',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '130508'
+	},
+	{
+		ÖLNAMN: 'ASAHI SUPER DRY',
+		BRYGGERI: 'ASAHI BR. LTD.',
+		LAND: 'JP',
+		ALKOHOL: '5.0',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '030115'
+	},
+	{
+		ÖLNAMN: 'Avenyn Ale',
+		BRYGGERI: 'Dugges',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '140507'
+	},
+	{
+		ÖLNAMN: 'Avenyn Ale',
+		BRYGGERI: 'Dugges',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '160316'
+	},
+	{
+		ÖLNAMN: 'BALTICA 8',
+		BRYGGERI: 'BALTICA BR.',
+		LAND: 'RU',
+		ALKOHOL: '5.0',
+		BETYG: '5.71',
+		DELTAGARE: 7,
+		DATUM: '051115'
+	},
+	{
+		ÖLNAMN: 'BAVARIA',
+		BRYGGERI: 'BIERBR. LIESHOUT',
+		LAND: 'NL',
+		ALKOHOL: '5.0',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '000830'
+	},
+	{
+		ÖLNAMN: 'BECK´S',
+		BRYGGERI: 'BRAUEREI BECK & Co',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '930421'
+	},
+	{
+		ÖLNAMN: 'BEERLAO',
+		BRYGGERI: 'LAO BR. CO. LTD.',
+		LAND: 'LA',
+		ALKOHOL: '5.0',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '100310'
+	},
+	{
+		ÖLNAMN: 'Beerlao',
+		BRYGGERI: 'Lao Br. Co.',
+		LAND: 'LA',
+		ALKOHOL: '5.0',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '151209'
+	},
+	{
+		ÖLNAMN: 'BERLINER KINDL JUBILÄUMS PILS',
+		BRYGGERI: 'BERLINER KINDL BR. AG.',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '030701'
+	},
+	{
+		ÖLNAMN: 'BERLINER PILSNER',
+		BRYGGERI: 'BERLINER PILSNER BR.',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '980629'
+	},
+	{
+		ÖLNAMN: 'BIERE DES NAUFRAGEURS',
+		BRYGGERI: 'BR. DES NAUFRAGEURS',
+		LAND: 'FR',
+		ALKOHOL: '5.0',
+		BETYG: '3.83',
+		DELTAGARE: 6,
+		DATUM: '0803XX'
+	},
+	{
+		ÖLNAMN: 'BIOS KRIEKENBIER',
+		BRYGGERI: 'BR. VAN STEENBERGE',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '6.67',
+		DELTAGARE: 3,
+		DATUM: '020326'
+	},
+	{
+		ÖLNAMN: 'BIOS VLAAMSE BOURGOGNE',
+		BRYGGERI: 'BR. VAN STEENBERGE',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '060118'
+	},
+	{
+		ÖLNAMN: 'Birkebryg',
+		BRYGGERI: 'Skovlyst Br.',
+		LAND: 'DK',
+		ALKOHOL: '5.0',
+		BETYG: '4.17',
+		DELTAGARE: 6,
+		DATUM: '150603'
+	},
+	{
+		ÖLNAMN: 'BLACK OKTOBER',
+		BRYGGERI: 'SIGTUNA BRYGGHUS',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '090923'
+	},
+	{
+		ÖLNAMN: 'BLACK WYCH',
+		BRYGGERI: 'WYCHWOOD BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '050406'
+	},
+	{
+		ÖLNAMN: 'Blanc 1664',
+		BRYGGERI: 'Kronenbourg',
+		LAND: 'FR',
+		ALKOHOL: '5.0',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '150603'
+	},
+	{
+		ÖLNAMN: 'BLANCHE DE CHAMBLY',
+		BRYGGERI: 'UNIBROUE',
+		LAND: 'CA',
+		ALKOHOL: '5.0',
+		BETYG: '6.57',
+		DELTAGARE: 7,
+		DATUM: '060321'
+	},
+	{
+		ÖLNAMN: 'Blond',
+		BRYGGERI: 'A. Le Coq',
+		LAND: 'EE',
+		ALKOHOL: '5.0',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '171115'
+	},
+	{
+		ÖLNAMN: 'Blue Marlin',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'SE!?',
+		ALKOHOL: '5.0',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '030922'
+	},
+	{
+		ÖLNAMN: 'BORNHOLMER BRYG CLASSIC',
+		BRYGGERI: 'SVANEKE BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '5.0',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '031209'
+	},
+	{
+		ÖLNAMN: 'BRAND BIER',
+		BRYGGERI: 'BRAND BIERBR.',
+		LAND: 'NL',
+		ALKOHOL: '5.0',
+		BETYG: '3.40',
+		DELTAGARE: 5,
+		DATUM: '000209'
+	},
+	{
+		ÖLNAMN: 'BRANIK',
+		BRYGGERI: 'STAROPRAMEN',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '060830'
+	},
+	{
+		ÖLNAMN: 'BROOKLYN LAGER',
+		BRYGGERI: 'THE BROOKLYN BR.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '000309'
+	},
+	{
+		ÖLNAMN: 'BROOKLYN PILSNER',
+		BRYGGERI: 'THE BROOKLYN BR.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '000309'
+	},
+	{
+		ÖLNAMN: 'BROUWERS BIER',
+		BRYGGERI: '',
+		LAND: 'NL',
+		ALKOHOL: '5.0',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '951107'
+	},
+	{
+		ÖLNAMN: 'BROWN ALE',
+		BRYGGERI: 'BRYGHUSET MØN',
+		LAND: 'DK',
+		ALKOHOL: '5.0',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '091209'
+	},
+	{
+		ÖLNAMN: 'BROWN ALE PILSNER',
+		BRYGGERI: 'BRYGHUSET MØN',
+		LAND: 'DK',
+		ALKOHOL: '5.0',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '070215'
+	},
+	{
+		ÖLNAMN: 'BUDÉJOVICKÝ BUDVAR*',
+		BRYGGERI: 'BUDWEISER BUDVAR N.C.',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '050913'
+	},
+	{
+		ÖLNAMN: 'BUDÉJOVICKÝ BUDVAR*',
+		BRYGGERI: 'BUDWEISER BUDVAR N.C.',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '5.67',
+		DELTAGARE: 3,
+		DATUM: '960319'
+	},
+	{
+		ÖLNAMN: 'BUDWEISER*',
+		BRYGGERI: 'BUDWEISER STAG BR. CO.',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '061018'
+	},
+	{
+		ÖLNAMN: 'BUDWEISER*',
+		BRYGGERI: 'BUDWEISER STAG BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '5.14',
+		DELTAGARE: 7,
+		DATUM: '070828'
+	},
+	{
+		ÖLNAMN: 'BUDWEISER*',
+		BRYGGERI: 'ANHEUSER BUSCH',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '951017'
+	},
+	{
+		ÖLNAMN: 'Burbrit Rangoon Blonde',
+		BRYGGERI: 'Burbrit Yangon Craft Br. Co. Ltd.',
+		LAND: 'MM',
+		ALKOHOL: '5.0',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '180517'
+	},
+	{
+		ÖLNAMN: 'Cambodia Lager Beer',
+		BRYGGERI: 'Khmer Br. Ltd',
+		LAND: 'KH',
+		ALKOHOL: '5.0',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '151209'
+	},
+	{
+		ÖLNAMN: 'CANTILLON GRAND CRU',
+		BRYGGERI: 'BRASSERIE CANTILLON',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '930531'
+	},
+	{
+		ÖLNAMN: 'CANTILLON GRAND CRU BROUCSELLA',
+		BRYGGERI: 'CANTILLON BR.',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '090520'
+	},
+	{
+		ÖLNAMN: 'CANTILLON GUEUZE 100% LAMBIC BIO',
+		BRYGGERI: 'BR. CANTILLON',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '090520'
+	},
+	{
+		ÖLNAMN: 'CANTILLON GUEUZE-LAMBIC',
+		BRYGGERI: 'BRASSERIE CANTILLON',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '930531'
+	},
+	{
+		ÖLNAMN: 'CANTILLON IRIS',
+		BRYGGERI: 'BRASSERIE CANTILLON',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '050823'
+	},
+	{
+		ÖLNAMN: 'CANTILLON IRIS 2005',
+		BRYGGERI: 'CANTILLON',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '130109'
+	},
+	{
+		ÖLNAMN: 'CANTILLON KRIEK',
+		BRYGGERI: 'BRASSERIE CANTILLON',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '930531'
+	},
+	{
+		ÖLNAMN: 'CANTILLON KRIEK LAMBIC*',
+		BRYGGERI: 'BRASSERIE CANTILLON',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '011010'
+	},
+	{
+		ÖLNAMN: 'CANTILLON KRIEK LAMBIC*',
+		BRYGGERI: 'BRASSERIE CANTILLON',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '8.33',
+		DELTAGARE: 3,
+		DATUM: '020326'
+	},
+	{
+		ÖLNAMN: 'CANTILLON KRIEK LAMBIC*',
+		BRYGGERI: 'CANTILLON BR.',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '7.42',
+		DELTAGARE: 7,
+		DATUM: '090128'
+	},
+	{
+		ÖLNAMN: 'CANTILLON ROSÉ DE GAMBRINUS*',
+		BRYGGERI: 'BRASSERIE CANTILLON',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '011010'
+	},
+	{
+		ÖLNAMN: 'CANTILLON ROSÉ DE GAMBRINUS*',
+		BRYGGERI: 'BRASSERIE CANTILLON',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '8.00',
+		DELTAGARE: 3,
+		DATUM: '020326'
+	},
+	{
+		ÖLNAMN: 'CANTILLON SAINT LAMVINUS',
+		BRYGGERI: 'BR. CANTILLON BROUWERIJ',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '070614'
+	},
+	{
+		ÖLNAMN: 'CARLSSONS BRENGSÖL',
+		BRYGGERI: 'KOPPARBERGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '970903'
+	},
+	{
+		ÖLNAMN: 'CARTA BLANCA',
+		BRYGGERI: 'CUAUHTEMOC S.A. DE C.V.',
+		LAND: 'MX',
+		ALKOHOL: '5.0',
+		BETYG: '3.60',
+		DELTAGARE: 5,
+		DATUM: '980210'
+	},
+	{
+		ÖLNAMN: 'CASABLANCA BEER',
+		BRYGGERI: 'SOCIETÉ DES BRASSERIES DU MAROC',
+		LAND: 'MA',
+		ALKOHOL: '5.0',
+		BETYG: '4.67',
+		DELTAGARE: 3,
+		DATUM: '011129'
+	},
+	{
+		ÖLNAMN: 'CASABLANCA BEER',
+		BRYGGERI: 'BR. DU MAROC',
+		LAND: 'MA',
+		ALKOHOL: '5.0',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '100512'
+	},
+	{
+		ÖLNAMN: 'CASTELLO DI UDINE',
+		BRYGGERI: 'CASTELLO DI UDINE',
+		LAND: 'IT',
+		ALKOHOL: '5.0',
+		BETYG: '5.00',
+		DELTAGARE: 7,
+		DATUM: '030226'
+	},
+	{
+		ÖLNAMN: 'CASTLE LAGER',
+		BRYGGERI: 'SAB LTD',
+		LAND: 'ZA',
+		ALKOHOL: '5.0',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '061018'
+	},
+	{
+		ÖLNAMN: 'CATAMOUNT PORTER',
+		BRYGGERI: 'CATAMOUNT BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '950501'
+	},
+	{
+		ÖLNAMN: 'CELTIA BIÈRE DE LUXE',
+		BRYGGERI: 'SEABG-BOUARGOUB',
+		LAND: 'TN',
+		ALKOHOL: '5.0',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '051212'
+	},
+	{
+		ÖLNAMN: 'CERVEZA CUSQUEÑA',
+		BRYGGERI: 'CERVESUR',
+		LAND: 'PE',
+		ALKOHOL: '5.0',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '990308'
+	},
+	{
+		ÖLNAMN: 'CHIHUAHUA',
+		BRYGGERI: 'CUAUHTEMOC S.A. DE C.V.',
+		LAND: 'MX',
+		ALKOHOL: '5.0',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '980210'
+	},
+	{
+		ÖLNAMN: 'Cimoise',
+		BRYGGERI: 'Br. des Cimes',
+		LAND: 'FR',
+		ALKOHOL: '5.0',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '140813'
+	},
+	{
+		ÖLNAMN: 'COBRA INDIAN BEER',
+		BRYGGERI: 'COBRA BEER LTD',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '000830'
+	},
+	{
+		ÖLNAMN: 'COLHUE',
+		BRYGGERI: 'Wolfs Br.',
+		LAND: 'RU',
+		ALKOHOL: '5.0',
+		BETYG: '4.67',
+		DELTAGARE: 6,
+		DATUM: '190117'
+	},
+	{
+		ÖLNAMN: 'COREFF AMBRÉE DES 2 RIVIÈRES',
+		BRYGGERI: 'Brasserie Des 2 Rivières',
+		LAND: 'FR',
+		ALKOHOL: '5.0',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '061212'
+	},
+	{
+		ÖLNAMN: 'CRUZCAMPO',
+		BRYGGERI: 'GRUPO CRUZCAMPO S.A.',
+		LAND: 'ES',
+		ALKOHOL: '5.0',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '970903'
+	},
+	{
+		ÖLNAMN: 'CUSCO',
+		BRYGGERI: 'CUSCO BR.',
+		LAND: 'PE',
+		ALKOHOL: '5.0',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '940407'
+	},
+	{
+		ÖLNAMN: 'CUVÉE RENÉ',
+		BRYGGERI: 'BR. LINDEMAN',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '970625'
+	},
+	{
+		ÖLNAMN: 'DAB',
+		BRYGGERI: 'DAB',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '5.70',
+		DELTAGARE: 3,
+		DATUM: '930428'
+	},
+	{
+		ÖLNAMN: 'DACÍCKÝ',
+		BRYGGERI: 'PIVOVAR KUTNÁ HORA',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '3.60',
+		DELTAGARE: 5,
+		DATUM: '990120'
+	},
+	{
+		ÖLNAMN: 'de Koninck*',
+		BRYGGERI: 'BR. DE KONINCK',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '080507'
+	},
+	{
+		ÖLNAMN: 'DE KONINCK*',
+		BRYGGERI: 'BROUWERIJ DE KONINCK',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '090422'
+	},
+	{
+		ÖLNAMN: 'DENTERGEMS WIT',
+		BRYGGERI: 'NV RIMA',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '970625'
+	},
+	{
+		ÖLNAMN: 'Det våras för lime - en suröl',
+		BRYGGERI: 'Örebro Brygghus',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '4.86',
+		DELTAGARE: 7,
+		DATUM: '200611'
+	},
+	{
+		ÖLNAMN: 'DRACHMANN PILSNER#',
+		BRYGGERI: 'SKAGEN BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '5.0',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '071121'
+	},
+	{
+		ÖLNAMN: 'DREMMVEL BLONDE',
+		BRYGGERI: 'BR. DE BRETAGNE',
+		LAND: 'FR',
+		ALKOHOL: '5.0',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '100728'
+	},
+	{
+		ÖLNAMN: 'EFES MALT',
+		BRYGGERI: 'ANADOLU EFES BIRACILIK ve MaltSan',
+		LAND: 'TR',
+		ALKOHOL: '5.0',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '130417'
+	},
+	{
+		ÖLNAMN: 'EFES PILSNER (B)',
+		BRYGGERI: 'EFES BR.',
+		LAND: 'TR',
+		ALKOHOL: '5.0',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '060920'
+	},
+	{
+		ÖLNAMN: 'EINKORN',
+		BRYGGERI: 'RIEDEBURGER BRAUHAUS',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '050614'
+	},
+	{
+		ÖLNAMN: 'EL GRILLO',
+		BRYGGERI: 'SEYĐISFJÖRĐUR',
+		LAND: 'IS',
+		ALKOHOL: '5.0',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '090325'
+	},
+	{
+		ÖLNAMN: 'FALCON ALE',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '3.50',
+		DELTAGARE: 4,
+		DATUM: '050202'
+	},
+	{
+		ÖLNAMN: 'FICI BIRA',
+		BRYGGERI: 'EFES BR.',
+		LAND: 'TR',
+		ALKOHOL: '5.0',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '060920'
+	},
+	{
+		ÖLNAMN: 'FISCHER*',
+		BRYGGERI: 'BR. FISCHER',
+		LAND: 'FR',
+		ALKOHOL: '5.0',
+		BETYG: '4.00',
+		DELTAGARE: 3,
+		DATUM: '941027'
+	},
+	{
+		ÖLNAMN: 'FLANDERS',
+		BRYGGERI: '',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '930324'
+	},
+	{
+		ÖLNAMN: 'FRAMBOISE GIRARDIN',
+		BRYGGERI: 'BROUWERIJ GIRARDIN',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '050315'
+	},
+	{
+		ÖLNAMN: 'FRANZISKANER HEFE-WEISSBIER*',
+		BRYGGERI: 'SPATEN FRANZISKANER BRÄU',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '020514'
+	},
+	{
+		ÖLNAMN: 'FRANZISKANER WEISSBIER*',
+		BRYGGERI: 'SPATEN-FRANZISKANER BR.',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '120307'
+	},
+	{
+		ÖLNAMN: 'FREE AGLUT',
+		BRYGGERI: 'FREE AGLUT',
+		LAND: 'IT',
+		ALKOHOL: '5.0',
+		BETYG: '2.57',
+		DELTAGARE: 7,
+		DATUM: '030226'
+	},
+	{
+		ÖLNAMN: 'FURESØ FRAMBOISE',
+		BRYGGERI: 'NØRREBRO BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '5.0',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '110216'
+	},
+	{
+		ÖLNAMN: 'GAMBRINUS',
+		BRYGGERI: 'PILNSER URQELL A.S.',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '020627'
+	},
+	{
+		ÖLNAMN: 'GAMLA STANS FÄRSKÖL',
+		BRYGGERI: 'GAMLA STANS BR. AB',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '971112'
+	},
+	{
+		ÖLNAMN: 'GAMLESTADENS HÄXÖL',
+		BRYGGERI: 'HERRLJUNGA CIDER',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '050406'
+	},
+	{
+		ÖLNAMN: 'GAMLESTADENS PILSNER',
+		BRYGGERI: 'GAMLESTADENS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '960509'
+	},
+	{
+		ÖLNAMN: 'GINGA KOGEN BEER',
+		BRYGGERI: 'GINGA BR.',
+		LAND: 'JP',
+		ALKOHOL: '5.0',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '0010'
+	},
+	{
+		ÖLNAMN: 'GOLDEN ALE',
+		BRYGGERI: 'FULL SAIL BR.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '980210'
+	},
+	{
+		ÖLNAMN: 'GOLDEN LAGER*',
+		BRYGGERI: 'BEREIOU ELLADOS A.E.',
+		LAND: 'GR',
+		ALKOHOL: '5.0',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '000823'
+	},
+	{
+		ÖLNAMN: 'GOLDEN LAGER*',
+		BRYGGERI: 'BEREIOU ELLADOS A.E.',
+		LAND: 'GR',
+		ALKOHOL: '5.0',
+		BETYG: '3.40',
+		DELTAGARE: 5,
+		DATUM: '980629'
+	},
+	{
+		ÖLNAMN: 'GRAND CRU BRUOCSELLA 2003',
+		BRYGGERI: 'CANTILLON',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '4.00',
+		DELTAGARE: 6,
+		DATUM: '130109'
+	},
+	{
+		ÖLNAMN: 'GREENE KING ABBOT ALE',
+		BRYGGERI: 'GREENE KING PLC',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '940609'
+	},
+	{
+		ÖLNAMN: 'GREENE KING IPA EXPORT',
+		BRYGGERI: 'GREENE KING',
+		LAND: 'SCOT',
+		ALKOHOL: '5.0',
+		BETYG: '4.67',
+		DELTAGARE: 6,
+		DATUM: '120711'
+	},
+	{
+		ÖLNAMN: 'GROLSCH AMBER ALE',
+		BRYGGERI: 'GROLSCHE BIERBROUWERIJ',
+		LAND: 'NL',
+		ALKOHOL: '5.0',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '971112'
+	},
+	{
+		ÖLNAMN: 'GROLSCH PREMIUM',
+		BRYGGERI: 'GROLSCHE BIERBR.',
+		LAND: 'NL',
+		ALKOHOL: '5.0',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '000209'
+	},
+	{
+		ÖLNAMN: 'GUEUZE GIRARDIN',
+		BRYGGERI: 'BROUWERIJ GIRARDIN',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '8.00',
+		DELTAGARE: 6,
+		DATUM: '050315'
+	},
+	{
+		ÖLNAMN: 'GUINNESS (B)',
+		BRYGGERI: 'GUINNESS BR., S:t James´s Gate',
+		LAND: 'IE',
+		ALKOHOL: '5.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '931202'
+	},
+	{
+		ÖLNAMN: 'GUINNESS EXTRA STOUT*',
+		BRYGGERI: "S:t JAMES'S GATE BR.",
+		LAND: 'IE',
+		ALKOHOL: '5.0',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '010620'
+	},
+	{
+		ÖLNAMN: 'GUINNESS STOUT',
+		BRYGGERI: 'GUINNESS BR., S:t James´s Gate',
+		LAND: 'IE ',
+		ALKOHOL: '5.0',
+		BETYG: '7.25',
+		DELTAGARE: 4,
+		DATUM: '930816'
+	},
+	{
+		ÖLNAMN: 'GULLFOSS',
+		BRYGGERI: '',
+		LAND: 'IS',
+		ALKOHOL: '5.0',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '090325'
+	},
+	{
+		ÖLNAMN: 'GULPENER PILSNER',
+		BRYGGERI: 'GULPENER BIERBR.',
+		LAND: 'NL',
+		ALKOHOL: '5.0',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '951107'
+	},
+	{
+		ÖLNAMN: 'Gwada',
+		BRYGGERI: 'Les Br. de Guadeloupe',
+		LAND: 'FR - Guad',
+		ALKOHOL: '5.0',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '170831'
+	},
+	{
+		ÖLNAMN: 'HALLANDS VAPEN',
+		BRYGGERI: 'SOFIERO',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '960725'
+	},
+	{
+		ÖLNAMN: 'HALLSTA JULÖL',
+		BRYGGERI: 'HALLSTA BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '970121'
+	},
+	{
+		ÖLNAMN: 'Happyness Extra Stout',
+		BRYGGERI: 'Viva Gran Canaria',
+		LAND: 'ES',
+		ALKOHOL: '5.0',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '160615'
+	},
+	{
+		ÖLNAMN: 'HARP (B)',
+		BRYGGERI: 'GUINNESS BR.',
+		LAND: 'IE',
+		ALKOHOL: '5.0',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '021113'
+	},
+	{
+		ÖLNAMN: 'HEAVEN',
+		BRYGGERI: 'JÄMTLANDS BR. AB',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '7.75',
+		DELTAGARE: 4,
+		DATUM: '010116'
+	},
+	{
+		ÖLNAMN: 'HENNINGER',
+		BRYGGERI: 'HENNINGER BRAU AG',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '000823'
+	},
+	{
+		ÖLNAMN: 'HOEGAARDEN BIèRE BLANCHE*',
+		BRYGGERI: 'S.A. INTERBREW',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '031209'
+	},
+	{
+		ÖLNAMN: 'HOEGAARDEN BIèRE BLANCHE*',
+		BRYGGERI: 'S.A. INTERBREW',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '970625'
+	},
+	{
+		ÖLNAMN: 'HOEGAARDEN WITTE*',
+		BRYGGERI: 'BR. DE KLUIS',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '7.75',
+		DELTAGARE: 4,
+		DATUM: '930609'
+	},
+	{
+		ÖLNAMN: 'HOEGAARDEN WITTE*',
+		BRYGGERI: 'BR. DE KLUIS',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '940915'
+	},
+	{
+		ÖLNAMN: 'HOEGAARDEN*',
+		BRYGGERI: 'N.V. BR. HOEGAARDEN',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '020514'
+	},
+	{
+		ÖLNAMN: 'HUMLAN',
+		BRYGGERI: 'FALCON',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '001018'
+	},
+	{
+		ÖLNAMN: 'HÄXÖL',
+		BRYGGERI: 'GAMLESTADENS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '960509'
+	},
+	{
+		ÖLNAMN: 'HØSTBRYG MED JORDBÆR',
+		BRYGGERI: 'SAMSØ BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '5.0',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '071121'
+	},
+	{
+		ÖLNAMN: 'HØSTBRYG NR. 2',
+		BRYGGERI: 'SAMSØ BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '5.0',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '071121'
+	},
+	{
+		ÖLNAMN: 'Ichnusa non-filtrata',
+		BRYGGERI: 'Birrificio di Assemini',
+		LAND: 'IT',
+		ALKOHOL: '5.0',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '181112'
+	},
+	{
+		ÖLNAMN: 'IPA',
+		BRYGGERI: 'A. Le Coq',
+		LAND: 'EE',
+		ALKOHOL: '5.0',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '171115'
+	},
+	{
+		ÖLNAMN: 'JACOBSEN BRAMLEY WIT',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '5.0',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '070124'
+	},
+	{
+		ÖLNAMN: 'JAHKI',
+		BRYGGERI: 'GELLIVARE BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '000104'
+	},
+	{
+		ÖLNAMN: 'Jantarova 13',
+		BRYGGERI: 'Vinohradsky Pivovar',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '181112'
+	},
+	{
+		ÖLNAMN: 'JUL FÄRSKÖL',
+		BRYGGERI: 'GAMLA STANS BR. AB',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '000104'
+	},
+	{
+		ÖLNAMN: 'Jädraöl Vetefan',
+		BRYGGERI: 'Jädraås Br.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '150311'
+	},
+	{
+		ÖLNAMN: 'JÄMTLANDS BÄRNSTEN',
+		BRYGGERI: 'JÄMTLANDS BR. AB',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '7.50',
+		DELTAGARE: 4,
+		DATUM: '010116'
+	},
+	{
+		ÖLNAMN: 'JÄRNKAMINERNAS KANNA',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '001122'
+	},
+	{
+		ÖLNAMN: 'KALDI DÖKKUR LAGERBJÖR',
+		BRYGGERI: 'BRUGGSMI ĐJUNNI',
+		LAND: 'IS',
+		ALKOHOL: '5.0',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '090325'
+	},
+	{
+		ÖLNAMN: 'KALDI LAGERBJÖR',
+		BRYGGERI: 'BRUGGSMI ĐJUNNI',
+		LAND: 'IS',
+		ALKOHOL: '5.0',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '090325'
+	},
+	{
+		ÖLNAMN: 'KALNAPILIS',
+		BRYGGERI: 'AB KALNAPILIS',
+		LAND: 'LT',
+		ALKOHOL: '5.0',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '030115'
+	},
+	{
+		ÖLNAMN: 'KING LION EXPORT III',
+		BRYGGERI: 'KROENLEINS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.00',
+		DELTAGARE: 7,
+		DATUM: '060215'
+	},
+	{
+		ÖLNAMN: 'Kingdom Dunkel',
+		BRYGGERI: 'Kingdom Br.',
+		LAND: 'KH',
+		ALKOHOL: '5.0',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '151209'
+	},
+	{
+		ÖLNAMN: 'KINGFISHER',
+		BRYGGERI: 'BOMBAY BR.',
+		LAND: 'IN',
+		ALKOHOL: '5.0',
+		BETYG: '3.75',
+		DELTAGARE: 4,
+		DATUM: '001122'
+	},
+	{
+		ÖLNAMN: 'KINGFISHER PREMIUM LAGER BEER',
+		BRYGGERI: 'UNITED BR. LTD.',
+		LAND: 'IN',
+		ALKOHOL: '5.0',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '090624'
+	},
+	{
+		ÖLNAMN: 'Kirin',
+		BRYGGERI: 'Weihenstaphan',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '130508'
+	},
+	{
+		ÖLNAMN: 'KOPPARBERGS JULÖL*',
+		BRYGGERI: 'KOPPARBERGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '971210'
+	},
+	{
+		ÖLNAMN: 'KOPPARBERGS STOUT*',
+		BRYGGERI: 'KOPPARBERGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '000119'
+	},
+	{
+		ÖLNAMN: 'KOZEL',
+		BRYGGERI: 'VELKÉ POPOVICE',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '940801'
+	},
+	{
+		ÖLNAMN: 'KRIEK CUVÉE RENÉ',
+		BRYGGERI: 'LINDEMANS BR.',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '7.00',
+		DELTAGARE: 6,
+		DATUM: '090520'
+	},
+	{
+		ÖLNAMN: 'KRIEK GIRARDIN 1882*',
+		BRYGGERI: 'BROUWERIJ GIRARDIN',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '8.17',
+		DELTAGARE: 6,
+		DATUM: '041215'
+	},
+	{
+		ÖLNAMN: 'KRIEK GIRARDIN 1882*',
+		BRYGGERI: 'BROUWERIJ GIRARDIN',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '7.67',
+		DELTAGARE: 6,
+		DATUM: '050315'
+	},
+	{
+		ÖLNAMN: 'KRUSOVICE CERNE',
+		BRYGGERI: 'KRALOVSKY PIVOVAR KRUSOVICE',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '001107'
+	},
+	{
+		ÖLNAMN: 'KRUSOVICE LEZAC',
+		BRYGGERI: 'KRALOVSKY PIVOVAR KRUSOVICE',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '001107'
+	},
+	{
+		ÖLNAMN: 'LA CHOULETTE BRUNE',
+		BRYGGERI: 'BR. LA CHOULETTE',
+		LAND: 'FR',
+		ALKOHOL: '5.0',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '111123'
+	},
+	{
+		ÖLNAMN: 'LABATT´S BLUE',
+		BRYGGERI: 'LABATT´S BREWING Co',
+		LAND: 'CA',
+		ALKOHOL: '5.0',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '930421'
+	},
+	{
+		ÖLNAMN: 'LAME TURKEY LAGER',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '960620'
+	},
+	{
+		ÖLNAMN: 'LIBERTY ALE*',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '8.00',
+		DELTAGARE: 4,
+		DATUM: '941215'
+	},
+	{
+		ÖLNAMN: 'LITOVEL',
+		BRYGGERI: 'PIVOVAR LITOVEL',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '060830'
+	},
+	{
+		ÖLNAMN: 'LITOVEL TJECKISKT ÖL',
+		BRYGGERI: 'LITOVEL a.s.',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '990120'
+	},
+	{
+		ÖLNAMN: 'MACKINAC SUMMER ALE',
+		BRYGGERI: 'MICHIGAN BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '7.00',
+		DELTAGARE: 6,
+		DATUM: '080625'
+	},
+	{
+		ÖLNAMN: 'MANICA',
+		BRYGGERI: '',
+		LAND: 'MZ',
+		ALKOHOL: '5.0',
+		BETYG: '1.60',
+		DELTAGARE: 5,
+		DATUM: '970903'
+	},
+	{
+		ÖLNAMN: "MARSTON'S FIRESTOKER",
+		BRYGGERI: "MARSTON'S BR.",
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '051212'
+	},
+	{
+		ÖLNAMN: 'MICHELOB',
+		BRYGGERI: 'ANHEUSER-BUSCH',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '000309'
+	},
+	{
+		ÖLNAMN: 'Mikkeller/BAD-Sur',
+		BRYGGERI: 'de Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '140312'
+	},
+	{
+		ÖLNAMN: 'MJÖLNER',
+		BRYGGERI: 'KÄLLEFALLS BRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '3.20',
+		DELTAGARE: 5,
+		DATUM: '950831'
+	},
+	{
+		ÖLNAMN: 'MODELO ESPECIAL',
+		BRYGGERI: 'MODELO S.A. DE C.V',
+		LAND: 'MX',
+		ALKOHOL: '5.0',
+		BETYG: '3.60',
+		DELTAGARE: 5,
+		DATUM: '980210'
+	},
+	{
+		ÖLNAMN: 'Myanmar Lager Beer',
+		BRYGGERI: 'Myanmar Br. Ltd.',
+		LAND: 'MM',
+		ALKOHOL: '5.0',
+		BETYG: '4.67',
+		DELTAGARE: 6,
+		DATUM: '180517'
+	},
+	{
+		ÖLNAMN: 'MYTHOS BEER*',
+		BRYGGERI: 'MYTHOS BR.',
+		LAND: 'GR',
+		ALKOHOL: '5.0',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '040826'
+	},
+	{
+		ÖLNAMN: 'MYTHOS*',
+		BRYGGERI: 'NORTHERN GREECE BR.',
+		LAND: 'GR',
+		ALKOHOL: '5.0',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '980629'
+	},
+	{
+		ÖLNAMN: 'NEPTUN DANSK GULD',
+		BRYGGERI: 'NEPTUN BR.',
+		LAND: 'DK',
+		ALKOHOL: '5.0',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '960123'
+	},
+	{
+		ÖLNAMN: 'NEPTUN KRONE GULDØL',
+		BRYGGERI: 'NEPTUN BR.',
+		LAND: 'DK',
+		ALKOHOL: '5.0',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '960123'
+	},
+	{
+		ÖLNAMN: 'Nils Oscar Södermalmspilsner',
+		BRYGGERI: 'Nils Oscar Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '160615'
+	},
+	{
+		ÖLNAMN: 'Norn Pale Ale',
+		BRYGGERI: 'Oppigårds Br.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '190328'
+	},
+	{
+		ÖLNAMN: 'NORTHMAEN',
+		BRYGGERI: 'BR. LA CHAPELLE',
+		LAND: 'FR',
+		ALKOHOL: '5.0',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '100728'
+	},
+	{
+		ÖLNAMN: 'Ocean Glenn No 5',
+		BRYGGERI: 'Ocean',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: "OHLSSON'S LAGER*",
+		BRYGGERI: 'South African Br., SA',
+		LAND: 'ZA',
+		ALKOHOL: '5.0',
+		BETYG: '3.60',
+		DELTAGARE: 5,
+		DATUM: '970218'
+	},
+	{
+		ÖLNAMN: "OHLSSON'S LAGER* (B)",
+		BRYGGERI: 'South African Br., SA',
+		LAND: 'ZA',
+		ALKOHOL: '5.0',
+		BETYG: '3.00',
+		DELTAGARE: 5,
+		DATUM: '970218'
+	},
+	{
+		ÖLNAMN: 'OLD BREWERY PALE ALE*',
+		BRYGGERI: 'SAMUEL SMITH´S',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '931111'
+	},
+	{
+		ÖLNAMN: 'OLD BREWERY Strong Brown Ale',
+		BRYGGERI: 'SAMUEL SMITH´S',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '930331'
+	},
+	{
+		ÖLNAMN: 'OLD FATHER TIME',
+		BRYGGERI: 'WYCHWOOD BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '7.75',
+		DELTAGARE: 4,
+		DATUM: '000417'
+	},
+	{
+		ÖLNAMN: 'OLD GOLD',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '090422'
+	},
+	{
+		ÖLNAMN: 'Orange Crush',
+		BRYGGERI: 'Amager Br.',
+		LAND: 'DK',
+		ALKOHOL: '5.0',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '151125'
+	},
+	{
+		ÖLNAMN: 'OSJECKO CRNO 1697',
+		BRYGGERI: 'PIVOVARA d.d. OSIJEK',
+		LAND: 'HR',
+		ALKOHOL: '5.0',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '991104'
+	},
+	{
+		ÖLNAMN: 'OSJECKO PIVO',
+		BRYGGERI: 'PIVOVARA d.d. OSIJEK',
+		LAND: 'HR',
+		ALKOHOL: '5.0',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '991104'
+	},
+	{
+		ÖLNAMN: 'PALM SPECIALE*',
+		BRYGGERI: 'N.V. BR. S.A. BRASSERIE PALM',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '000209'
+	},
+	{
+		ÖLNAMN: 'PAULANER PREMIUM PILS',
+		BRYGGERI: 'PAULANER BR. AG',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '3.67',
+		DELTAGARE: 3,
+		DATUM: '960319'
+	},
+	{
+		ÖLNAMN: 'PEDRO-ELEMENTARY ENGLISH ALE',
+		BRYGGERI: 'PEDRO Brewcrafter Inc',
+		LAND: 'Phil',
+		ALKOHOL: '5',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '170607'
+	},
+	{
+		ÖLNAMN: 'PEDRO-ENDLESS SUMMER WHEAT AL',
+		BRYGGERI: 'PEDRO Brewcrafter Inc',
+		LAND: 'Phil',
+		ALKOHOL: '5',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '170607'
+	},
+	{
+		ÖLNAMN: 'PEDRO-PROCRASTINATION ALE',
+		BRYGGERI: 'PEDRO Brewcrafter Inc',
+		LAND: 'Phil',
+		ALKOHOL: '5',
+		BETYG: '5.5',
+		DELTAGARE: 6,
+		DATUM: '170607'
+	},
+	{
+		ÖLNAMN: 'PERONI*',
+		BRYGGERI: 'PERONI ROME',
+		LAND: 'IT',
+		ALKOHOL: '5.0',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '980210'
+	},
+	{
+		ÖLNAMN: 'PHILADELPHIA BEER',
+		BRYGGERI: 'JORDAN BR.',
+		LAND: 'JO',
+		ALKOHOL: '5.0',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '100512'
+	},
+	{
+		ÖLNAMN: 'PIG',
+		BRYGGERI: 'PIG BR. LTD',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '990519'
+	},
+	{
+		ÖLNAMN: 'PILLAGE  PREMIUM BLUE LAGER',
+		BRYGGERI: 'SCANDINAVIAN BR.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '000309'
+	},
+	{
+		ÖLNAMN: 'PILLAGE PREMIUM',
+		BRYGGERI: 'SCANDINAVIAN BR.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '000309'
+	},
+	{
+		ÖLNAMN: 'PILLAGE PREMIUM RED LAGER',
+		BRYGGERI: 'SCANDINAVIAN BR.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '000309'
+	},
+	{
+		ÖLNAMN: 'PILS ORGANIC',
+		BRYGGERI: 'VIFILFELLI HF',
+		LAND: 'IS',
+		ALKOHOL: '5.0',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '121212'
+	},
+	{
+		ÖLNAMN: 'PINKUS HEFE WEIZEN',
+		BRYGGERI: 'BR. PINKUS MULLER',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '3.50',
+		DELTAGARE: 6,
+		DATUM: '050614'
+	},
+	{
+		ÖLNAMN: 'PINKUS PILS',
+		BRYGGERI: 'BR. PINKUS MULLER',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '4.13',
+		DELTAGARE: 6,
+		DATUM: '050614'
+	},
+	{
+		ÖLNAMN: 'Presidente',
+		BRYGGERI: 'Cerveceria Nacional Dominicana',
+		LAND: 'DO',
+		ALKOHOL: '5.0',
+		BETYG: '3.17',
+		DELTAGARE: 6,
+		DATUM: '160817'
+	},
+	{
+		ÖLNAMN: 'PRIMÁTOR',
+		BRYGGERI: 'NÁCHOD BR.',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '980922'
+	},
+	{
+		ÖLNAMN: 'PRIPPS JULÖL ´95',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '951214'
+	},
+	{
+		ÖLNAMN: 'REMBRANDT MASTERPIECE LAGER ',
+		BRYGGERI: 'MELCHELS BR.',
+		LAND: 'NL',
+		ALKOHOL: '5.0',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '990414'
+	},
+	{
+		ÖLNAMN: 'Reuther Weissbier',
+		BRYGGERI: 'Schlossbrauerei Reuth',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '121010'
+	},
+	{
+		ÖLNAMN: 'Rising Sun Pale Ale',
+		BRYGGERI: 'Baird Beer',
+		LAND: 'JP',
+		ALKOHOL: '5.0',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '130508'
+	},
+	{
+		ÖLNAMN: 'RIVA BLANCHE',
+		BRYGGERI: 'DENTERGEMS',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '930324'
+	},
+	{
+		ÖLNAMN: 'RODENBACH',
+		BRYGGERI: 'BR. RODENBACH',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '021128'
+	},
+	{
+		ÖLNAMN: 'ROSÉ DE GAMBRINUS',
+		BRYGGERI: 'BR. CANTILLON BROUWERIJ',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '070614'
+	},
+	{
+		ÖLNAMN: 'ROSÉ DE GAMBRINUS',
+		BRYGGERI: 'CANTILLON',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '930531'
+	},
+	{
+		ÖLNAMN: "ROSÉE D'HIBISCUS",
+		BRYGGERI: 'Br. DIEU DU CIEL',
+		LAND: 'CA',
+		ALKOHOL: '5.0',
+		BETYG: '5.28',
+		DELTAGARE: 7,
+		DATUM: '110413'
+	},
+	{
+		ÖLNAMN: 'ROSLAGER',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.29',
+		DELTAGARE: 7,
+		DATUM: '031117'
+	},
+	{
+		ÖLNAMN: 'ROSS CREEK, THE RED BEER',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '3.75',
+		DELTAGARE: 4,
+		DATUM: '960523'
+	},
+	{
+		ÖLNAMN: 'ROYAL CHALLENGE',
+		BRYGGERI: 'ROCHEES BR. LTD.',
+		LAND: 'IN',
+		ALKOHOL: '5.0',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '090624'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S CREAM STOUT*',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '950501'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S CREAM STOUT*',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '960213'
+	},
+	{
+		ÖLNAMN: "SAMUEL SMITH'S ORGANIC BEST ALE",
+		BRYGGERI: 'SAMUEL SMITH OLD BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '6.50',
+		DELTAGARE: 8,
+		DATUM: '040204'
+	},
+	{
+		ÖLNAMN: 'SAMUEL SMITH´S TADDY PORTER',
+		BRYGGERI: 'SAMUEL SMITH´S BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '940901'
+	},
+	{
+		ÖLNAMN: 'SANCT ERIK',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '950220'
+	},
+	{
+		ÖLNAMN: 'SCHNEIDER WEISSE *',
+		BRYGGERI: 'WEISSES BRAUHAUS',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '930609'
+	},
+	{
+		ÖLNAMN: 'SCHULTHEISS',
+		BRYGGERI: 'SCHULTHEISS BR.',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '4.00',
+		DELTAGARE: 3,
+		DATUM: '941201'
+	},
+	{
+		ÖLNAMN: 'SCHÖFFERHOFER dunkler Hefeweizen',
+		BRYGGERI: 'SCHWANEN BR. SCHWETZINGEN',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '970610'
+	},
+	{
+		ÖLNAMN: 'SHAKEMANTLE',
+		BRYGGERI: 'FREEMINER BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '021212'
+	},
+	{
+		ÖLNAMN: 'Shipyard blue fine stout#',
+		BRYGGERI: 'Shipyard br',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '4.00',
+		DELTAGARE: 6,
+		DATUM: '030922'
+	},
+	{
+		ÖLNAMN: 'SIERRA NEVADA PALE ALE*',
+		BRYGGERI: 'SIERRA NEVADA BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '7.75',
+		DELTAGARE: 4,
+		DATUM: '960116'
+	},
+	{
+		ÖLNAMN: 'SKJÁLFTI',
+		BRYGGERI: 'ÖLVISHOLT BRUGGHUS',
+		LAND: 'IS',
+		ALKOHOL: '5.0',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '090325'
+	},
+	{
+		ÖLNAMN: 'SOFIERO ORIGINAL',
+		BRYGGERI: 'SOFIERO',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '981116'
+	},
+	{
+		ÖLNAMN: 'South Plains Hoptimus Erectus',
+		BRYGGERI: 'South Plain Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '150506'
+	},
+	{
+		ÖLNAMN: 'STAR PREMIUM QUALITY LAGER BEER',
+		BRYGGERI: 'SIERRA LEONE BR. LTD.',
+		LAND: 'SL',
+		ALKOHOL: '5.0',
+		BETYG: '4.14',
+		DELTAGARE: 7,
+		DATUM: '060215'
+	},
+	{
+		ÖLNAMN: 'STAROBRNO PREMIUM EXCLUSIVE',
+		BRYGGERI: 'STAROBRNO BR.',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '981116'
+	},
+	{
+		ÖLNAMN: 'STAROPRAMEN',
+		BRYGGERI: 'PRAGER BRAUEREI',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '940303'
+	},
+	{
+		ÖLNAMN: 'STAROPRAMEN LEZAC',
+		BRYGGERI: 'PIVOVAR ZALOZEN 1869',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '001107'
+	},
+	{
+		ÖLNAMN: 'STAROPRAMEN PREMIUM',
+		BRYGGERI: 'PRAGER BR. A.G.',
+		LAND: 'CZ',
+		ALKOHOL: '5.00',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '990922'
+	},
+	{
+		ÖLNAMN: 'STÖRTEBEKER SCHWARZBIER*',
+		BRYGGERI: 'STRALSUNDER BR.',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '110112'
+	},
+	{
+		ÖLNAMN: 'STÖRTEBEKER SCHWARZBIER*',
+		BRYGGERI: 'STRALSUNDER BR.',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '110512'
+	},
+	{
+		ÖLNAMN: 'SUMMERFEST',
+		BRYGGERI: 'SIERRA NEVADA BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '010927'
+	},
+	{
+		ÖLNAMN: 'SVITAVAK',
+		BRYGGERI: 'BR. ZWITTAU',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '960620'
+	},
+	{
+		ÖLNAMN: 'ŠVYTURIO',
+		BRYGGERI: 'ŠVYTURYS',
+		LAND: 'LT',
+		ALKOHOL: '5.0',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '050614'
+	},
+	{
+		ÖLNAMN: 'SÖLDENAUER SCHLOSS WEISSE',
+		BRYGGERI: 'SCHLOSSBR. SÖLDENAU',
+		LAND: 'DE',
+		ALKOHOL: '5.0',
+		BETYG: '7.33',
+		DELTAGARE: 3,
+		DATUM: '941006'
+	},
+	{
+		ÖLNAMN: 'TAYBEH BEER GOLDEN*',
+		BRYGGERI: 'TAYBEH BR. CO.',
+		LAND: 'IL (W. BANK)',
+		ALKOHOL: '5.0',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '000830'
+	},
+	{
+		ÖLNAMN: 'TAYBEH BEER GOLDEN*',
+		BRYGGERI: 'TAYBEH BR. CO.',
+		LAND: 'IL (W. BANK)',
+		ALKOHOL: '5.0',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '960411'
+	},
+	{
+		ÖLNAMN: 'TECATE',
+		BRYGGERI: 'CUAUHTEMOC S.A. DE C.V.',
+		LAND: 'MX',
+		ALKOHOL: '5.0',
+		BETYG: '2.80',
+		DELTAGARE: 5,
+		DATUM: '980210'
+	},
+	{
+		ÖLNAMN: 'TEKEL BIRASI',
+		BRYGGERI: 'ASIRLIK TÜRK BIRASI',
+		LAND: 'TR',
+		ALKOHOL: '5.0',
+		BETYG: '3.83',
+		DELTAGARE: 6,
+		DATUM: '060920'
+	},
+	{
+		ÖLNAMN: "TENNENT'S OF SCOTLAND",
+		BRYGGERI: 'TENNENT CALEDONIAN BR.',
+		LAND: 'SCOT',
+		ALKOHOL: '5.0',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '951128'
+	},
+	{
+		ÖLNAMN: 'THE BEER TO DINE FOR#',
+		BRYGGERI: 'GREEN KING BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '060118'
+	},
+	{
+		ÖLNAMN: 'THE HITE STOUT',
+		BRYGGERI: 'HITE BR. CO., LTD.',
+		LAND: 'KR',
+		ALKOHOL: '5.0',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '020806'
+	},
+	{
+		ÖLNAMN: 'THULE EXPORT',
+		BRYGGERI: 'VIFILFELLI ehf',
+		LAND: 'IS',
+		ALKOHOL: '5.0',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '090325'
+	},
+	{
+		ÖLNAMN: 'TIGER',
+		BRYGGERI: 'ASIA PACIFIC BR.',
+		LAND: 'SG',
+		ALKOHOL: '5.0',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '060622'
+	},
+	{
+		ÖLNAMN: 'TIGER LAGER',
+		BRYGGERI: 'ASIA PASIFIC BR.',
+		LAND: 'SG',
+		ALKOHOL: '5.0',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '030115'
+	},
+	{
+		ÖLNAMN: 'TIGER LAGER',
+		BRYGGERI: 'ASIA PACIFIC BR.',
+		LAND: 'SG',
+		ALKOHOL: '5.0',
+		BETYG: '3.00',
+		DELTAGARE: 5,
+		DATUM: '970903'
+	},
+	{
+		ÖLNAMN: 'TIGER LAGER',
+		BRYGGERI: 'ASIA PACIFIC BR.',
+		LAND: 'SG',
+		ALKOHOL: '5.0',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '9801'
+	},
+	{
+		ÖLNAMN: 'TIMMERMANS KRIEK RETRO LAMBIC',
+		BRYGGERI: 'TIMMERMANS',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '090520'
+	},
+	{
+		ÖLNAMN: 'Transtrands Pils',
+		BRYGGERI: 'Sälens Fjällbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '190328'
+	},
+	{
+		ÖLNAMN: 'Traquair Bear Ale',
+		BRYGGERI: 'Traquair',
+		LAND: 'SCOT',
+		ALKOHOL: '5.0',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '140212'
+	},
+	{
+		ÖLNAMN: 'TRI MEDVEDYA SVETLOE',
+		BRYGGERI: 'PIVOVARNIA IVANA TARANOVA',
+		LAND: 'RU',
+		ALKOHOL: '5.0',
+		BETYG: '4.67',
+		DELTAGARE: 3,
+		DATUM: '080716'
+	},
+	{
+		ÖLNAMN: 'TSINGTAO BEER',
+		BRYGGERI: 'TSINGTAO BREWERY CO. LTD.',
+		LAND: 'CN',
+		ALKOHOL: '5.0',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '060622'
+	},
+	{
+		ÖLNAMN: 'Tuborg',
+		BRYGGERI: 'Carlsberg Br.',
+		LAND: 'MM',
+		ALKOHOL: '5.0',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '180517'
+	},
+	{
+		ÖLNAMN: 'UPPSALA',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '4.71',
+		DELTAGARE: 7,
+		DATUM: '031117'
+	},
+	{
+		ÖLNAMN: "USHER'S DARK HORSE",
+		BRYGGERI: 'USHERS OF TROWBRIDGE PLC',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '000119'
+	},
+	{
+		ÖLNAMN: 'USHER´S INDIA PALE ALE*',
+		BRYGGERI: 'USHERS OF TROWBRIDGE',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '970408'
+	},
+	{
+		ÖLNAMN: 'USHER´S INDIA PALE ALE*',
+		BRYGGERI: 'USHERS OF TROWBRIDGE',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '970423'
+	},
+	{
+		ÖLNAMN: 'VEDVARENDE ENERGI ØL',
+		BRYGGERI: 'SAMSØ BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '5.0',
+		BETYG: '3.83',
+		DELTAGARE: 6,
+		DATUM: '071121'
+	},
+	{
+		ÖLNAMN: 'VELKOPOPVICKY´ KOZEL*',
+		BRYGGERI: 'PIVOVAR VELKE POPOVICE',
+		LAND: 'CZ',
+		ALKOHOL: '5.0',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '961007'
+	},
+	{
+		ÖLNAMN: 'Vergina',
+		BRYGGERI: 'Macedonian Thrace Br.',
+		LAND: 'GR',
+		ALKOHOL: '5.0',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '190328'
+	},
+	{
+		ÖLNAMN: 'VILLACHER MÄRZEN',
+		BRYGGERI: 'VEREINIGTE KÄRNTNER BR. AG',
+		LAND: 'AT',
+		ALKOHOL: '5.0',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '990120'
+	},
+	{
+		ÖLNAMN: 'VISBY KLOSTERÖL',
+		BRYGGERI: 'GOTLANDSBRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '020514'
+	},
+	{
+		ÖLNAMN: 'VIVUNGS GOTLANDSDRICKE*',
+		BRYGGERI: 'VIVUNGS BRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '1.75',
+		DELTAGARE: 4,
+		DATUM: '951107'
+	},
+	{
+		ÖLNAMN: 'VIVUNGS GOTLANDSDRICKE*',
+		BRYGGERI: 'VIVUNGS BRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '960716'
+	},
+	{
+		ÖLNAMN: 'VÅR ÖL',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '060510'
+	},
+	{
+		ÖLNAMN: 'WAGGLE DANCE ',
+		BRYGGERI: 'VAUX BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '5.33',
+		DELTAGARE: 3,
+		DATUM: '980623'
+	},
+	{
+		ÖLNAMN: 'WEIZA',
+		BRYGGERI: 'LIECHTENSTEINER BRAUHAUS',
+		LAND: 'LI',
+		ALKOHOL: '5.0',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '130821'
+	},
+	{
+		ÖLNAMN: 'Wheat King Wit',
+		BRYGGERI: 'Baird Br. Co.',
+		LAND: 'JP',
+		ALKOHOL: '5.0',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '190328'
+	},
+	{
+		ÖLNAMN: 'WISBY KLOSTERÖL*',
+		BRYGGERI: 'GOTLANDS BRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '980922'
+	},
+	{
+		ÖLNAMN: 'WISBYÖL',
+		BRYGGERI: 'THIMSFORS BRYGGERI AB',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '960716'
+	},
+	{
+		ÖLNAMN: 'WIT ORIGINAL 1444',
+		BRYGGERI: 'SPRING ST. BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '5.0',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '000823'
+	},
+	{
+		ÖLNAMN: 'YEBISHU TRAD. ALL MALT BEER',
+		BRYGGERI: 'YEBISHU BR.',
+		LAND: 'JP',
+		ALKOHOL: '5.0',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '0010'
+	},
+	{
+		ÖLNAMN: 'YORKSHIRE SQUARE ALE',
+		BRYGGERI: 'BLACK SHEEP BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '011212'
+	},
+	{
+		ÖLNAMN: "YOUNG'S CHAMPION LIVE GOLDEN BEER*",
+		BRYGGERI: 'THE RAM BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '4.38',
+		DELTAGARE: 8,
+		DATUM: '040204'
+	},
+	{
+		ÖLNAMN: "YOUNG'S CHAMPION LIVE GOLDEN BEER*",
+		BRYGGERI: 'THE RAM BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '040309'
+	},
+	{
+		ÖLNAMN: "YOUNG'S OATMEAL STOUT",
+		BRYGGERI: 'THE RAM BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '000119'
+	},
+	{
+		ÖLNAMN: "YOUNG'S WINTER WARMER",
+		BRYGGERI: 'THE RAM BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '011212'
+	},
+	{
+		ÖLNAMN: 'YOUNG´S OATMEAL STOUT',
+		BRYGGERI: 'THE RAM BR.',
+		LAND: 'GB',
+		ALKOHOL: '5.0',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '9801'
+	},
+	{
+		ÖLNAMN: 'ZHIGULI BEER',
+		BRYGGERI: 'MOSBREW',
+		LAND: 'RU',
+		ALKOHOL: '5.0',
+		BETYG: '3.75',
+		DELTAGARE: 4,
+		DATUM: '120411'
+	},
+	{
+		ÖLNAMN: 'ZORBAS BEER',
+		BRYGGERI: 'ATHENIAN BR.',
+		LAND: 'GR',
+		ALKOHOL: '5.0',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '040826'
+	},
+	{
+		ÖLNAMN: 'ØKOLAGER',
+		BRYGGERI: 'BRYGHUSET MØN',
+		LAND: 'DK',
+		ALKOHOL: '5.0',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '091209'
+	},
+	{
+		ÖLNAMN: 'ÖSTGÖTA BLÅBÄRS',
+		BRYGGERI: 'NORDSJÖ GÅRDSBRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '2.00',
+		DELTAGARE: 5,
+		DATUM: '961021'
+	},
+	{
+		ÖLNAMN: 'HOEGAARDEN*',
+		BRYGGERI: 'S.A. INTERBREW',
+		LAND: 'BE',
+		ALKOHOL: '5.0',
+		BETYG: '5.71',
+		DELTAGARE: 7,
+		DATUM: '040331'
+	},
+	{
+		ÖLNAMN: 'Amerykanskie Pszeniczne',
+		BRYGGERI: 'Zywiec',
+		LAND: 'PL',
+		ALKOHOL: '4.9',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: 'APA Punk Royal',
+		BRYGGERI: 'Åre Bryggcompagni',
+		LAND: 'SE',
+		ALKOHOL: '4.9',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '180906'
+	},
+	{
+		ÖLNAMN: "Beck's",
+		BRYGGERI: 'Br. Beck & Co,',
+		LAND: 'DE',
+		ALKOHOL: '4.9',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '200416'
+	},
+	{
+		ÖLNAMN: "Beck's Gold",
+		BRYGGERI: 'Br. Beck & Co,',
+		LAND: 'DE',
+		ALKOHOL: '4.9',
+		BETYG: '3.67',
+		DELTAGARE: 6,
+		DATUM: '200416'
+	},
+	{
+		ÖLNAMN: 'BLANCHE Page 24',
+		BRYGGERI: 'BR. S:T GERMAIN',
+		LAND: 'FR',
+		ALKOHOL: '4.9',
+		BETYG: '4.00',
+		DELTAGARE: 6,
+		DATUM: '111123'
+	},
+	{
+		ÖLNAMN: 'CRISTAL',
+		BRYGGERI: 'CERVECERIA BUCANERO S.A.',
+		LAND: 'CU',
+		ALKOHOL: '4.9',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '081217'
+	},
+	{
+		ÖLNAMN: 'DEN SORTE',
+		BRYGGERI: 'BRYGHUSET MØN',
+		LAND: 'DK',
+		ALKOHOL: '4.9',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '091209'
+	},
+	{
+		ÖLNAMN: 'DINKEL',
+		BRYGGERI: 'RIEDEBURGER BRAUHAUS',
+		LAND: 'DE',
+		ALKOHOL: '4.9',
+		BETYG: '4.17',
+		DELTAGARE: 6,
+		DATUM: '050614'
+	},
+	{
+		ÖLNAMN: 'EKU PILS',
+		BRYGGERI: 'Erste Kulmbacher Actienbr.',
+		LAND: 'DE',
+		ALKOHOL: '4.9',
+		BETYG: '4.67',
+		DELTAGARE: 3,
+		DATUM: '960319'
+	},
+	{
+		ÖLNAMN: 'Engelbräu',
+		BRYGGERI: '',
+		LAND: 'DE',
+		ALKOHOL: '4.9',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '190328'
+	},
+	{
+		ÖLNAMN: 'GOLDSTAR BEER',
+		BRYGGERI: 'GOLDSTAR BR.',
+		LAND: 'IL',
+		ALKOHOL: '4.9',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '960704'
+	},
+	{
+		ÖLNAMN: 'HIRTER 1270',
+		BRYGGERI: 'BR. HIRT GES',
+		LAND: 'AT',
+		ALKOHOL: '4.9',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '130821'
+	},
+	{
+		ÖLNAMN: 'Hoegaarden',
+		BRYGGERI: 'Hoegaarden Br.',
+		LAND: 'BE',
+		ALKOHOL: '4.9',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '150603'
+	},
+	{
+		ÖLNAMN: 'HOEGAARDEN BIèRE BLANCHE*',
+		BRYGGERI: 'InBev',
+		LAND: 'BE',
+		ALKOHOL: '4.9',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '100609'
+	},
+	{
+		ÖLNAMN: 'Jever Pilsener',
+		BRYGGERI: 'Friesisches Brauhaus',
+		LAND: 'DE',
+		ALKOHOL: '4.9',
+		BETYG: '6.00',
+		DELTAGARE: 7,
+		DATUM: '140611'
+	},
+	{
+		ÖLNAMN: 'KÖNIG-PILSENER',
+		BRYGGERI: 'KÖNIG-BRAUEREI',
+		LAND: 'DE',
+		ALKOHOL: '4.9',
+		BETYG: '5.33',
+		DELTAGARE: 3,
+		DATUM: '940421'
+	},
+	{
+		ÖLNAMN: 'LUNDGRENS LAGER',
+		BRYGGERI: 'Nils Oscar Bryggerier',
+		LAND: 'SE',
+		ALKOHOL: '4.9',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '021009'
+	},
+	{
+		ÖLNAMN: 'MACCABEE BEER',
+		BRYGGERI: 'MACCABEE BR.',
+		LAND: 'IL',
+		ALKOHOL: '4.9',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '960704'
+	},
+	{
+		ÖLNAMN: 'MÖNCHSHOF KLOSTER SCHWARZBIER',
+		BRYGGERI: 'MÖNCHSHOF-BRÄU',
+		LAND: 'DE',
+		ALKOHOL: '4.9',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '960523'
+	},
+	{
+		ÖLNAMN: 'PAULANER ORIGINAL MUNCHENER PREMIUM LAGER',
+		BRYGGERI: 'PAULANER BR. AG',
+		LAND: 'DE',
+		ALKOHOL: '4.90',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '990922'
+	},
+	{
+		ÖLNAMN: 'PETE´S WICKED BOHEMIAN PILSNER',
+		BRYGGERI: 'PETE´S BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '4.9',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '971112'
+	},
+	{
+		ÖLNAMN: 'PILS HELLAS*',
+		BRYGGERI: 'HELLENIC BR. OF ATALANTI',
+		LAND: 'GR',
+		ALKOHOL: '4.9',
+		BETYG: '3.40',
+		DELTAGARE: 5,
+		DATUM: '000823'
+	},
+	{
+		ÖLNAMN: 'PILS HELLAS*',
+		BRYGGERI: 'HELLENIC BR. OF ATALANTI',
+		LAND: 'GR',
+		ALKOHOL: '4.9',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '040826'
+	},
+	{
+		ÖLNAMN: 'PRIPPS BLÅ PURE SOMMAR 2008',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.9',
+		BETYG: '3.58',
+		DELTAGARE: 6,
+		DATUM: '080625'
+	},
+	{
+		ÖLNAMN: 'QUILMES',
+		BRYGGERI: 'CERVECERIA Y MALTERIA QUILMES',
+		LAND: 'AR',
+		ALKOHOL: '4.9',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '011010'
+	},
+	{
+		ÖLNAMN: 'RUDDLES COUNTY (B)',
+		BRYGGERI: 'THE RUTLAND BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.9',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '970526'
+	},
+	{
+		ÖLNAMN: 'SAMBA DO BRASIL',
+		BRYGGERI: 'BEBIDOS DE BRASIL',
+		LAND: 'BR',
+		ALKOHOL: '4.9',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '011010'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAMS BLACK LAGER',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '4.9',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '070515'
+	},
+	{
+		ÖLNAMN: 'SCHLOßBRÄU ÖKO-URHELL',
+		BRYGGERI: 'Pr. Spezialbierbr. Prinzing',
+		LAND: 'DE',
+		ALKOHOL: '4.9',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '970707'
+	},
+	{
+		ÖLNAMN: 'SCHUSSENRIEDER BERGKRISTALL',
+		BRYGGERI: 'BR. SCHUSSENRIEDER',
+		LAND: 'DE',
+		ALKOHOL: '4.9',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '040512'
+	},
+	{
+		ÖLNAMN: 'SCHUSSENRIEDER PILS',
+		BRYGGERI: 'BR. SCHUSSENRIEDER',
+		LAND: 'DE',
+		ALKOHOL: '4.9',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '040512'
+	},
+	{
+		ÖLNAMN: 'Seacoast Pilsner',
+		BRYGGERI: 'Coronado Br.',
+		LAND: 'US',
+		ALKOHOL: '4.9',
+		BETYG: '4.86',
+		DELTAGARE: 7,
+		DATUM: '180712'
+	},
+	{
+		ÖLNAMN: 'SOLOGNE BLANCHE',
+		BRYGGERI: 'BR. DE MONCEAU SAINT-WAAST',
+		LAND: 'FR',
+		ALKOHOL: '4.9',
+		BETYG: '4.00',
+		DELTAGARE: 6,
+		DATUM: '0803XX'
+	},
+	{
+		ÖLNAMN: 'STIEGL*',
+		BRYGGERI: 'STIEGLBR. ZU SALZBURG',
+		LAND: 'AT',
+		ALKOHOL: '4.9',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '990120'
+	},
+	{
+		ÖLNAMN: 'STIEGL*',
+		BRYGGERI: 'STIEGLBRAUEREI ZU SALZBURG',
+		LAND: 'AT',
+		ALKOHOL: '4.9',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '990308'
+	},
+	{
+		ÖLNAMN: 'STÖRTEBEKER 1402 BIOPACK*',
+		BRYGGERI: 'STRALSUNDER BR.',
+		LAND: 'DE',
+		ALKOHOL: '4.9',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '110112'
+	},
+	{
+		ÖLNAMN: 'STÖRTEBEKER 1402*',
+		BRYGGERI: 'STRALSUNDER BR.',
+		LAND: 'DE',
+		ALKOHOL: '4.9',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '110512'
+	},
+	{
+		ÖLNAMN: 'STÖRTEBEKER PILSENER BIER*',
+		BRYGGERI: 'STRALSUNDER BR.',
+		LAND: 'DE',
+		ALKOHOL: '4.9',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '110112'
+	},
+	{
+		ÖLNAMN: 'STÖRTEBEKER PILSENER BIER*',
+		BRYGGERI: 'STRALSUNDER BR.',
+		LAND: 'DE',
+		ALKOHOL: '4.9',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '110512'
+	},
+	{
+		ÖLNAMN: 'VICTORIA BITTER',
+		BRYGGERI: 'CARLTON & UNITED BR. LTD.',
+		LAND: 'AU',
+		ALKOHOL: '4.9',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '040309'
+	},
+	{
+		ÖLNAMN: 'A.K. DAMM METODO 1876 ORIGINAL',
+		BRYGGERI: 'S.A. DAM-ROSSELLÓ',
+		LAND: 'ES',
+		ALKOHOL: '4.8',
+		BETYG: '5.67',
+		DELTAGARE: 3,
+		DATUM: '011129'
+	},
+	{
+		ÖLNAMN: 'AECHT SCHLENKERLAU RAUCHBIER*',
+		BRYGGERI: 'BR. HELLER BAMBERG',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '960829'
+	},
+	{
+		ÖLNAMN: 'Amber',
+		BRYGGERI: 'Nya Carnegiebryggeriet',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '160316'
+	},
+	{
+		ÖLNAMN: 'AMBER',
+		BRYGGERI: 'Nya Carnegie Br.',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '5',
+		DELTAGARE: 5,
+		DATUM: '170412'
+	},
+	{
+		ÖLNAMN: 'ANCHOR STEAM BEER',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '4.8',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '121114'
+	},
+	{
+		ÖLNAMN: 'ANCHOR STEAM BEER*',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '4.8',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '010116'
+	},
+	{
+		ÖLNAMN: 'BALTICA 3',
+		BRYGGERI: 'BALTICA BR.',
+		LAND: 'RU',
+		ALKOHOL: '4.8',
+		BETYG: '4.00',
+		DELTAGARE: 7,
+		DATUM: '051115'
+	},
+	{
+		ÖLNAMN: 'BINTANG',
+		BRYGGERI: 'PT. MULTI BINTANG',
+		LAND: 'ID',
+		ALKOHOL: '4.8',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '081022'
+	},
+	{
+		ÖLNAMN: 'BLÅKULLA PÅSKÖL',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '070425'
+	},
+	{
+		ÖLNAMN: 'BODDINGTONS EXPORT',
+		BRYGGERI: 'BODDINGTONS BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.8',
+		BETYG: '7.25',
+		DELTAGARE: 4,
+		DATUM: '970610'
+	},
+	{
+		ÖLNAMN: 'BOLTEN ALT',
+		BRYGGERI: 'PRIVATBR. BOLTEN',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '000830'
+	},
+	{
+		ÖLNAMN: 'BOMONTI',
+		BRYGGERI: 'ANADOLU EFES BIRACILIK ve MaltSan',
+		LAND: 'TR',
+		ALKOHOL: '4.8',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '130417'
+	},
+	{
+		ÖLNAMN: 'BRAHMA',
+		BRYGGERI: 'INBEV',
+		LAND: 'BR',
+		ALKOHOL: '4.8',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '060419'
+	},
+	{
+		ÖLNAMN: 'BRAHMA',
+		BRYGGERI: '',
+		LAND: 'BR',
+		ALKOHOL: '4.8',
+		BETYG: '3.40',
+		DELTAGARE: 5,
+		DATUM: '060622'
+	},
+	{
+		ÖLNAMN: 'BRAHMA',
+		BRYGGERI: 'UK LIM. LUTON',
+		LAND: 'BE(BR)',
+		ALKOHOL: '4.8',
+		BETYG: '5.14',
+		DELTAGARE: 7,
+		DATUM: '070828'
+	},
+	{
+		ÖLNAMN: "BRINK'S",
+		BRYGGERI: "BRINK'S BREWERY",
+		LAND: 'GR',
+		ALKOHOL: '4.8',
+		BETYG: '3.50',
+		DELTAGARE: 8,
+		DATUM: '120815'
+	},
+	{
+		ÖLNAMN: "CAFFREY'S (B)",
+		BRYGGERI: 'THOMAS CAFFREY BR. CO.',
+		LAND: 'IE',
+		ALKOHOL: '4.8',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '021113'
+	},
+	{
+		ÖLNAMN: 'CAFFREY´S IRISH ALE* (B)',
+		BRYGGERI: 'The Thomas Caffrey BR. CO.',
+		LAND: 'GB',
+		ALKOHOL: '4.8',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '970526'
+	},
+	{
+		ÖLNAMN: 'CAFFREY´S IRISH ALE* (B)',
+		BRYGGERI: 'The Thomas Caffrey BR. CO.',
+		LAND: 'GB',
+		ALKOHOL: '4.8',
+		BETYG: '5.33',
+		DELTAGARE: 3,
+		DATUM: '980623'
+	},
+	{
+		ÖLNAMN: 'CALABAZA BLANCA',
+		BRYGGERI: 'JOLLY PUMPKIN BR.',
+		LAND: 'US',
+		ALKOHOL: '4.8',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '100210'
+	},
+	{
+		ÖLNAMN: 'CRISTAL ALKEN',
+		BRYGGERI: 'BR. ALKEN-MAES S.A.',
+		LAND: 'BE',
+		ALKOHOL: '4.8',
+		BETYG: '3.67',
+		DELTAGARE: 6,
+		DATUM: '040614'
+	},
+	{
+		ÖLNAMN: 'DIEBELS ALT*',
+		BRYGGERI: 'PRIVATBRAUEREI DIEBELS',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '960829'
+	},
+	{
+		ÖLNAMN: 'DOM KÖLSCH',
+		BRYGGERI: 'DOM-BRAUEREI KÖLN',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '941215'
+	},
+	{
+		ÖLNAMN: 'Ehrenfelder Alt',
+		BRYGGERI: 'Freigeist Bierkultur & Br. Guller',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '6.14',
+		DELTAGARE: 7,
+		DATUM: '140611'
+	},
+	{
+		ÖLNAMN: 'Er Boqueron',
+		BRYGGERI: 'Cervesa Artensanal La Socarrada',
+		LAND: 'ES',
+		ALKOHOL: '4.8',
+		BETYG: '3.75',
+		DELTAGARE: 4,
+		DATUM: '150408'
+	},
+	{
+		ÖLNAMN: 'ESTRELLA DAMM',
+		BRYGGERI: 'ESTRELLA',
+		LAND: 'ES',
+		ALKOHOL: '4.8',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '090624'
+	},
+	{
+		ÖLNAMN: 'ESTRELLA INEDIT',
+		BRYGGERI: 'ESTRELLA',
+		LAND: 'ES',
+		ALKOHOL: '4.8',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '100609'
+	},
+	{
+		ÖLNAMN: 'EXPORT ALE',
+		BRYGGERI: 'BADGER BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.8',
+		BETYG: '5.80',
+		DELTAGARE: 4,
+		DATUM: '001214'
+	},
+	{
+		ÖLNAMN: 'Fakiren - Skånsk Wit Öl',
+		BRYGGERI: 'Lundabryggeriet',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '190425'
+	},
+	{
+		ÖLNAMN: 'FLENSBURGER PILSENER',
+		BRYGGERI: 'FLENSBURGER BR.',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '970610'
+	},
+	{
+		ÖLNAMN: 'FLENSBURGER PILSENER',
+		BRYGGERI: 'Flensburger BR. Emil Petersen GMBH + CO.',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '980629'
+	},
+	{
+		ÖLNAMN: 'FORST',
+		BRYGGERI: 'BR. FORST',
+		LAND: 'IT',
+		ALKOHOL: '4.8',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '030526'
+	},
+	{
+		ÖLNAMN: 'Fruh Kölsch',
+		BRYGGERI: 'Cölner Hofbräu Fruh',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '5.28',
+		DELTAGARE: 7,
+		DATUM: '140611'
+	},
+	{
+		ÖLNAMN: 'GEM',
+		BRYGGERI: 'HOP BACK BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.8',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '000523'
+	},
+	{
+		ÖLNAMN: 'GLOBE ALE',
+		BRYGGERI: 'NØRREBRO BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '4.8',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '110216'
+	},
+	{
+		ÖLNAMN: 'GOX IPA 2018',
+		BRYGGERI: 'GOX Br.',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '181112'
+	},
+	{
+		ÖLNAMN: 'GRANIT',
+		BRYGGERI: 'GREBBESTAD BR. AB',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '000209'
+	},
+	{
+		ÖLNAMN: 'HANNEN ALT',
+		BRYGGERI: 'HANNEN BR.',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '5.67',
+		DELTAGARE: 3,
+		DATUM: '941201'
+	},
+	{
+		ÖLNAMN: 'HELSINGBORG CHILIPEPPAR',
+		BRYGGERI: 'HELSINGBORGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '1.00',
+		DELTAGARE: 4,
+		DATUM: '120411'
+	},
+	{
+		ÖLNAMN: 'HELSINGBORG ST PATRICK',
+		BRYGGERI: 'HELSINGBORGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '120411'
+	},
+	{
+		ÖLNAMN: 'HENNINGER KAISER PREMIUM',
+		BRYGGERI: 'HENNINGER-BRÄU',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '6.33',
+		DELTAGARE: 3,
+		DATUM: '960319'
+	},
+	{
+		ÖLNAMN: 'HOOK NORTON DOUBLE STOUT',
+		BRYGGERI: 'HOOK NORTON BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.8',
+		BETYG: '6.75',
+		DELTAGARE: 8,
+		DATUM: '040204'
+	},
+	{
+		ÖLNAMN: 'JÄMTLANDS PORTER*',
+		BRYGGERI: 'JÄMTLANDS BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '8.80',
+		DELTAGARE: 5,
+		DATUM: '971203'
+	},
+	{
+		ÖLNAMN: 'JÄMTLANDS PORTER*',
+		BRYGGERI: 'JÄMTLANDS BRYGGERI AB',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '990308'
+	},
+	{
+		ÖLNAMN: 'Kellerpils',
+		BRYGGERI: 'Slottskällans Br.',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '180906'
+	},
+	{
+		ÖLNAMN: 'KIRIN BEER*',
+		BRYGGERI: 'KIRIN BR. CO. LTD.',
+		LAND: 'GB',
+		ALKOHOL: '4.8',
+		BETYG: '3.67',
+		DELTAGARE: 3,
+		DATUM: '950411'
+	},
+	{
+		ÖLNAMN: 'KIRIN BEER*',
+		BRYGGERI: 'CHARLES WELLS LTD.',
+		LAND: 'GB',
+		ALKOHOL: '4.8',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '961021'
+	},
+	{
+		ÖLNAMN: 'KÜPPERS KÖLSCH',
+		BRYGGERI: 'KÜPPERS',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '6.30',
+		DELTAGARE: 3,
+		DATUM: '930428'
+	},
+	{
+		ÖLNAMN: 'KÖSTRITZER SCHWARZBIER*',
+		BRYGGERI: 'KÖSTRITZER SCHWARZBIERBR.',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '080528'
+	},
+	{
+		ÖLNAMN: 'KÖSTRITZER SCHWARZBIER*',
+		BRYGGERI: 'KÖSTRITZER SCHWARZBIERBR.',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '990414'
+	},
+	{
+		ÖLNAMN: 'MARSTONS ALBION PORTER',
+		BRYGGERI: 'Marston, Thompson & Evershed',
+		LAND: 'GB',
+		ALKOHOL: '4.8',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '970526'
+	},
+	{
+		ÖLNAMN: 'Modern Veteöl',
+		BRYGGERI: 'Eskilstuna Ölkultur',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '150311'
+	},
+	{
+		ÖLNAMN: 'Nääs Engelsk Bitter Ale',
+		BRYGGERI: 'Nääs Gårdsbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '150114'
+	},
+	{
+		ÖLNAMN: 'Oppigårds Single Hop Ale',
+		BRYGGERI: 'Oppigård Br.',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '141210'
+	},
+	{
+		ÖLNAMN: 'Ottekolong',
+		BRYGGERI: 'Freigeist Bierkultur',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '190425'
+	},
+	{
+		ÖLNAMN: 'Pale Ale Citra',
+		BRYGGERI: 'Br. de Molen',
+		LAND: 'NL',
+		ALKOHOL: '4.8',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '140507'
+	},
+	{
+		ÖLNAMN: 'PETE´S WICKED WINTER BREW',
+		BRYGGERI: 'PETE´S BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '4.8',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '980311'
+	},
+	{
+		ÖLNAMN: 'PRIPPS BLÅ PURE',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '3.20',
+		DELTAGARE: 5,
+		DATUM: '060419'
+	},
+	{
+		ÖLNAMN: 'RHENANI ALT',
+		BRYGGERI: 'KROMBACHER BR.',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '081008'
+	},
+	{
+		ÖLNAMN: 'ROYAL OAK',
+		BRYGGERI: 'ELDRIDGE POPE & CO.',
+		LAND: 'GB',
+		ALKOHOL: '4.8',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '951114'
+	},
+	{
+		ÖLNAMN: "SAMUEL ADAM'S BOSTON ALE*",
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '4.80',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '050112'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S BOSTON LAGER*',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '4.8',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '960213'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S BOSTON LAGER*',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '4.8',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '990104'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S HONEY PORTER*',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '4.8',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '960213'
+	},
+	{
+		ÖLNAMN: 'SAWTOOTH ALE',
+		BRYGGERI: 'LEFT HAND BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '4.8',
+		BETYG: '6.28',
+		DELTAGARE: 7,
+		DATUM: '070919'
+	},
+	{
+		ÖLNAMN: 'SINGHA GOLD',
+		BRYGGERI: 'LÖWENBRÄU Br.',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '021212'
+	},
+	{
+		ÖLNAMN: 'SINGLE MALT',
+		BRYGGERI: 'GÅRDSBRYGGERIET PÅ STOCKBODA',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '110309'
+	},
+	{
+		ÖLNAMN: 'SOFIERO SHANDY',
+		BRYGGERI: 'SOFIERO',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '960725'
+	},
+	{
+		ÖLNAMN: 'STAROPRAMEN GRANAT',
+		BRYGGERI: 'STAROPRAMEN BR.',
+		LAND: 'CZ',
+		ALKOHOL: '4.8',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '070515'
+	},
+	{
+		ÖLNAMN: 'STARPRAMEN GRANAT',
+		BRYGGERI: 'PIVOVARY STAROPRAMEN',
+		LAND: 'CZ',
+		ALKOHOL: '4.8',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '100915'
+	},
+	{
+		ÖLNAMN: 'STÖRTEBEKER HANSE-PORTER*',
+		BRYGGERI: 'STRALSUNDER BR.',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '110512'
+	},
+	{
+		ÖLNAMN: 'The Holley Blonde Ale',
+		BRYGGERI: 'Remmarlöv Gårdsbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '150211'
+	},
+	{
+		ÖLNAMN: 'UTENOS G.J.',
+		BRYGGERI: 'UTENOS GêRIMAI',
+		LAND: 'LT',
+		ALKOHOL: '4.8',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '960411'
+	},
+	{
+		ÖLNAMN: 'VELKOPOPVICKY´ KOZEL PREMIUM',
+		BRYGGERI: 'VELKE POPOVICE BR.',
+		LAND: 'CZ',
+		ALKOHOL: '4.8',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '100915'
+	},
+	{
+		ÖLNAMN: 'VICTORIA ALE',
+		BRYGGERI: 'Marston, Thompson & Evershed',
+		LAND: 'GB',
+		ALKOHOL: '4.8',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '970526'
+	},
+	{
+		ÖLNAMN: 'Vinohradska 12',
+		BRYGGERI: 'Vinohradsky Pivovar',
+		LAND: 'CZ',
+		ALKOHOL: '4.8',
+		BETYG: '5.87',
+		DELTAGARE: 6,
+		DATUM: '181112'
+	},
+	{
+		ÖLNAMN: 'WARSTEINER',
+		BRYGGERI: 'WARSTEINER BR. HAUS',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '3.67',
+		DELTAGARE: 3,
+		DATUM: '960319'
+	},
+	{
+		ÖLNAMN: 'WARSTEINER PREMIUM LAGER',
+		BRYGGERI: 'WARSTEINER BR. HAUS',
+		LAND: 'DE',
+		ALKOHOL: '4.80',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '990922'
+	},
+	{
+		ÖLNAMN: 'WARSTEINER PREMIUM VERUM',
+		BRYGGERI: 'WARSTEINER BR. HAUS',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '3.50',
+		DELTAGARE: 4,
+		DATUM: '000216'
+	},
+	{
+		ÖLNAMN: 'WIEN',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '5.00',
+		DELTAGARE: 7,
+		DATUM: '031117'
+	},
+	{
+		ÖLNAMN: 'WITTMANN URHELL',
+		BRYGGERI: 'BR. C.WITTMANN',
+		LAND: 'DE',
+		ALKOHOL: '4.8',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '981207'
+	},
+	{
+		ÖLNAMN: 'YSTA FÄRSKÖL',
+		BRYGGERI: 'BRYGGERIET I YSTAD',
+		LAND: 'SE',
+		ALKOHOL: '4.8',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '970526'
+	},
+	{
+		ÖLNAMN: 'ZLATOPRAMEN DARK BEER',
+		BRYGGERI: 'DRINKS UNION A.S.',
+		LAND: 'CZ',
+		ALKOHOL: '4.8',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '081008'
+	},
+	{
+		ÖLNAMN: 'RADEGAST PREMIUM',
+		BRYGGERI: 'RADEGAST BR.',
+		LAND: 'CZ',
+		ALKOHOL: '4.8',
+		BETYG: '3.00',
+		DELTAGARE: 4,
+		DATUM: '950126'
+	},
+	{
+		ÖLNAMN: '1798 REVOLUTION ALE',
+		BRYGGERI: 'DUBLIN BR. CO.',
+		LAND: 'IE',
+		ALKOHOL: '4.7',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '000104'
+	},
+	{
+		ÖLNAMN: '1798 REVOLUTION RED BEER',
+		BRYGGERI: 'DUBLIN BR. CO.',
+		LAND: 'IE',
+		ALKOHOL: '4.7',
+		BETYG: '6.75',
+		DELTAGARE: 4,
+		DATUM: '000216'
+	},
+	{
+		ÖLNAMN: 'Aass IPA',
+		BRYGGERI: 'Aass Br.',
+		LAND: 'NO',
+		ALKOHOL: '4.7',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '170503'
+	},
+	{
+		ÖLNAMN: 'AMBER LAGER ',
+		BRYGGERI: 'GRØNLAND ICE CAP BEER',
+		LAND: 'DK (GRØNL)',
+		ALKOHOL: '4.7',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '081217'
+	},
+	{
+		ÖLNAMN: 'ANCHOR STEAM BEER*',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '4.7',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '030922'
+	},
+	{
+		ÖLNAMN: 'Augsburger Herren Pils',
+		BRYGGERI: 'Brauhaus Riegele',
+		LAND: 'DE',
+		ALKOHOL: '4.7',
+		BETYG: '7.25',
+		DELTAGARE: 4,
+		DATUM: '150114'
+	},
+	{
+		ÖLNAMN: "BECKETT'S BEER",
+		BRYGGERI: 'DUBLIN BR. CO.',
+		LAND: 'GB',
+		ALKOHOL: '4.7',
+		BETYG: '7.33',
+		DELTAGARE: 3,
+		DATUM: '0006'
+	},
+	{
+		ÖLNAMN: 'BIRRA JODLER',
+		BRYGGERI: 'C. di U.',
+		LAND: 'IT',
+		ALKOHOL: '4.7',
+		BETYG: '4.71',
+		DELTAGARE: 7,
+		DATUM: '030226'
+	},
+	{
+		ÖLNAMN: 'BODDINGTONS PUB ALE (B)',
+		BRYGGERI: 'STRANGE WAYS BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.7',
+		BETYG: '2.50',
+		DELTAGARE: 4,
+		DATUM: '050202'
+	},
+	{
+		ÖLNAMN: 'CIRCLE MASTER',
+		BRYGGERI: 'WYCHWOOD BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.7',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '050202'
+	},
+	{
+		ÖLNAMN: 'COMBINED HARVEST MULTIGRAIN BEER',
+		BRYGGERI: 'BATEMANS BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.7',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '021212'
+	},
+	{
+		ÖLNAMN: 'CRAZY ED´S CHILI BEER',
+		BRYGGERI: 'BLACK MOUNTAIN BR.',
+		LAND: 'US',
+		ALKOHOL: '4.7',
+		BETYG: '0.25',
+		DELTAGARE: 4,
+		DATUM: '940614'
+	},
+	{
+		ÖLNAMN: "DARCY'S DUBLIN STOUT",
+		BRYGGERI: 'DUBLIN BR. CO.',
+		LAND: 'IE',
+		ALKOHOL: '4.7',
+		BETYG: '7.20',
+		DELTAGARE: 4,
+		DATUM: '001214'
+	},
+	{
+		ÖLNAMN: 'DARK LAGER',
+		BRYGGERI: 'GRØNLAND ICE CAP BEER',
+		LAND: 'DK (GRØNL)',
+		ALKOHOL: '4.7',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '081217'
+	},
+	{
+		ÖLNAMN: 'Demory Nova Noire',
+		BRYGGERI: 'Demory-Paris',
+		LAND: 'FR',
+		ALKOHOL: '4.7',
+		BETYG: '4.86',
+		DELTAGARE: 7,
+		DATUM: '131211'
+	},
+	{
+		ÖLNAMN: 'DREHER',
+		BRYGGERI: 'viale MONZA',
+		LAND: 'IT',
+		ALKOHOL: '4.7',
+		BETYG: '3.50',
+		DELTAGARE: 6,
+		DATUM: '030526'
+	},
+	{
+		ÖLNAMN: 'ERDINGER CHAMP',
+		BRYGGERI: 'PRIVATBR. ERDINGER WEISSBRÄU',
+		LAND: 'DE',
+		ALKOHOL: '4.7',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '020514'
+	},
+	{
+		ÖLNAMN: 'FAYGATE DRAGON',
+		BRYGGERI: 'KING & BARNES',
+		LAND: 'GB',
+		ALKOHOL: '4.7',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '990519'
+	},
+	{
+		ÖLNAMN: 'Fjell Ale',
+		BRYGGERI: 'bryggeri704',
+		LAND: 'NO',
+		ALKOHOL: '4.7',
+		BETYG: '4.17',
+		DELTAGARE: 6,
+		DATUM: '170503'
+	},
+	{
+		ÖLNAMN: 'Fjell Pils',
+		BRYGGERI: 'Rena Br.',
+		LAND: 'NO',
+		ALKOHOL: '4.7',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '170503'
+	},
+	{
+		ÖLNAMN: 'GOLDINGS SUMMER ALE',
+		BRYGGERI: 'SHEPHERD NEAME',
+		LAND: 'GB',
+		ALKOHOL: '4.7',
+		BETYG: '5.42',
+		DELTAGARE: 6,
+		DATUM: '080625'
+	},
+	{
+		ÖLNAMN: 'GOLDINGS SUMMER HOP ALE',
+		BRYGGERI: 'SHEPARD NEAME FAVERSHAME',
+		LAND: 'GB',
+		ALKOHOL: '4.7',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '060622'
+	},
+	{
+		ÖLNAMN: 'HelVete',
+		BRYGGERI: 'Strömsholms Brygghus',
+		LAND: 'SE',
+		ALKOHOL: '4.7',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '150311'
+	},
+	{
+		ÖLNAMN: 'Herman Hedning HelVete',
+		BRYGGERI: 'Strömsholms Brygghus',
+		LAND: 'SE',
+		ALKOHOL: '4.7',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '150311'
+	},
+	{
+		ÖLNAMN: 'ICHNUSA',
+		BRYGGERI: 'ASSEMINI',
+		LAND: 'IT',
+		ALKOHOL: '4.7',
+		BETYG: '3.75',
+		DELTAGARE: 4,
+		DATUM: '971015'
+	},
+	{
+		ÖLNAMN: 'KARHU IVA ',
+		BRYGGERI: 'SINEBRYCHOFF',
+		LAND: 'FI',
+		ALKOHOL: '4.7',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '930816'
+	},
+	{
+		ÖLNAMN: 'KRUDTUGLE PILSNER',
+		BRYGGERI: 'MARIBO',
+		LAND: 'DK',
+		ALKOHOL: '4.7',
+		BETYG: '2.75',
+		DELTAGARE: 4,
+		DATUM: '941115'
+	},
+	{
+		ÖLNAMN: 'KRUSOVICE MUCKETYR',
+		BRYGGERI: 'KRALOVSKY PIVOVAR KRUSOVICE',
+		LAND: 'CZ',
+		ALKOHOL: '4.7',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '001107'
+	},
+	{
+		ÖLNAMN: 'LAHDEN ERIKOIS IVA*',
+		BRYGGERI: 'AMRI',
+		LAND: 'FI',
+		ALKOHOL: '4.7',
+		BETYG: '3.50',
+		DELTAGARE: 4,
+		DATUM: '930816'
+	},
+	{
+		ÖLNAMN: 'LAHDEN ERIKOIS IVA*',
+		BRYGGERI: 'AMRI',
+		LAND: 'FI',
+		ALKOHOL: '4.7',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '931104'
+	},
+	{
+		ÖLNAMN: 'LIA FAIL "STONE OF DESTINY"',
+		BRYGGERI: 'THE INVERALMOND BR. LTD.',
+		LAND: 'SCOT',
+		ALKOHOL: '4.7',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '040309'
+	},
+	{
+		ÖLNAMN: 'LIBERATION CHAMPION ALE',
+		BRYGGERI: 'HARVIESTON BR.',
+		LAND: 'SCOT',
+		ALKOHOL: '4.7',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '010116'
+	},
+	{
+		ÖLNAMN: 'LITTLE BASTARD ALE',
+		BRYGGERI: 'Stone Br.',
+		LAND: 'DE',
+		ALKOHOL: '4.7',
+		BETYG: '5.4',
+		DELTAGARE: 5,
+		DATUM: '170412'
+	},
+	{
+		ÖLNAMN: 'LONDON*',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.7',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '011212'
+	},
+	{
+		ÖLNAMN: 'LONDON*',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.7',
+		BETYG: '5.57',
+		DELTAGARE: 7,
+		DATUM: '031117'
+	},
+	{
+		ÖLNAMN: 'MACK PILSNER TROMSÖ (B)',
+		BRYGGERI: 'MACKS ÖLBRYGGERI AS',
+		LAND: 'NO',
+		ALKOHOL: '4.7',
+		BETYG: '3.67',
+		DELTAGARE: 6,
+		DATUM: '060920'
+	},
+	{
+		ÖLNAMN: "MAEVE'S CRYSTAL WHEAT",
+		BRYGGERI: 'DUBLIN BR. CO.',
+		LAND: 'IE',
+		ALKOHOL: '4.7',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '000830'
+	},
+	{
+		ÖLNAMN: 'MILLER GENUINE DRAFT*',
+		BRYGGERI: 'MILLER BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '4.7',
+		BETYG: '4.57',
+		DELTAGARE: 7,
+		DATUM: '070828'
+	},
+	{
+		ÖLNAMN: 'NEWCASTLE BROWN ALE*',
+		BRYGGERI: "NEWCASTEL FEDERATION BR'S LTD.",
+		LAND: 'GB',
+		ALKOHOL: '4.7',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '061018'
+	},
+	{
+		ÖLNAMN: 'ORIGINAL NO 1',
+		BRYGGERI: 'BR. SCHUSSENRIEDER',
+		LAND: 'DE',
+		ALKOHOL: '4.7',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '040512'
+	},
+	{
+		ÖLNAMN: 'PERONI*',
+		BRYGGERI: 'PERONI INDUSTRIALE',
+		LAND: 'IT',
+		ALKOHOL: '4.7',
+		BETYG: '4.00',
+		DELTAGARE: 7,
+		DATUM: '030226'
+	},
+	{
+		ÖLNAMN: 'Pink Passion',
+		BRYGGERI: 'Brekeriet',
+		LAND: 'SE',
+		ALKOHOL: '4.7',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '180412'
+	},
+	{
+		ÖLNAMN: 'PISTONHEAD',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '4.7',
+		BETYG: '4.38',
+		DELTAGARE: 8,
+		DATUM: '120815'
+	},
+	{
+		ÖLNAMN: 'PRIMÁTOR STOUT',
+		BRYGGERI: 'PIVOVAR NÁCHOD',
+		LAND: 'CZ',
+		ALKOHOL: '4.7',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '100915'
+	},
+	{
+		ÖLNAMN: 'PURKMISTR*',
+		BRYGGERI: 'PILSNER URQUELL',
+		LAND: 'CZ',
+		ALKOHOL: '4.7',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '970218'
+	},
+	{
+		ÖLNAMN: 'PURKMISTR*',
+		BRYGGERI: 'PILSNER URQUELL',
+		LAND: 'CZ',
+		ALKOHOL: '4.7',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '970423'
+	},
+	{
+		ÖLNAMN: 'RED STRIPE',
+		BRYGGERI: 'DESNOES & GEDDES',
+		LAND: 'JM',
+		ALKOHOL: '4.7',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '060419'
+	},
+	{
+		ÖLNAMN: 'Red Stripe',
+		BRYGGERI: 'Desnoes and Geddes Ltd',
+		LAND: 'JM',
+		ALKOHOL: '4.7',
+		BETYG: '3.50',
+		DELTAGARE: 6,
+		DATUM: '160817'
+	},
+	{
+		ÖLNAMN: 'RIEDENBURGER PILS - ORGANIC',
+		BRYGGERI: 'RIEDENBURGER BRAUHAUS',
+		LAND: 'DE',
+		ALKOHOL: '4.7',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '070515'
+	},
+	{
+		ÖLNAMN: 'ROGGEN',
+		BRYGGERI: 'Fürstliches spezialitäten Br ',
+		LAND: 'DE',
+		ALKOHOL: '4.7',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '951017'
+	},
+	{
+		ÖLNAMN: 'Rosa Kinn*',
+		BRYGGERI: 'Kinn Br.',
+		LAND: 'NO',
+		ALKOHOL: '4.7',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '150916'
+	},
+	{
+		ÖLNAMN: 'Rosa Kinn*',
+		BRYGGERI: 'Kinn Br.',
+		LAND: 'NO',
+		ALKOHOL: '4.7',
+		BETYG: '4.67',
+		DELTAGARE: 6,
+		DATUM: '151125'
+	},
+	{
+		ÖLNAMN: 'SAILING',
+		BRYGGERI: 'G.B.P.',
+		LAND: 'IT',
+		ALKOHOL: '4.7',
+		BETYG: '5.43',
+		DELTAGARE: 7,
+		DATUM: '030226'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S CREAM STOUT*',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '4.7',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '041215'
+	},
+	{
+		ÖLNAMN: 'SCHUSSENRIEDER URTYP LAGER',
+		BRYGGERI: 'BR. SCHUSSENRIEDER',
+		LAND: 'DE',
+		ALKOHOL: '4.7',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '040512'
+	},
+	{
+		ÖLNAMN: 'SEA DOG WINDJAMMER BLONDE ALE',
+		BRYGGERI: 'SEA DOG BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '4.7',
+		BETYG: '8.20',
+		DELTAGARE: 5,
+		DATUM: '980311'
+	},
+	{
+		ÖLNAMN: 'SINGLE HOP ALE',
+		BRYGGERI: 'KING & BARNES',
+		LAND: 'GB',
+		ALKOHOL: '4.7',
+		BETYG: '7.67',
+		DELTAGARE: 6,
+		DATUM: '990519'
+	},
+	{
+		ÖLNAMN: 'SININEN III',
+		BRYGGERI: 'AMRI',
+		LAND: 'FI',
+		ALKOHOL: '4.7',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '931104'
+	},
+	{
+		ÖLNAMN: 'SPITFIRE*',
+		BRYGGERI: 'SHEPHERD NEAME',
+		LAND: 'GB',
+		ALKOHOL: '4.7',
+		BETYG: '6.67',
+		DELTAGARE: 3,
+		DATUM: '941201'
+	},
+	{
+		ÖLNAMN: "ST. PETER'S GOLDEN ALE",
+		BRYGGERI: "ST. PETER'S BR. CO. LTD.",
+		LAND: 'GB',
+		ALKOHOL: '4.7',
+		BETYG: '7.80',
+		DELTAGARE: 5,
+		DATUM: '990414'
+	},
+	{
+		ÖLNAMN: 'STER ALE',
+		BRYGGERI: 'BR. STERKENS-MEER',
+		LAND: 'BE',
+		ALKOHOL: '4.7',
+		BETYG: '3.33',
+		DELTAGARE: 3,
+		DATUM: '940330'
+	},
+	{
+		ÖLNAMN: 'TROPICAL PREMIUM',
+		BRYGGERI: 'C.C.C. S.A.',
+		LAND: 'ES',
+		ALKOHOL: '4.7',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '970121'
+	},
+	{
+		ÖLNAMN: 'USHER FOUNDER ENGLISH ALE',
+		BRYGGERI: 'Ushers of Throwbridge',
+		LAND: 'GB',
+		ALKOHOL: '4.70',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '050112'
+	},
+	{
+		ÖLNAMN: 'VAAKUNA IVA ',
+		BRYGGERI: 'OLVI',
+		LAND: 'FI',
+		ALKOHOL: '4.7',
+		BETYG: '3.50',
+		DELTAGARE: 4,
+		DATUM: '930816'
+	},
+	{
+		ÖLNAMN: 'Wit',
+		BRYGGERI: 'Ebeltoft Gårdbryggeri',
+		LAND: 'DK',
+		ALKOHOL: '4.7',
+		BETYG: '5.56',
+		DELTAGARE: 7,
+		DATUM: '151007'
+	},
+	{
+		ÖLNAMN: 'WYHRER',
+		BRYGGERI: 'G.B.P.',
+		LAND: 'IT',
+		ALKOHOL: '4.7',
+		BETYG: '5.00',
+		DELTAGARE: 7,
+		DATUM: '030226'
+	},
+	{
+		ÖLNAMN: 'Wührer',
+		BRYGGERI: 'Birra Peroni',
+		LAND: 'IT',
+		ALKOHOL: '4.7',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '191017'
+	},
+	{
+		ÖLNAMN: 'WÜHRER',
+		BRYGGERI: 'G.B.P.',
+		LAND: 'IT',
+		ALKOHOL: '4.7',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '970204'
+	},
+	{
+		ÖLNAMN: 'HITE PRIME',
+		BRYGGERI: 'HITE BR. CO., LTD.',
+		LAND: 'KR',
+		ALKOHOL: '4.69',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '020806'
+	},
+	{
+		ÖLNAMN: '110 JUBILEUMSPILSNER',
+		BRYGGERI: 'HARBOE',
+		LAND: 'DK',
+		ALKOHOL: '4.6',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '960704'
+	},
+	{
+		ÖLNAMN: 'BADGER ORIGINAL ALE',
+		BRYGGERI: 'THE BADGER BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.6',
+		BETYG: '1.80',
+		DELTAGARE: 5,
+		DATUM: '010425'
+	},
+	{
+		ÖLNAMN: 'BEIJING BEER',
+		BRYGGERI: 'BEIJING BEER CO.',
+		LAND: 'CN',
+		ALKOHOL: '4.6',
+		BETYG: '2.33',
+		DELTAGARE: 3,
+		DATUM: '950411'
+	},
+	{
+		ÖLNAMN: 'BERLINER KINDL',
+		BRYGGERI: 'BERLINER KINDL BR. AG.',
+		LAND: 'DE',
+		ALKOHOL: '4.6',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '030701'
+	},
+	{
+		ÖLNAMN: 'BIA HÀ NOI*',
+		BRYGGERI: 'HABECO.COM.VN',
+		LAND: 'VN',
+		ALKOHOL: '4.6',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '100310'
+	},
+	{
+		ÖLNAMN: 'BIRRA MORETTI*',
+		BRYGGERI: 'B.M. Sp. A. UDINE',
+		LAND: 'IT',
+		ALKOHOL: '4.6',
+		BETYG: '4.57',
+		DELTAGARE: 7,
+		DATUM: '030226'
+	},
+	{
+		ÖLNAMN: 'BIRRA MORETTI*',
+		BRYGGERI: 'B.M. Sp. A. UDINE',
+		LAND: 'IT',
+		ALKOHOL: '4.6',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '970204'
+	},
+	{
+		ÖLNAMN: 'BITBURGER*',
+		BRYGGERI: 'BITBURGER PRIVATBR.',
+		LAND: 'DE',
+		ALKOHOL: '4.6',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '960829'
+	},
+	{
+		ÖLNAMN: 'BORSODI SÖR',
+		BRYGGERI: 'BORSODI SÖRGYÁRAK RT.',
+		LAND: 'HU',
+		ALKOHOL: '4.6',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '041117'
+	},
+	{
+		ÖLNAMN: 'BRYGGERENS PILSNER*',
+		BRYGGERI: 'HARBOE',
+		LAND: 'DK',
+		ALKOHOL: '4.6',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '960704'
+	},
+	{
+		ÖLNAMN: 'BRYGGERENS PILSNER*',
+		BRYGGERI: 'HARBOE',
+		LAND: 'DK',
+		ALKOHOL: '4.6',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '971015'
+	},
+	{
+		ÖLNAMN: 'CARLSBERG HOF',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '4.6',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '990901'
+	},
+	{
+		ÖLNAMN: 'CLASSIC',
+		BRYGGERI: 'BRYGHUSET SVANEKE',
+		LAND: 'DK',
+		ALKOHOL: '4.6',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '091014'
+	},
+	{
+		ÖLNAMN: 'DEN SORTE',
+		BRYGGERI: 'BRYGHUSET MØN',
+		LAND: 'DK',
+		ALKOHOL: '4.6',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '070215'
+	},
+	{
+		ÖLNAMN: 'ELECTRIC NURSE PALE ALE',
+		BRYGGERI: 'DUGGES ALE & PORTER BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.6',
+		BETYG: '6.50',
+		DELTAGARE: 5,
+		DATUM: '130619'
+	},
+	{
+		ÖLNAMN: 'FÖRóJA BJóR',
+		BRYGGERI: 'FÖROYSKUM VATNI',
+		LAND: 'FO',
+		ALKOHOL: '4.6',
+		BETYG: '3.75',
+		DELTAGARE: 4,
+		DATUM: '970610'
+	},
+	{
+		ÖLNAMN: 'FÖROYA BJÖR CLASSIC DARK LAGER',
+		BRYGGERI: 'FÖROYA Bjór ',
+		LAND: 'FO',
+		ALKOHOL: '4.6',
+		BETYG: '5.14',
+		DELTAGARE: 7,
+		DATUM: '130206'
+	},
+	{
+		ÖLNAMN: 'FÖROYA BJÖR PILSNAR',
+		BRYGGERI: 'FÖROYA Bjór',
+		LAND: 'FO',
+		ALKOHOL: '4.6',
+		BETYG: '5.14',
+		DELTAGARE: 7,
+		DATUM: '130206'
+	},
+	{
+		ÖLNAMN: 'GAMMELDAGS PILSNER',
+		BRYGGERI: 'BRYGHUSET SVANEKE',
+		LAND: 'DK',
+		ALKOHOL: '4.6',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '091014'
+	},
+	{
+		ÖLNAMN: 'Greed ',
+		BRYGGERI: 'Amager Bryghus',
+		LAND: 'DK',
+		ALKOHOL: '4.6',
+		BETYG: '4.28',
+		DELTAGARE: 7,
+		DATUM: '131009'
+	},
+	{
+		ÖLNAMN: 'Hansa IPA',
+		BRYGGERI: 'Hansa Borg Br.',
+		LAND: 'NO',
+		ALKOHOL: '4.6',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '170503'
+	},
+	{
+		ÖLNAMN: 'HARBOE RED',
+		BRYGGERI: 'HARBOE',
+		LAND: 'DK',
+		ALKOHOL: '4.6',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '081022'
+	},
+	{
+		ÖLNAMN: 'HARBOE ÅRGÅNGSPILSNER 110 ',
+		BRYGGERI: 'HARBOE',
+		LAND: 'DK',
+		ALKOHOL: '4.6',
+		BETYG: '4.25',
+		DELTAGARE: 5,
+		DATUM: '930505'
+	},
+	{
+		ÖLNAMN: 'ICE BJÖR',
+		BRYGGERI: 'VIKING hf',
+		LAND: 'IS',
+		ALKOHOL: '4.6',
+		BETYG: '4.00',
+		DELTAGARE: 3,
+		DATUM: '980623'
+	},
+	{
+		ÖLNAMN: 'KARJALA III#',
+		BRYGGERI: 'HARTWALL',
+		LAND: 'FI',
+		ALKOHOL: '4.6',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '000216'
+	},
+	{
+		ÖLNAMN: 'Lorem Ipsum IPA',
+		BRYGGERI: 'Brewski Br.',
+		LAND: 'SE',
+		ALKOHOL: '4.6',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '150211'
+	},
+	{
+		ÖLNAMN: 'LUNDAPILSNER',
+		BRYGGERI: 'SOFIERO',
+		LAND: 'SE',
+		ALKOHOL: '4.6',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '990414'
+	},
+	{
+		ÖLNAMN: 'ORIGINAL ALBANI',
+		BRYGGERI: 'ALBANI BR.',
+		LAND: 'DK',
+		ALKOHOL: '4.6',
+		BETYG: '2.75',
+		DELTAGARE: 4,
+		DATUM: '940308'
+	},
+	{
+		ÖLNAMN: 'PILSNER',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.6',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '060419'
+	},
+	{
+		ÖLNAMN: 'PRAG',
+		BRYGGERI: 'SLOTTSKÄLLANS BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.6',
+		BETYG: '5.43',
+		DELTAGARE: 7,
+		DATUM: '031117'
+	},
+	{
+		ÖLNAMN: 'ROLLING ROCK',
+		BRYGGERI: 'LABATT´S BR (licens)',
+		LAND: 'GB',
+		ALKOHOL: '4.6',
+		BETYG: '2.33',
+		DELTAGARE: 3,
+		DATUM: '940503'
+	},
+	{
+		ÖLNAMN: "SAMUEL ADAM'S BOSTON ALE*",
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '4.6',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '010425'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S BOSTON ALE*',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '4.6',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '960213'
+	},
+	{
+		ÖLNAMN: 'Spesial Ale',
+		BRYGGERI: 'bryggeri704',
+		LAND: 'NO',
+		ALKOHOL: '4.6',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '170503'
+	},
+	{
+		ÖLNAMN: 'Stein Öl',
+		BRYGGERI: 'bryggeri704',
+		LAND: 'NO',
+		ALKOHOL: '4.6',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '170503'
+	},
+	{
+		ÖLNAMN: 'STOUT CAT',
+		BRYGGERI: 'FAT CAT BR. CO.',
+		LAND: 'GB',
+		ALKOHOL: '4.6',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '091111'
+	},
+	{
+		ÖLNAMN: 'Tangerine Cream',
+		BRYGGERI: 'Pruef Br.',
+		LAND: 'BE',
+		ALKOHOL: '4.6',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '160615'
+	},
+	{
+		ÖLNAMN: 'The American Dream',
+		BRYGGERI: 'Mikkeller',
+		LAND: 'BE',
+		ALKOHOL: '4.6',
+		BETYG: '5.56',
+		DELTAGARE: 7,
+		DATUM: '150708'
+	},
+	{
+		ÖLNAMN: 'THOR PILSNER',
+		BRYGGERI: 'THOR BR. AS',
+		LAND: 'DK',
+		ALKOHOL: '4.6',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '990901'
+	},
+	{
+		ÖLNAMN: 'THY CLASSIC',
+		BRYGGERI: 'THISTED BRYGGHUS',
+		LAND: 'DK',
+		ALKOHOL: '4.6',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '081022'
+	},
+	{
+		ÖLNAMN: 'THY PILSNER',
+		BRYGGERI: 'THISTED BRYGGHUS',
+		LAND: 'DK',
+		ALKOHOL: '4.6',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '081022'
+	},
+	{
+		ÖLNAMN: 'TOOHEYS NEW',
+		BRYGGERI: 'TOOHEYS BR.',
+		LAND: 'AU',
+		ALKOHOL: '4.6',
+		BETYG: '4.67',
+		DELTAGARE: 6,
+		DATUM: '040309'
+	},
+	{
+		ÖLNAMN: 'TUBORG CLASSIC',
+		BRYGGERI: 'TUBORG',
+		LAND: 'DK',
+		ALKOHOL: '4.6',
+		BETYG: '3.00',
+		DELTAGARE: 5,
+		DATUM: '970903'
+	},
+	{
+		ÖLNAMN: 'ØKOLOGISK CLASSIC',
+		BRYGGERI: 'THISTED BRYGGHUS',
+		LAND: 'DK',
+		ALKOHOL: '4.6',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '081022'
+	},
+	{
+		ÖLNAMN: '1836 HARTWALL CLASSIC',
+		BRYGGERI: 'HARTWALL',
+		LAND: 'FI',
+		ALKOHOL: '4.5',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '990414'
+	},
+	{
+		ÖLNAMN: 'ACAPULCO',
+		BRYGGERI: 'PIVOVARNIA IVANA TARANOVA',
+		LAND: 'RU',
+		ALKOHOL: '4.5',
+		BETYG: '5.67',
+		DELTAGARE: 3,
+		DATUM: '080716'
+	},
+	{
+		ÖLNAMN: 'ADNAMS SUFFOLK STRONG ALE',
+		BRYGGERI: 'SOLE BAY BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.5',
+		BETYG: '8.00',
+		DELTAGARE: 5,
+		DATUM: '971203'
+	},
+	{
+		ÖLNAMN: 'AHLE ALE',
+		BRYGGERI: 'AHLAFORS BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '971203'
+	},
+	{
+		ÖLNAMN: 'AMADEUS',
+		BRYGGERI: 'LES BRASSEURS DE GAYANT',
+		LAND: 'FR',
+		ALKOHOL: '4.5',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '030616'
+	},
+	{
+		ÖLNAMN: 'Amber',
+		BRYGGERI: 'Klostergårdens Håndbryggeri',
+		LAND: 'NO',
+		ALKOHOL: '4.5',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '160713'
+	},
+	{
+		ÖLNAMN: 'ARANY ÁSZOK',
+		BRYGGERI: 'DREHER SÖRGYÁRAK',
+		LAND: 'HU',
+		ALKOHOL: '4.5',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '041117'
+	},
+	{
+		ÖLNAMN: 'BAM BIÈRE',
+		BRYGGERI: 'JOLLY PUMPKIN',
+		LAND: 'US',
+		ALKOHOL: '4.5',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '090520'
+	},
+	{
+		ÖLNAMN: 'Barrel-Aged Apricot Sour Ale',
+		BRYGGERI: 'Stockholm Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '190708'
+	},
+	{
+		ÖLNAMN: 'BEAMISH RED IRISH ALE (B)',
+		BRYGGERI: 'BEAMISH & CRAWFORD PLC',
+		LAND: 'IE',
+		ALKOHOL: '4.5',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '970526'
+	},
+	{
+		ÖLNAMN: 'Biére de Rosé et fruit de la forét',
+		BRYGGERI: 'Åre Bryggcompagni',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '180906'
+	},
+	{
+		ÖLNAMN: 'Bitter',
+		BRYGGERI: 'Klostergårdens Håndbryggeri',
+		LAND: 'NO',
+		ALKOHOL: '4.5',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '160713'
+	},
+	{
+		ÖLNAMN: 'Black Currant',
+		BRYGGERI: 'Dugges Ale & Porterbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '160623'
+	},
+	{
+		ÖLNAMN: 'BLANCHE DE WISSANT',
+		BRYGGERI: 'SARL CHRISTOPHE NOYON BR.',
+		LAND: 'FR',
+		ALKOHOL: '4.5',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '071212'
+	},
+	{
+		ÖLNAMN: 'BOHEMIA REGENT',
+		BRYGGERI: 'REGENT',
+		LAND: 'CZ',
+		ALKOHOL: '4.5',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '940801'
+	},
+	{
+		ÖLNAMN: 'BORG GOLDEN VIKING',
+		BRYGGERI: 'BORG BRYGGERIER',
+		LAND: 'NO',
+		ALKOHOL: '4.5',
+		BETYG: '2.67',
+		DELTAGARE: 3,
+		DATUM: '940421'
+	},
+	{
+		ÖLNAMN: 'BORG PILSNER',
+		BRYGGERI: 'BORG BR.',
+		LAND: 'NO',
+		ALKOHOL: '4.5',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '950126'
+	},
+	{
+		ÖLNAMN: 'BREDARYDS PILSNER',
+		BRYGGERI: 'SOFIERO',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '6.00',
+		DELTAGARE: 3,
+		DATUM: '940330'
+	},
+	{
+		ÖLNAMN: 'Brion',
+		BRYGGERI: 'Banks Breweries',
+		LAND: 'BB',
+		ALKOHOL: '4.5',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '160817'
+	},
+	{
+		ÖLNAMN: 'Brooklyn Bel Air Sour',
+		BRYGGERI: 'Brooklyn Br.',
+		LAND: 'US',
+		ALKOHOL: '4.5',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '181011'
+	},
+	{
+		ÖLNAMN: 'Brown Ale',
+		BRYGGERI: 'Klostergårdens Håndbryggeri',
+		LAND: 'NO',
+		ALKOHOL: '4.5',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '160713'
+	},
+	{
+		ÖLNAMN: 'BUDWEISER*',
+		BRYGGERI: 'ANHEUSER-BUSCH',
+		LAND: 'US',
+		ALKOHOL: '4.5',
+		BETYG: '1.50',
+		DELTAGARE: 4,
+		DATUM: '940303'
+	},
+	{
+		ÖLNAMN: 'CARNEGIE PALE ALE',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '3.75',
+		DELTAGARE: 4,
+		DATUM: '940315'
+	},
+	{
+		ÖLNAMN: 'CASS*',
+		BRYGGERI: '?',
+		LAND: 'KR',
+		ALKOHOL: '4.5',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '020806'
+	},
+	{
+		ÖLNAMN: 'CASS*',
+		BRYGGERI: '?',
+		LAND: 'KR',
+		ALKOHOL: '4.5',
+		BETYG: '3.40',
+		DELTAGARE: 5,
+		DATUM: '990812'
+	},
+	{
+		ÖLNAMN: 'CBEMIOE',
+		BRYGGERI: 'PIVOVARNIA IVANA TARANOVA',
+		LAND: 'RU',
+		ALKOHOL: '4.5',
+		BETYG: '5.33',
+		DELTAGARE: 3,
+		DATUM: '080716'
+	},
+	{
+		ÖLNAMN: 'CLASSIC FORSØGSBRYG',
+		BRYGGERI: 'SAMSØ BRYGHUS',
+		LAND: 'DK',
+		ALKOHOL: '4.5',
+		BETYG: '3.00',
+		DELTAGARE: 6,
+		DATUM: '071121'
+	},
+	{
+		ÖLNAMN: 'COOPERS ORIGINAL PALE ALE*',
+		BRYGGERI: 'COOPERS BR. LTD.',
+		LAND: 'AU',
+		ALKOHOL: '4.5',
+		BETYG: '3.20',
+		DELTAGARE: 5,
+		DATUM: '960411'
+	},
+	{
+		ÖLNAMN: 'COOPERS ORIGINAL PALE ALE*',
+		BRYGGERI: 'COOPERS BR. LTD.',
+		LAND: 'AU',
+		ALKOHOL: '4.5',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '970408'
+	},
+	{
+		ÖLNAMN: 'COREFF BLANCHE',
+		BRYGGERI: 'Brasserie Des 2 Rivières',
+		LAND: 'FR',
+		ALKOHOL: '4.5',
+		BETYG: '3.17',
+		DELTAGARE: 6,
+		DATUM: '061212'
+	},
+	{
+		ÖLNAMN: 'CORONA EXTRA*',
+		BRYGGERI: 'CERVECERIA MODELO S.A.',
+		LAND: 'MX',
+		ALKOHOL: '4.5',
+		BETYG: '5.00',
+		DELTAGARE: 3,
+		DATUM: '011129'
+	},
+	{
+		ÖLNAMN: 'Corona Extra*',
+		BRYGGERI: 'MODELO S.A. DE C.V',
+		LAND: 'MX',
+		ALKOHOL: '4.5',
+		BETYG: '4.17',
+		DELTAGARE: 6,
+		DATUM: '160817'
+	},
+	{
+		ÖLNAMN: 'CORONA EXTRA*',
+		BRYGGERI: 'CERVECERIA MODELO S.A.',
+		LAND: 'MX',
+		ALKOHOL: '4.5',
+		BETYG: '2.25',
+		DELTAGARE: 4,
+		DATUM: '940303'
+	},
+	{
+		ÖLNAMN: 'DAS PRAGER DARK',
+		BRYGGERI: 'STAROPRAMEN',
+		LAND: 'CS',
+		ALKOHOL: '4.5',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '930609'
+	},
+	{
+		ÖLNAMN: 'DOCTOR DIESEL PREMIUM BEER',
+		BRYGGERI: 'PIVOVARNIA IVANA TARANOVA',
+		LAND: 'RU',
+		ALKOHOL: '4.5',
+		BETYG: '5.67',
+		DELTAGARE: 3,
+		DATUM: '080716'
+	},
+	{
+		ÖLNAMN: 'EARLY BIRD',
+		BRYGGERI: 'SHEPHERD NEAME',
+		LAND: 'GB',
+		ALKOHOL: '4.5',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '070315'
+	},
+	{
+		ÖLNAMN: 'FALCON RAW',
+		BRYGGERI: 'FALKENBERGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '120411'
+	},
+	{
+		ÖLNAMN: 'FREYJA',
+		BRYGGERI: 'ÖLVISHOLT BRYGGHUS',
+		LAND: 'IS',
+		ALKOHOL: '4.5',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '121212'
+	},
+	{
+		ÖLNAMN: 'HALIDA PREMIUM LAGER BEER*',
+		BRYGGERI: 'S.E. ASIA BREWERY',
+		LAND: 'VN',
+		ALKOHOL: '4.5',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '100310'
+	},
+	{
+		ÖLNAMN: 'HANSA',
+		BRYGGERI: 'Dortmunder Hansa Brau.',
+		LAND: 'DE',
+		ALKOHOL: '4.5',
+		BETYG: '4.00',
+		DELTAGARE: 3,
+		DATUM: '930428'
+	},
+	{
+		ÖLNAMN: 'HARTWALL PILS',
+		BRYGGERI: 'HARTWALL',
+		LAND: 'FI',
+		ALKOHOL: '4.5',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '000216'
+	},
+	{
+		ÖLNAMN: 'HARVEST MOON',
+		BRYGGERI: 'GRAIN NORFOLK BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.5',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '091111'
+	},
+	{
+		ÖLNAMN: 'HELSINGBORG AMBER ALE',
+		BRYGGERI: 'HELSINGBORGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '120411'
+	},
+	{
+		ÖLNAMN: 'HELSINGBORG VINTER',
+		BRYGGERI: 'HELSINGBORGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '120411'
+	},
+	{
+		ÖLNAMN: 'HITE*',
+		BRYGGERI: 'HITE BR. CO., LTD.',
+		LAND: 'KR',
+		ALKOHOL: '4.5',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '020806'
+	},
+	{
+		ÖLNAMN: 'HITE*',
+		BRYGGERI: 'HITE BR. CO., LTD.',
+		LAND: 'KR',
+		ALKOHOL: '4.5',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '990812'
+	},
+	{
+		ÖLNAMN: 'How to tear down this wall',
+		BRYGGERI: 'This is how',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '6.14',
+		DELTAGARE: 7,
+		DATUM: '200611'
+	},
+	{
+		ÖLNAMN: 'Imperial',
+		BRYGGERI: 'Cerveceria Costa Rica',
+		LAND: 'CR',
+		ALKOHOL: '4.5',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '200416'
+	},
+	{
+		ÖLNAMN: 'INWIT',
+		BRYGGERI: 'OPPIGÅRD BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '100609'
+	},
+	{
+		ÖLNAMN: 'J.A.C.K. ',
+		BRYGGERI: 'Nya Carnegiebryggeriet',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '160316'
+	},
+	{
+		ÖLNAMN: 'JEGERØL',
+		BRYGGERI: 'TROMI BRYGGERI',
+		LAND: 'NO',
+		ALKOHOL: '4.5',
+		BETYG: '2.80',
+		DELTAGARE: 5,
+		DATUM: '940801'
+	},
+	{
+		ÖLNAMN: 'JOULUOLUT',
+		BRYGGERI: 'HARTWALL',
+		LAND: 'FI',
+		ALKOHOL: '4.5',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '990414'
+	},
+	{
+		ÖLNAMN: 'JÄMTLANDS PILGRIM ALE',
+		BRYGGERI: 'JÄMTLANDS BRYGGERI AB',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '990308'
+	},
+	{
+		ÖLNAMN: 'KANTERBRÄU',
+		BRYGGERI: 'BE. MAITRE KANTER',
+		LAND: 'DE?',
+		ALKOHOL: '4.5',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '040614'
+	},
+	{
+		ÖLNAMN: 'KARJALA III*',
+		BRYGGERI: 'AMRI',
+		LAND: 'FI',
+		ALKOHOL: '4.5',
+		BETYG: '3.00',
+		DELTAGARE: 4,
+		DATUM: '931104'
+	},
+	{
+		ÖLNAMN: 'KEO',
+		BRYGGERI: 'KEO Ltd LIMASSOL',
+		LAND: 'CY',
+		ALKOHOL: '4.5',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '040826'
+	},
+	{
+		ÖLNAMN: 'KILKENNY (SMITHWICKS)',
+		BRYGGERI: 'ST. FRANCIS ABBEY BR.',
+		LAND: 'IE',
+		ALKOHOL: '4.5',
+		BETYG: '4.33',
+		DELTAGARE: 3,
+		DATUM: '940330'
+	},
+	{
+		ÖLNAMN: 'KILKENNY IRISH BEER',
+		BRYGGERI: 'SMITHWICK',
+		LAND: 'IE',
+		ALKOHOL: '4.5',
+		BETYG: '4.33',
+		DELTAGARE: 3,
+		DATUM: '950921'
+	},
+	{
+		ÖLNAMN: 'KING & BARNES SPRING ALE',
+		BRYGGERI: 'KING & BARNES LTD.',
+		LAND: 'GB',
+		ALKOHOL: '4.5',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '970423'
+	},
+	{
+		ÖLNAMN: 'KOFF',
+		BRYGGERI: 'SINEBRYCHOFF BR.',
+		LAND: 'FI',
+		ALKOHOL: '4.5',
+		BETYG: '3.50',
+		DELTAGARE: 4,
+		DATUM: '000216'
+	},
+	{
+		ÖLNAMN: 'Kriek',
+		BRYGGERI: 'A. Le Coq',
+		LAND: 'EE',
+		ALKOHOL: '4.5',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '171115'
+	},
+	{
+		ÖLNAMN: 'KRIEK, St LOUIS',
+		BRYGGERI: 'BR VAN HONSEBROUCK',
+		LAND: 'BE',
+		ALKOHOL: '4.5',
+		BETYG: '3.00',
+		DELTAGARE: 5,
+		DATUM: '950807'
+	},
+	{
+		ÖLNAMN: 'KÄLLEFALL PALE ALE*',
+		BRYGGERI: 'KÄLLEFALLS BRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '6.00',
+		DELTAGARE: 3,
+		DATUM: '940503'
+	},
+	{
+		ÖLNAMN: 'KÄLLEFALL PALE ALE*',
+		BRYGGERI: 'SOFIERO',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '940609'
+	},
+	{
+		ÖLNAMN: 'KÖNIGSBERG',
+		BRYGGERI: 'PIVOVARNIA IVANA TARANOVA',
+		LAND: 'RU',
+		ALKOHOL: '4.5',
+		BETYG: '4.67',
+		DELTAGARE: 3,
+		DATUM: '080716'
+	},
+	{
+		ÖLNAMN: 'Landshuter Brauhaus KOLLERBRÄU-HELL',
+		BRYGGERI: 'LANDSHUTER BRAUHAUS',
+		LAND: 'DE',
+		ALKOHOL: '4.5',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '981207'
+	},
+	{
+		ÖLNAMN: 'LIEFMANS FRAMBOZENBIER*',
+		BRYGGERI: 'LIEFMANS BR.',
+		LAND: 'BE',
+		ALKOHOL: '4.5',
+		BETYG: '3.20',
+		DELTAGARE: 5,
+		DATUM: '950807'
+	},
+	{
+		ÖLNAMN: 'LIEFMANS FRAMBOZENBIER*',
+		BRYGGERI: 'LIEFMANS BR.',
+		LAND: 'BE',
+		ALKOHOL: '4.5',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '960923'
+	},
+	{
+		ÖLNAMN: 'LINDEMANS FARO',
+		BRYGGERI: 'LINDEMANS BR.',
+		LAND: 'BE',
+		ALKOHOL: '4.5',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '960923'
+	},
+	{
+		ÖLNAMN: 'LUNDAKARNEVALSÖL',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '3.67',
+		DELTAGARE: 3,
+		DATUM: '940421'
+	},
+	{
+		ÖLNAMN: 'LUXOR',
+		BRYGGERI: 'Egyptian International Bev. Co.',
+		LAND: 'EG',
+		ALKOHOL: '4.5',
+		BETYG: '4.17',
+		DELTAGARE: 6,
+		DATUM: '060510'
+	},
+	{
+		ÖLNAMN: 'LYSHOLMER SPESIAL ØL',
+		BRYGGERI: 'E.C. DAHLS BR.',
+		LAND: 'NO',
+		ALKOHOL: '4.5',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '950126'
+	},
+	{
+		ÖLNAMN: 'MACK ARCTIC',
+		BRYGGERI: 'L. MACKS ØLBRYGGERI',
+		LAND: 'NO',
+		ALKOHOL: '4.5',
+		BETYG: '3.50',
+		DELTAGARE: 4,
+		DATUM: '940303'
+	},
+	{
+		ÖLNAMN: "MARSTON'S PEDIGREE",
+		BRYGGERI: "MARSTON'S BR.",
+		LAND: 'GB',
+		ALKOHOL: '4.5',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '051212'
+	},
+	{
+		ÖLNAMN: 'MARSTON´S PEDIGREE BITTER*',
+		BRYGGERI: 'Marston, Thompson & Evershed',
+		LAND: 'GB',
+		ALKOHOL: '4.5',
+		BETYG: '3.00',
+		DELTAGARE: 4,
+		DATUM: '940609'
+	},
+	{
+		ÖLNAMN: 'MARSTON´S PEDIGREE BITTER*',
+		BRYGGERI: 'Marston, Thompson & Evershed',
+		LAND: 'GB',
+		ALKOHOL: '4.5',
+		BETYG: '3.75',
+		DELTAGARE: 4,
+		DATUM: '940915'
+	},
+	{
+		ÖLNAMN: 'MARSTONS OYSTER STOUT',
+		BRYGGERI: 'Marston, Thompson & Evershed',
+		LAND: 'GB',
+		ALKOHOL: '4.5',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '970526'
+	},
+	{
+		ÖLNAMN: 'McEWANS EXPORT',
+		BRYGGERI: 'Scottish & Newcastle Br',
+		LAND: 'SCOT',
+		ALKOHOL: '4.5',
+		BETYG: '3.50',
+		DELTAGARE: 4,
+		DATUM: '940215'
+	},
+	{
+		ÖLNAMN: 'McEWANS INDIA PALE ALE',
+		BRYGGERI: 'Wm. McEWAN & Co, Brewers',
+		LAND: 'SCOT',
+		ALKOHOL: '4.5',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '050406'
+	},
+	{
+		ÖLNAMN: "MIKKELER IT'S ALRIGHT",
+		BRYGGERI: 'MIKKELER',
+		LAND: 'DK',
+		ALKOHOL: '4.5',
+		BETYG: '4.33',
+		DELTAGARE: 3,
+		DATUM: '090722'
+	},
+	{
+		ÖLNAMN: 'Mikkeller/BAD-Salt',
+		BRYGGERI: 'de Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '4.5',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '140312'
+	},
+	{
+		ÖLNAMN: 'MOOSEHEAD BEER ',
+		BRYGGERI: 'MOOSEHEAD B´s',
+		LAND: 'CA',
+		ALKOHOL: '4.5',
+		BETYG: '2.50',
+		DELTAGARE: 4,
+		DATUM: '930421'
+	},
+	{
+		ÖLNAMN: 'MORT SUBITE FRAMBOISE',
+		BRYGGERI: 'BR. DE KEERSMAEKER',
+		LAND: 'BE',
+		ALKOHOL: '4.5',
+		BETYG: '6.00',
+		DELTAGARE: 3,
+		DATUM: '020326'
+	},
+	{
+		ÖLNAMN: 'MORT SUBITE GUEUZE',
+		BRYGGERI: 'MORT SUBITE',
+		LAND: 'BE',
+		ALKOHOL: '4.5',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '130109'
+	},
+	{
+		ÖLNAMN: 'MORT SUBITE KRIEK*',
+		BRYGGERI: 'BR. DE KEERSMAEKER',
+		LAND: 'BE',
+		ALKOHOL: '4.5',
+		BETYG: '6.33',
+		DELTAGARE: 3,
+		DATUM: '020326'
+	},
+	{
+		ÖLNAMN: 'MORT SUBITE PËCHE',
+		BRYGGERI: 'BR. DE KEERSMAEKER',
+		LAND: 'BE',
+		ALKOHOL: '4.5',
+		BETYG: '5.67',
+		DELTAGARE: 3,
+		DATUM: '020326'
+	},
+	{
+		ÖLNAMN: 'Narancsos - Mezes',
+		BRYGGERI: 'Br. FOT',
+		LAND: 'HU',
+		ALKOHOL: '4.5',
+		BETYG: '4.67',
+		DELTAGARE: 6,
+		DATUM: '170913'
+	},
+	{
+		ÖLNAMN: 'NEWCASTLE BROWN ALE*',
+		BRYGGERI: 'NEWCASTLE BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.5',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '931111'
+	},
+	{
+		ÖLNAMN: 'NEWCASTLE BROWN ALE*',
+		BRYGGERI: 'NEWCASTLE BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.5',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '951128'
+	},
+	{
+		ÖLNAMN: 'NORDHOUSE MJÖD',
+		BRYGGERI: '',
+		LAND: 'FI',
+		ALKOHOL: '4.5',
+		BETYG: '2.80',
+		DELTAGARE: 5,
+		DATUM: '950831'
+	},
+	{
+		ÖLNAMN: 'Nääs Stout',
+		BRYGGERI: 'Nääs Gårdsbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '6.00',
+		DELTAGARE: 4,
+		DATUM: '150114'
+	},
+	{
+		ÖLNAMN: 'OATMEAL STOUT',
+		BRYGGERI: 'SAMUEL SMITH´S',
+		LAND: 'GB',
+		ALKOHOL: '4.5',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '930331'
+	},
+	{
+		ÖLNAMN: 'OB LAGER*',
+		BRYGGERI: 'ORIENTAL BR.',
+		LAND: 'KR',
+		ALKOHOL: '4.5',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '020806'
+	},
+	{
+		ÖLNAMN: 'OB LAGER*',
+		BRYGGERI: 'ORIENTAL BR.',
+		LAND: 'KR',
+		ALKOHOL: '4.5',
+		BETYG: '2.60',
+		DELTAGARE: 5,
+		DATUM: '990812'
+	},
+	{
+		ÖLNAMN: 'OLVI VAAKUNA ',
+		BRYGGERI: 'OLVI',
+		LAND: 'FI',
+		ALKOHOL: '4.5',
+		BETYG: '2.75',
+		DELTAGARE: 4,
+		DATUM: '931213'
+	},
+	{
+		ÖLNAMN: 'Pale Ale',
+		BRYGGERI: 'Klostergårdens Håndbryggeri',
+		LAND: 'NO',
+		ALKOHOL: '4.5',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '160713'
+	},
+	{
+		ÖLNAMN: 'Pang Pang Bamboleo',
+		BRYGGERI: 'Pang Pang Br',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '150311'
+	},
+	{
+		ÖLNAMN: 'Pedigree Classic English Pale Ale',
+		BRYGGERI: "Marston's Br",
+		LAND: 'GB',
+		ALKOHOL: '4.5',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '140507'
+	},
+	{
+		ÖLNAMN: 'Polar',
+		BRYGGERI: 'The Florida Brewery',
+		LAND: 'US',
+		ALKOHOL: '4.5',
+		BETYG: '3.67',
+		DELTAGARE: 6,
+		DATUM: '160817'
+	},
+	{
+		ÖLNAMN: 'Porter',
+		BRYGGERI: 'Klostergårdens Håndbryggeri',
+		LAND: 'NO',
+		ALKOHOL: '4.5',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '160713'
+	},
+	{
+		ÖLNAMN: 'PREMIUM LAGER',
+		BRYGGERI: 'GUINNESS',
+		LAND: 'GB',
+		ALKOHOL: '4.5',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '961021'
+	},
+	{
+		ÖLNAMN: 'PRIPPS BLÅ, MELLANÖL',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '4.67',
+		DELTAGARE: 3,
+		DATUM: '931118'
+	},
+	{
+		ÖLNAMN: 'Reign in Raspberry',
+		BRYGGERI: 'Dugges Br./Stillwater Artisanaly',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '8.40',
+		DELTAGARE: 5,
+		DATUM: '160623'
+	},
+	{
+		ÖLNAMN: 'Ryklio Kavinukas',
+		BRYGGERI: 'Raudonu Plyto',
+		LAND: 'LT',
+		ALKOHOL: '4.5',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '170215'
+	},
+	{
+		ÖLNAMN: 'SAINT LOUIS',
+		BRYGGERI: 'I.N.P.',
+		LAND: 'IT',
+		ALKOHOL: '4.5',
+		BETYG: '5.00',
+		DELTAGARE: 7,
+		DATUM: '030226'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S GOLDEN PILSNER',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '4.5',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '961112'
+	},
+	{
+		ÖLNAMN: 'Shimagumi Stout',
+		BRYGGERI: 'Baird Beer',
+		LAND: 'JP',
+		ALKOHOL: '4.5',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '130508'
+	},
+	{
+		ÖLNAMN: 'SOL',
+		BRYGGERI: 'CERVECERIA CUAHTEMOC MOCTEZUMA',
+		LAND: 'MX',
+		ALKOHOL: '4.5',
+		BETYG: '4.28',
+		DELTAGARE: 7,
+		DATUM: '070828'
+	},
+	{
+		ÖLNAMN: 'Sol',
+		BRYGGERI: 'Cerveceria Moctezuma',
+		LAND: 'NL',
+		ALKOHOL: '4.5',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '160817'
+	},
+	{
+		ÖLNAMN: 'SOPRONI ÁSZOK',
+		BRYGGERI: 'BRAU UNION HUNGARIA SÖRG.',
+		LAND: 'HU',
+		ALKOHOL: '4.5',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '041117'
+	},
+	{
+		ÖLNAMN: 'SPITFIRE*',
+		BRYGGERI: 'SHEPHARD NEAME',
+		LAND: 'GB',
+		ALKOHOL: '4.5',
+		BETYG: '4.60',
+		DELTAGARE: 5,
+		DATUM: '951128'
+	},
+	{
+		ÖLNAMN: 'SPLÜGEN',
+		BRYGGERI: 'SPLÜGEN',
+		LAND: 'IT',
+		ALKOHOL: '4.5',
+		BETYG: '2.50',
+		DELTAGARE: 6,
+		DATUM: '030526'
+	},
+	{
+		ÖLNAMN: 'STELLA LAGER BEER',
+		BRYGGERI: 'AL AHRAM BEVERAGES CO.',
+		LAND: 'EG',
+		ALKOHOL: '4.5',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '100512'
+	},
+	{
+		ÖLNAMN: 'Stone Notorious P.O.G. Berlin',
+		BRYGGERI: 'Stone Br.',
+		LAND: 'DE',
+		ALKOHOL: '4.5',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '190708'
+	},
+	{
+		ÖLNAMN: 'Stout',
+		BRYGGERI: 'Klostergårdens Håndbryggeri',
+		LAND: 'NO',
+		ALKOHOL: '4.5',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '160713'
+	},
+	{
+		ÖLNAMN: 'SVYTURYS',
+		BRYGGERI: 'AB SVYTURYS-UTENOS ALUS',
+		LAND: 'LT',
+		ALKOHOL: '4.5',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '030115'
+	},
+	{
+		ÖLNAMN: 'THE GHILLIE*',
+		BRYGGERI: 'BROUGHTON ALES LTD',
+		LAND: 'SCOT',
+		ALKOHOL: '4.5',
+		BETYG: '8.20',
+		DELTAGARE: 5,
+		DATUM: '000509'
+	},
+	{
+		ÖLNAMN: 'THE GHILLIE*',
+		BRYGGERI: 'BROUGHTON ALES LTD',
+		LAND: 'GB',
+		ALKOHOL: '4.5',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '981005'
+	},
+	{
+		ÖLNAMN: 'THREE TOWNS',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '3.33',
+		DELTAGARE: 3,
+		DATUM: '940421'
+	},
+	{
+		ÖLNAMN: 'Tropic Sunrise*',
+		BRYGGERI: 'Dugges Br./Stillwater Artisanal',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '160615'
+	},
+	{
+		ÖLNAMN: 'Tropic Sunrise*',
+		BRYGGERI: 'Dugges Br./Stillwater Artisanaly',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '160623'
+	},
+	{
+		ÖLNAMN: 'Tropic Thunder',
+		BRYGGERI: 'Dugges Br./Stillwater Artisanaly',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '160623'
+	},
+	{
+		ÖLNAMN: 'WHEAT BEAR',
+		BRYGGERI: 'MEVASHELET HABAIT',
+		LAND: 'IL',
+		ALKOHOL: '4.5',
+		BETYG: '4.67',
+		DELTAGARE: 3,
+		DATUM: '980623'
+	},
+	{
+		ÖLNAMN: "YOUNG'S SPECIAL (B)",
+		BRYGGERI: 'THE RAM BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.5',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '050406'
+	},
+	{
+		ÖLNAMN: 'Zythos APA',
+		BRYGGERI: 'De Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '4.5',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '200319'
+	},
+	{
+		ÖLNAMN: 'Big Wave-Golden Ale',
+		BRYGGERI: 'Kona Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '4.4',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '190425'
+	},
+	{
+		ÖLNAMN: 'BLACK SHEEP ALE',
+		BRYGGERI: 'BLACK SHEEP BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.4',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '011212'
+	},
+	{
+		ÖLNAMN: 'Carls Special*',
+		BRYGGERI: 'Carlsberg BR.',
+		LAND: 'DK',
+		ALKOHOL: '4.4',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '150114'
+	},
+	{
+		ÖLNAMN: 'CARLS SPECIAL*',
+		BRYGGERI: 'CARLSBERG',
+		LAND: 'DK',
+		ALKOHOL: '4.4',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '971015'
+	},
+	{
+		ÖLNAMN: 'CARLS SPECIAL*',
+		BRYGGERI: 'CARLSBERG',
+		LAND: 'DK',
+		ALKOHOL: '4.4',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '971203'
+	},
+	{
+		ÖLNAMN: 'CARLS SPECIAL*',
+		BRYGGERI: 'CARLSBERG',
+		LAND: 'DK',
+		ALKOHOL: '4.4',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '990414'
+	},
+	{
+		ÖLNAMN: 'DUNKEL PREMIUM',
+		BRYGGERI: 'HARBOE',
+		LAND: 'DK',
+		ALKOHOL: '4.4',
+		BETYG: '4.00',
+		DELTAGARE: 6,
+		DATUM: '041026'
+	},
+	{
+		ÖLNAMN: 'FURSTY FERRET',
+		BRYGGERI: 'THE BADGER BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.4',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '051212'
+	},
+	{
+		ÖLNAMN: 'Golden Ale',
+		BRYGGERI: 'Ebeltoft Gårdbryggeri',
+		LAND: 'DK',
+		ALKOHOL: '4.4',
+		BETYG: '5.14',
+		DELTAGARE: 7,
+		DATUM: '151007'
+	},
+	{
+		ÖLNAMN: "GRANNY MARY'S RED ALE",
+		BRYGGERI: 'McGargles',
+		LAND: 'IE',
+		ALKOHOL: '4.4',
+		BETYG: '6',
+		DELTAGARE: 5,
+		DATUM: '170412'
+	},
+	{
+		ÖLNAMN: 'GUINNESS DRAUGHT BITTER (B)',
+		BRYGGERI: 'GUINNESS BR., S:t James´s Gate',
+		LAND: 'IE',
+		ALKOHOL: '4.4',
+		BETYG: '7.75',
+		DELTAGARE: 4,
+		DATUM: '940614'
+	},
+	{
+		ÖLNAMN: 'Hallon Sour',
+		BRYGGERI: 'Stockholm Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '4.4',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '161208'
+	},
+	{
+		ÖLNAMN: 'KESÄOLUT VAALEA',
+		BRYGGERI: 'SINEBRYCHOFF',
+		LAND: 'FI',
+		ALKOHOL: '4.4',
+		BETYG: '2.00',
+		DELTAGARE: 4,
+		DATUM: '931213'
+	},
+	{
+		ÖLNAMN: 'KRUŠOVICE',
+		BRYGGERI: 'KRALOVSKY PIVOVAR KRUŠOVICE',
+		LAND: 'CZ',
+		ALKOHOL: '4.4',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '081008'
+	},
+	{
+		ÖLNAMN: 'LOBKOV',
+		BRYGGERI: 'LOBKOWICZ BR.',
+		LAND: 'CZ',
+		ALKOHOL: '4.4',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '990812'
+	},
+	{
+		ÖLNAMN: 'LONE STAR',
+		BRYGGERI: 'LONE STAR BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '4.4',
+		BETYG: '4.33',
+		DELTAGARE: 3,
+		DATUM: '950411'
+	},
+	{
+		ÖLNAMN: 'PILSNER URQUELL*',
+		BRYGGERI: 'PILSNER URQUELL AS',
+		LAND: 'CZ',
+		ALKOHOL: '4.4',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '050913'
+	},
+	{
+		ÖLNAMN: 'PILSNER URQUELL*',
+		BRYGGERI: 'PLZUNSKY PRAZDROI AS',
+		LAND: 'CZ',
+		ALKOHOL: '4.4',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '110807'
+	},
+	{
+		ÖLNAMN: 'SEA DOG BROWN ALE',
+		BRYGGERI: 'SEA DOG BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '4.4',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '981116'
+	},
+	{
+		ÖLNAMN: 'TANNER´S JACK',
+		BRYGGERI: 'MORLAND BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.4',
+		BETYG: '4.33',
+		DELTAGARE: 3,
+		DATUM: '980623'
+	},
+	{
+		ÖLNAMN: 'BATEMAN´S VALIANT BITTER*',
+		BRYGGERI: 'GEORGE BATEMAN & SON',
+		LAND: 'GB',
+		ALKOHOL: '4.3',
+		BETYG: '1.00',
+		DELTAGARE: 4,
+		DATUM: '950522'
+	},
+	{
+		ÖLNAMN: 'BATEMAN´S VALIANT BITTER*',
+		BRYGGERI: 'SALEM BRIDGE BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.3',
+		BETYG: '3.40',
+		DELTAGARE: 5,
+		DATUM: '951128'
+	},
+	{
+		ÖLNAMN: 'BOMBARDIER PREMIUM BITTER',
+		BRYGGERI: 'CHARLES WELLS LTD.',
+		LAND: 'GB',
+		ALKOHOL: '4.3',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '970423'
+	},
+	{
+		ÖLNAMN: 'CURIM GOLD',
+		BRYGGERI: 'CARLOW BR.',
+		LAND: 'IE',
+		ALKOHOL: '4.3',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '021113'
+	},
+	{
+		ÖLNAMN: 'FAT CAL HONEY ALE',
+		BRYGGERI: 'FAT CAT BR. CO.',
+		LAND: 'GB',
+		ALKOHOL: '4.3',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '091111'
+	},
+	{
+		ÖLNAMN: 'GAMLE CARLSBERG',
+		BRYGGERI: 'CARLSBERG',
+		LAND: 'DK',
+		ALKOHOL: '4.3',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '971015'
+	},
+	{
+		ÖLNAMN: 'GAMLE CARLSBERG LAGERØL',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '4.3',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '011107'
+	},
+	{
+		ÖLNAMN: 'Gose Gone Wild',
+		BRYGGERI: 'Crazy Mountain Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '4.3',
+		BETYG: '7.75',
+		DELTAGARE: 4,
+		DATUM: '170215'
+	},
+	{
+		ÖLNAMN: 'GUINNESS EXTRA STOUT*',
+		BRYGGERI: 'GUINNESS BR., S:t James´s Gate',
+		LAND: 'IE',
+		ALKOHOL: '4.3',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '930816'
+	},
+	{
+		ÖLNAMN: "KING'S CRYSTAL",
+		BRYGGERI: 'KING & BARNES',
+		LAND: 'GB',
+		ALKOHOL: '4.3',
+		BETYG: '7.67',
+		DELTAGARE: 6,
+		DATUM: '990519'
+	},
+	{
+		ÖLNAMN: 'KOPPARBERGS KRONÖL',
+		BRYGGERI: 'KOPPARBERGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.3',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '960620'
+	},
+	{
+		ÖLNAMN: 'KOPPARBERGS ORIGINAL',
+		BRYGGERI: 'KOPPARBERGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '4.3',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '020627'
+	},
+	{
+		ÖLNAMN: 'MARMALADE CAT',
+		BRYGGERI: 'FAT CAT BR. CO.',
+		LAND: 'GB',
+		ALKOHOL: '4.3',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '091111'
+	},
+	{
+		ÖLNAMN: "MOLING'S",
+		BRYGGERI: 'CARLOW BR.',
+		LAND: 'IE',
+		ALKOHOL: '4.3',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '021113'
+	},
+	{
+		ÖLNAMN: 'MORT SUBITE GUEUZE',
+		BRYGGERI: 'BR. DE KEERSMAEKER',
+		LAND: 'BE',
+		ALKOHOL: '4.3',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '960923'
+	},
+	{
+		ÖLNAMN: 'MORT SUBITE KRIEK*',
+		BRYGGERI: 'BR. DE KEERSMAEKER',
+		LAND: 'BE',
+		ALKOHOL: '4.3',
+		BETYG: '7.20',
+		DELTAGARE: 5,
+		DATUM: '960923'
+	},
+	{
+		ÖLNAMN: 'MURPHY´S IRISH STOUT*',
+		BRYGGERI: 'MYRPHY BR. IRELAND LTD.',
+		LAND: 'IE',
+		ALKOHOL: '4.3',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '930816'
+	},
+	{
+		ÖLNAMN: "O'HARAS CELTIC STOUT*",
+		BRYGGERI: 'CARLOW BR. CO.',
+		LAND: 'IE',
+		ALKOHOL: '4.3',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '010620'
+	},
+	{
+		ÖLNAMN: "O'HARAS CELTIC STOUT*",
+		BRYGGERI: 'CARLOW BR.',
+		LAND: 'IE',
+		ALKOHOL: '4.3',
+		BETYG: '7.00',
+		DELTAGARE: 6,
+		DATUM: '021113'
+	},
+	{
+		ÖLNAMN: 'OLD GOLD',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '4.3',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '090422'
+	},
+	{
+		ÖLNAMN: 'OTTER BRIGHT',
+		BRYGGERI: 'OTTER BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.3',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '050511'
+	},
+	{
+		ÖLNAMN: 'TRIUMPH',
+		BRYGGERI: 'GREENE KING BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.3',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '001018'
+	},
+	{
+		ÖLNAMN: 'TUBORG LAGERØL',
+		BRYGGERI: 'TUBORG',
+		LAND: 'DK',
+		ALKOHOL: '4.3',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '011107'
+	},
+	{
+		ÖLNAMN: 'TUBORG RÖD',
+		BRYGGERI: 'TUBORG',
+		LAND: 'DK',
+		ALKOHOL: '4.3',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '971015'
+	},
+	{
+		ÖLNAMN: 'WADWORTH 6X',
+		BRYGGERI: 'NORTH GATE BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.3',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '051212'
+	},
+	{
+		ÖLNAMN: "BALLARD'S BEST BITTER",
+		BRYGGERI: "BALLARD'S BR.",
+		LAND: 'GB',
+		ALKOHOL: '4.2',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '050511'
+	},
+	{
+		ÖLNAMN: 'BEAMISH IRISH STOUT',
+		BRYGGERI: 'BEAMISH BR.',
+		LAND: 'IE',
+		ALKOHOL: '4.2',
+		BETYG: '5.60',
+		DELTAGARE: 4,
+		DATUM: '001214'
+	},
+	{
+		ÖLNAMN: 'Berliner GOX Weisse 2018 Raspberry Red',
+		BRYGGERI: 'GOX Br.',
+		LAND: 'SE',
+		ALKOHOL: '4.2',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '181112'
+	},
+	{
+		ÖLNAMN: 'CAFRI',
+		BRYGGERI: '?',
+		LAND: 'KR',
+		ALKOHOL: '4.2',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '020806'
+	},
+	{
+		ÖLNAMN: 'CISK',
+		BRYGGERI: 'SIMONDS FARSONS CISK Ltd',
+		LAND: 'MT',
+		ALKOHOL: '4.2',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '970707'
+	},
+	{
+		ÖLNAMN: 'COREFF BLONDE',
+		BRYGGERI: 'Brasserie Des 2 Rivières',
+		LAND: 'FR',
+		ALKOHOL: '4.2',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '061212'
+	},
+	{
+		ÖLNAMN: 'DISCOVERY',
+		BRYGGERI: 'FULLER, SMITH & TURNER',
+		LAND: 'GB',
+		ALKOHOL: '4.2',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '061018'
+	},
+	{
+		ÖLNAMN: "DOROTHY GOODBODY'S GOLDEN ALE",
+		BRYGGERI: 'WYE VALLEY BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.2',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '021212'
+	},
+	{
+		ÖLNAMN: 'EKO',
+		BRYGGERI: 'ÅBRO',
+		LAND: 'SE',
+		ALKOHOL: '4.2',
+		BETYG: '4.17',
+		DELTAGARE: 6,
+		DATUM: '950608'
+	},
+	{
+		ÖLNAMN: 'Electric Nurse Underbara Jul',
+		BRYGGERI: 'Dugges Ale och Por Br. AB',
+		LAND: 'SE',
+		ALKOHOL: '4.2',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '131120'
+	},
+	{
+		ÖLNAMN: 'FLORIS CHOCOLAT',
+		BRYGGERI: 'HUYGHE-MELLE BREWERY',
+		LAND: 'BE',
+		ALKOHOL: '4.2',
+		BETYG: '3.60',
+		DELTAGARE: 5,
+		DATUM: '011010'
+	},
+	{
+		ÖLNAMN: 'GUINNESS DRAUGHT*',
+		BRYGGERI: "S:t JAMES'S GATE BR.",
+		LAND: 'IE',
+		ALKOHOL: '4.2',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '010620'
+	},
+	{
+		ÖLNAMN: 'GUINNESS EXTRA STOUT (B)',
+		BRYGGERI: 'GUINNESS BR.',
+		LAND: 'IE',
+		ALKOHOL: '4.2',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '021113'
+	},
+	{
+		ÖLNAMN: 'JEFFREY HUDSON BITTER',
+		BRYGGERI: 'OAKHAM ALES',
+		LAND: 'GB',
+		ALKOHOL: '4.2',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '050511'
+	},
+	{
+		ÖLNAMN: 'Karnevöl',
+		BRYGGERI: 'Finn Br.',
+		LAND: 'SE',
+		ALKOHOL: '4.2',
+		BETYG: '5.00',
+		DELTAGARE: 7,
+		DATUM: '180712'
+	},
+	{
+		ÖLNAMN: 'LINDEMANS FARO',
+		BRYGGERI: 'LINDEMANS',
+		LAND: 'BE',
+		ALKOHOL: '4.2',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '130109'
+	},
+	{
+		ÖLNAMN: "MERLIN'S ALL",
+		BRYGGERI: 'BROUGHTON ALES LTD',
+		LAND: 'SCOT',
+		ALKOHOL: '4.2',
+		BETYG: '8.00',
+		DELTAGARE: 3,
+		DATUM: '0006'
+	},
+	{
+		ÖLNAMN: 'MILLER LITE',
+		BRYGGERI: 'MILLER BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '4.2',
+		BETYG: '4.42',
+		DELTAGARE: 7,
+		DATUM: '070828'
+	},
+	{
+		ÖLNAMN: 'NILS OSCAR FARM ALE*',
+		BRYGGERI: 'TÄRNÖ BR. AB',
+		LAND: 'SE',
+		ALKOHOL: '4.2',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '010425'
+	},
+	{
+		ÖLNAMN: 'NILS OSCAR FARM ALE*',
+		BRYGGERI: 'Nils Oscar Bryggerier',
+		LAND: 'SE',
+		ALKOHOL: '4.2',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '021009'
+	},
+	{
+		ÖLNAMN: 'NILS OSCAR FARM ALE*',
+		BRYGGERI: 'NILS OSCAR BR. & BRÄNNERI',
+		LAND: 'SE',
+		ALKOHOL: '4.2',
+		BETYG: '4.17',
+		DELTAGARE: 6,
+		DATUM: '061115'
+	},
+	{
+		ÖLNAMN: 'Red Kite',
+		BRYGGERI: 'Black Isle',
+		LAND: 'SCOT',
+		ALKOHOL: '4.2',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '170412'
+	},
+	{
+		ÖLNAMN: 'SCOTTISH OATMEAL STOUT',
+		BRYGGERI: 'BROUGHTON ALES LTD',
+		LAND: 'SCOT',
+		ALKOHOL: '4.2',
+		BETYG: '7.00',
+		DELTAGARE: 3,
+		DATUM: '0006'
+	},
+	{
+		ÖLNAMN: 'THOMAS HARDY COUNTRY BITTER',
+		BRYGGERI: 'ELDRIDGE COPE & CO',
+		LAND: 'GB',
+		ALKOHOL: '4.2',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '940609'
+	},
+	{
+		ÖLNAMN: 'FRÜLI STRAWBERRY BEER',
+		BRYGGERI: 'HUYGHE BR.',
+		LAND: 'BE',
+		ALKOHOL: '4.1',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '100512'
+	},
+	{
+		ÖLNAMN: 'FRÜLI STRAWBERRY BEER',
+		BRYGGERI: 'HUYGHE BR.',
+		LAND: 'BE',
+		ALKOHOL: '4.1',
+		BETYG: '3.75',
+		DELTAGARE: 4,
+		DATUM: '100609'
+	},
+	{
+		ÖLNAMN: 'OSSIAN SUPREMELY GOLDEN',
+		BRYGGERI: 'INVERALMOND BR. LTD.',
+		LAND: 'SCOT',
+		ALKOHOL: '4.1',
+		BETYG: '6.60',
+		DELTAGARE: 5,
+		DATUM: '080507'
+	},
+	{
+		ÖLNAMN: 'S:t Eriks Winter Session IPA',
+		BRYGGERI: 'S:t Eriks Br.',
+		LAND: 'SE',
+		ALKOHOL: '4.1',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '160113'
+	},
+	{
+		ÖLNAMN: 'SAXON',
+		BRYGGERI: 'CARLSBERG BR.',
+		LAND: 'DK',
+		ALKOHOL: '4.1',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '080116'
+	},
+	{
+		ÖLNAMN: 'TUBORG PORTER CITRON',
+		BRYGGERI: 'TUBORG',
+		LAND: 'DK',
+		ALKOHOL: '4.1',
+		BETYG: '2.25',
+		DELTAGARE: 4,
+		DATUM: '970707'
+	},
+	{
+		ÖLNAMN: 'ZUBR CLASSIC',
+		BRYGGERI: 'PIVOVAR LITOVEL',
+		LAND: 'CZ',
+		ALKOHOL: '4.1',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '060830'
+	},
+	{
+		ÖLNAMN: 'CALEDONIAN 80/-*',
+		BRYGGERI: 'CALEDONIAN BR.',
+		LAND: 'SCOT',
+		ALKOHOL: '4.1',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '940901'
+	},
+	{
+		ÖLNAMN: 'CALEDONIAN 80/-*',
+		BRYGGERI: 'CALEDONIAN BR.',
+		LAND: 'SCOT',
+		ALKOHOL: '4.1',
+		BETYG: '7.33',
+		DELTAGARE: 3,
+		DATUM: '940915'
+	},
+	{
+		ÖLNAMN: 'Aguila',
+		BRYGGERI: 'Cerveceria Union',
+		LAND: 'CO',
+		ALKOHOL: '4.0',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '160817'
+	},
+	{
+		ÖLNAMN: 'BIA HÀ NOI*',
+		BRYGGERI: 'Hanoi Beer Co.',
+		LAND: 'VN',
+		ALKOHOL: '4.0',
+		BETYG: '3.59',
+		DELTAGARE: 7,
+		DATUM: '030825'
+	},
+	{
+		ÖLNAMN: 'Calypso Berliner Weisse',
+		BRYGGERI: 'Siren Craft Brew',
+		LAND: 'UK',
+		ALKOHOL: '4.0',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '151125'
+	},
+	{
+		ÖLNAMN: 'DOGS HAIR',
+		BRYGGERI: 'WICKWAR BR.',
+		LAND: 'GB',
+		ALKOHOL: '4.0',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '021212'
+	},
+	{
+		ÖLNAMN: 'Dugges Juldricka',
+		BRYGGERI: 'Dugges Brygghus',
+		LAND: 'SE',
+		ALKOHOL: '4.0',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '131120'
+	},
+	{
+		ÖLNAMN: 'Ivans ChiliStout Bananöl',
+		BRYGGERI: 'Rörums Elpumpsbryggeri',
+		LAND: 'SE',
+		ALKOHOL: '4.0',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '140507'
+	},
+	{
+		ÖLNAMN: 'Lindemans Apple',
+		BRYGGERI: 'Br. Lindeman',
+		LAND: 'BE',
+		ALKOHOL: '4.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '150916'
+	},
+	{
+		ÖLNAMN: 'LINDEMANS KRIEK*',
+		BRYGGERI: 'LINDEMANS BR.',
+		LAND: 'BE',
+		ALKOHOL: '4.0',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '950807'
+	},
+	{
+		ÖLNAMN: 'LINDEMANS KRIEK*',
+		BRYGGERI: 'LINDEMANS BR.',
+		LAND: 'BE',
+		ALKOHOL: '4.0',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '970625'
+	},
+	{
+		ÖLNAMN: 'MASTERBREW',
+		BRYGGERI: 'SHEPHARD NEAME',
+		LAND: 'GB',
+		ALKOHOL: '4.0',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '000523'
+	},
+	{
+		ÖLNAMN: 'MURPHY´S IRISH STOUT*',
+		BRYGGERI: 'MURPHY BR.',
+		LAND: 'IE',
+		ALKOHOL: '4.0',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '000119'
+	},
+	{
+		ÖLNAMN: 'MURPHY´S IRISH STOUT*',
+		BRYGGERI: 'MYRPHY BR. IRELAND LTD.',
+		LAND: 'IE',
+		ALKOHOL: '4.0',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '970423'
+	},
+	{
+		ÖLNAMN: 'När man zestar; zestar man och då zestar man rejält',
+		BRYGGERI: 'Klackabackens Br.',
+		LAND: 'SE',
+		ALKOHOL: '4.0',
+		BETYG: '6.00',
+		DELTAGARE: 7,
+		DATUM: '200611'
+	},
+	{
+		ÖLNAMN: 'OCTMAPK',
+		BRYGGERI: 'PIVOVARNIA IVANA TARANOVA',
+		LAND: 'RU',
+		ALKOHOL: '4.0',
+		BETYG: '6.37',
+		DELTAGARE: 3,
+		DATUM: '080716'
+	},
+	{
+		ÖLNAMN: 'SAKARA GOLD',
+		BRYGGERI: 'AL AHRAM BEVERAGE CO.',
+		LAND: 'EG',
+		ALKOHOL: '4.0',
+		BETYG: '3.83',
+		DELTAGARE: 6,
+		DATUM: '060510'
+	},
+	{
+		ÖLNAMN: 'SAKARA GOLD',
+		BRYGGERI: 'AL AHRAM BEVERAGES CO.',
+		LAND: 'EG',
+		ALKOHOL: '4.0',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '100512'
+	},
+	{
+		ÖLNAMN: 'Shephard Neame Masterbr. Prem.',
+		BRYGGERI: 'SHEPHARD NEAME',
+		LAND: 'GB',
+		ALKOHOL: '4.0',
+		BETYG: '5.75',
+		DELTAGARE: 4,
+		DATUM: '940609'
+	},
+	{
+		ÖLNAMN: 'STAROPRAMEN DESITHA',
+		BRYGGERI: 'STAROPRAMEN BR.',
+		LAND: 'CZ',
+		ALKOHOL: '4.0',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '001107'
+	},
+	{
+		ÖLNAMN: 'Strawberry Pie',
+		BRYGGERI: 'Brewski',
+		LAND: 'SE',
+		ALKOHOL: '4.0',
+		BETYG: '5.86',
+		DELTAGARE: 7,
+		DATUM: '200611'
+	},
+	{
+		ÖLNAMN: 'STÖRTEBEKER HANSE-PORTER*',
+		BRYGGERI: 'STRALSUNDER BR.',
+		LAND: 'DE',
+		ALKOHOL: '4.0',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '110112'
+	},
+	{
+		ÖLNAMN: 'THREE HEART´S ALL MALT',
+		BRYGGERI: 'APPELTOFFTSKA',
+		LAND: 'SE',
+		ALKOHOL: '4.0',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '960725'
+	},
+	{
+		ÖLNAMN: 'Timmermans Kriek Lambicus',
+		BRYGGERI: 'Br. Timmermans Kerkstraat',
+		LAND: 'BE',
+		ALKOHOL: '4.0',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '200123'
+	},
+	{
+		ÖLNAMN: 'TIMMERMANS PECHE',
+		BRYGGERI: 'BR. TIMMERMANS',
+		LAND: 'BE',
+		ALKOHOL: '4.0',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '960923'
+	},
+	{
+		ÖLNAMN: 'To öl',
+		BRYGGERI: 'De Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '4.0',
+		BETYG: '4.42',
+		DELTAGARE: 7,
+		DATUM: '180712'
+	},
+	{
+		ÖLNAMN: 'Twisted 001 HallonBerliner',
+		BRYGGERI: 'Klackabackens Br.',
+		LAND: 'SE',
+		ALKOHOL: '4.0',
+		BETYG: '5.86',
+		DELTAGARE: 7,
+		DATUM: '200611'
+	},
+	{
+		ÖLNAMN: 'VELKOPOPVICKY´ KOZEL*',
+		BRYGGERI: 'VELKE POPOVICE BR.',
+		LAND: 'CZ',
+		ALKOHOL: '4.0',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '100915'
+	},
+	{
+		ÖLNAMN: 'White Riot Grapefruit Blanche',
+		BRYGGERI: 'Birrficio del Ducato',
+		LAND: 'IT',
+		ALKOHOL: '4.0',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '190708'
+	},
+	{
+		ÖLNAMN: 'BELHAVEN SCOTTISH ALE',
+		BRYGGERI: 'BELHAVEN BR. CO. LTD',
+		LAND: 'SCOT',
+		ALKOHOL: '3.9',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '960704'
+	},
+	{
+		ÖLNAMN: 'PILSNER URQUELL*',
+		BRYGGERI: 'PILSNER URQUELL',
+		LAND: 'CS',
+		ALKOHOL: '3.9',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '930609'
+	},
+	{
+		ÖLNAMN: 'SCHWARZER UBT ORIGINAL NEUZELLER KLOSTER-BRÄU',
+		BRYGGERI: 'KLOSTER BR. NEUZELLER',
+		LAND: 'DE',
+		ALKOHOL: '3.90',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '990922'
+	},
+	{
+		ÖLNAMN: 'VELKOPOPVICKY´ KOZEL*',
+		BRYGGERI: 'PIVOVAR VELKE POPOVICE',
+		LAND: 'CS',
+		ALKOHOL: '3.9',
+		BETYG: '6.25',
+		DELTAGARE: 4,
+		DATUM: '930609'
+	},
+	{
+		ÖLNAMN: 'BODDINGTON´S DRAUGHT (B)',
+		BRYGGERI: 'STRANGEWAYS BR.',
+		LAND: 'GB',
+		ALKOHOL: '3.8',
+		BETYG: '6.50',
+		DELTAGARE: 4,
+		DATUM: '940614'
+	},
+	{
+		ÖLNAMN: 'Dead Pony Club',
+		BRYGGERI: 'Brewdog Br',
+		LAND: 'SCOT',
+		ALKOHOL: '3.8',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '140507'
+	},
+	{
+		ÖLNAMN: "KING ALFRED'S BITTER",
+		BRYGGERI: 'HAMPSHIRE BR.',
+		LAND: 'GB',
+		ALKOHOL: '3.8',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '010116'
+	},
+	{
+		ÖLNAMN: 'Mohawk Anything Gose',
+		BRYGGERI: 'Mohawk Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '3.8',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '150603'
+	},
+	{
+		ÖLNAMN: 'Mohawk Gose*',
+		BRYGGERI: 'De Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '3.8',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '150916'
+	},
+	{
+		ÖLNAMN: 'Ogar Polski',
+		BRYGGERI: 'Lehe Pruulikoda',
+		LAND: 'EE',
+		ALKOHOL: '3.8',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '171010'
+	},
+	{
+		ÖLNAMN: 'PARDÁL',
+		BRYGGERI: 'BUDEJOVICKY BUDVAR BR.',
+		LAND: 'CZ',
+		ALKOHOL: '3.8',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '100915'
+	},
+	{
+		ÖLNAMN: 'PIEDBOEUF',
+		BRYGGERI: 'S.A. INTERBREW',
+		LAND: 'BE',
+		ALKOHOL: '3.8',
+		BETYG: '3.83',
+		DELTAGARE: 6,
+		DATUM: '040614'
+	},
+	{
+		ÖLNAMN: 'SAMSON SVĚTLÉ',
+		BRYGGERI: 'MĚŠTANSKÝ PIVOVAR',
+		LAND: 'CZ',
+		ALKOHOL: '3.8',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '050913'
+	},
+	{
+		ÖLNAMN: 'Theakston Draught Best Bitter (B)',
+		BRYGGERI: 'THEAKSTON',
+		LAND: 'GB',
+		ALKOHOL: '3.8',
+		BETYG: '4.75',
+		DELTAGARE: 4,
+		DATUM: '940614'
+	},
+	{
+		ÖLNAMN: "VELKOPOPOVISKY' KOZEL TMAVÉ*",
+		BRYGGERI: 'PIVOVAR VELKE POPOVICE',
+		LAND: 'CZ',
+		ALKOHOL: '3.8',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '970121'
+	},
+	{
+		ÖLNAMN: 'VELKOPOPVICKY KOZEL ČERNÝ',
+		BRYGGERI: 'VELKE POPOVICE BR.',
+		LAND: 'CZ',
+		ALKOHOL: '3.8',
+		BETYG: '5.25',
+		DELTAGARE: 4,
+		DATUM: '100915'
+	},
+	{
+		ÖLNAMN: "S't PETER'S BEST BITTER",
+		BRYGGERI: "S't PETER'S BR. GROUP",
+		LAND: 'GB',
+		ALKOHOL: '3.7',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '050511'
+	},
+	{
+		ÖLNAMN: 'CORONA EXTRA*',
+		BRYGGERI: 'EUROCERMEX S.A.',
+		LAND: 'BE(MX)',
+		ALKOHOL: '3.6',
+		BETYG: '4.71',
+		DELTAGARE: 7,
+		DATUM: '070828'
+	},
+	{
+		ÖLNAMN: 'SAMSON TMAVÉ VÝČEPNÍ',
+		BRYGGERI: 'PIVOVAR HEROLD BŘEZNICE A.S.',
+		LAND: 'CZ',
+		ALKOHOL: '3.6',
+		BETYG: '4.40',
+		DELTAGARE: 5,
+		DATUM: '050913'
+	},
+	{
+		ÖLNAMN: 'TOPVAR LEICHTBIER',
+		BRYGGERI: 'BR. TOPVAR',
+		LAND: 'SK',
+		ALKOHOL: '3.6',
+		BETYG: '3.75',
+		DELTAGARE: 4,
+		DATUM: '940303'
+	},
+	{
+		ÖLNAMN: 'WORTHINGTON DRAFT BITTER (B)',
+		BRYGGERI: 'BASS BR. LTD.',
+		LAND: 'GB',
+		ALKOHOL: '3.6',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '970526'
+	},
+	{
+		ÖLNAMN: 'ANCHOR SMALL BEER',
+		BRYGGERI: 'ANCHOR BREWING CO.',
+		LAND: 'US',
+		ALKOHOL: '3.5',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '121114'
+	},
+	{
+		ÖLNAMN: 'EUROSHOPPER BIER',
+		BRYGGERI: 'MAARSSEN',
+		LAND: 'NL',
+		ALKOHOL: '3.5',
+		BETYG: '4.20',
+		DELTAGARE: 5,
+		DATUM: '000410'
+	},
+	{
+		ÖLNAMN: 'FISCHER*',
+		BRYGGERI: 'BR. FISCHER',
+		LAND: 'FR',
+		ALKOHOL: '3.5',
+		BETYG: '3.75',
+		DELTAGARE: 4,
+		DATUM: '940614'
+	},
+	{
+		ÖLNAMN: 'FÄRSKÖL',
+		BRYGGERI: 'GAMLA HUFVUDSTA BR.',
+		LAND: 'SE',
+		ALKOHOL: '3.5',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '001122'
+	},
+	{
+		ÖLNAMN: 'HUMMEL 3,5',
+		BRYGGERI: 'ÅRE BRYGGERI AB',
+		LAND: 'SE',
+		ALKOHOL: '3.5',
+		BETYG: '3.40',
+		DELTAGARE: 5,
+		DATUM: '990308'
+	},
+	{
+		ÖLNAMN: 'KOSTER',
+		BRYGGERI: 'GREBBESTAD BR. AB',
+		LAND: 'SE',
+		ALKOHOL: '3.5',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '990104'
+	},
+	{
+		ÖLNAMN: 'LINDEMANS KRIEK*',
+		BRYGGERI: 'LINDEMANS BR.',
+		LAND: 'BE',
+		ALKOHOL: '3.5',
+		BETYG: '7.00',
+		DELTAGARE: 3,
+		DATUM: '020326'
+	},
+	{
+		ÖLNAMN: 'MUNKBRO LAGER',
+		BRYGGERI: 'MUNKBRO ÅNENGRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '3.5',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '971029'
+	},
+	{
+		ÖLNAMN: 'NÄSUMAÖL',
+		BRYGGERI: 'BANCO BR.',
+		LAND: 'SE',
+		ALKOHOL: '3.5',
+		BETYG: '4.00',
+		DELTAGARE: 4,
+		DATUM: '001122'
+	},
+	{
+		ÖLNAMN: 'PECHE-LAMBIC',
+		BRYGGERI: 'BR VAN HONSEBROUCK',
+		LAND: 'BE',
+		ALKOHOL: '3.5',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '950807'
+	},
+	{
+		ÖLNAMN: 'PRIPPS BLÅ, KLASS 2 ',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '3.5',
+		BETYG: '3.67',
+		DELTAGARE: 3,
+		DATUM: '931118'
+	},
+	{
+		ÖLNAMN: 'SIR TASTE-A-LOT',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '3.5',
+		BETYG: '4.75',
+		DELTAGARE: 8,
+		DATUM: '120815'
+	},
+	{
+		ÖLNAMN: 'Sleepy Bulldog Best Bitter',
+		BRYGGERI: 'Gotlands Br.',
+		LAND: 'SE',
+		ALKOHOL: '3.5',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '161208'
+	},
+	{
+		ÖLNAMN: 'TUBORG GRØN, klass II (B)',
+		BRYGGERI: 'PRIPPS (licens)',
+		LAND: 'SE',
+		ALKOHOL: '3.5',
+		BETYG: '4.00',
+		DELTAGARE: 3,
+		DATUM: '940120'
+	},
+	{
+		ÖLNAMN: 'WISBYÖL*',
+		BRYGGERI: 'THIMSFORS BRYGGERI AB',
+		LAND: 'SE',
+		ALKOHOL: '3.5',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '980922'
+	},
+	{
+		ÖLNAMN: 'PINK TRIANGLE',
+		BRYGGERI: 'PINK TRIANGLE BR.',
+		LAND: 'US',
+		ALKOHOL: '3.4',
+		BETYG: '2.50',
+		DELTAGARE: 4,
+		DATUM: '950126'
+	},
+	{
+		ÖLNAMN: 'THIMSFORS LAGERÖL, klass 2 (B)',
+		BRYGGERI: 'THIMSFORS',
+		LAND: 'SE',
+		ALKOHOL: '3.4',
+		BETYG: '1.75',
+		DELTAGARE: 4,
+		DATUM: '940308'
+	},
+	{
+		ÖLNAMN: 'UNION BEER',
+		BRYGGERI: 'PIVOVARNA UNION',
+		LAND: 'SI',
+		ALKOHOL: '3.4',
+		BETYG: '2.00',
+		DELTAGARE: 4,
+		DATUM: '940308'
+	},
+	{
+		ÖLNAMN: 'VIVUNGS GOTLANDSDRICKE*',
+		BRYGGERI: 'VIVUNGS BRYGGERI',
+		LAND: 'SE',
+		ALKOHOL: '3.4',
+		BETYG: '3.40',
+		DELTAGARE: 5,
+		DATUM: '960716'
+	},
+	{
+		ÖLNAMN: 'WISBYÖL*',
+		BRYGGERI: 'THIMSFORS BRYGGERI AB',
+		LAND: 'SE',
+		ALKOHOL: '3.4',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '960716'
+	},
+	{
+		ÖLNAMN: 'YOUNG´S BROWN ALE ',
+		BRYGGERI: 'THE RAM BR.',
+		LAND: 'GB',
+		ALKOHOL: '3.1',
+		BETYG: '2.20',
+		DELTAGARE: 5,
+		DATUM: '930331'
+	},
+	{
+		ÖLNAMN: 'MACKESON STOUT (B)',
+		BRYGGERI: 'WHITBRED',
+		LAND: 'GB',
+		ALKOHOL: '3.0',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '970526'
+	},
+	{
+		ÖLNAMN: 'MIX BERLINER WEISSE HIMBEERE',
+		BRYGGERI: 'BERLINER-SCHULTHEISS BR.¨',
+		LAND: 'DE',
+		ALKOHOL: '3.0',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '030701'
+	},
+	{
+		ÖLNAMN: 'MIX BERLINER WEISSE WALDMEISTER',
+		BRYGGERI: 'BERLINER-SCHULTHEISS BR.¨',
+		LAND: 'DE',
+		ALKOHOL: '3.0',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '030701'
+	},
+	{
+		ÖLNAMN: 'BJØRNEBRYG*',
+		BRYGGERI: 'HARBOE',
+		LAND: 'DK',
+		ALKOHOL: '2.8',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '970408'
+	},
+	{
+		ÖLNAMN: 'SPENDRUPS ORIGINAL, klass II',
+		BRYGGERI: 'SPENDRUPS',
+		LAND: 'SE',
+		ALKOHOL: '2.8',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '990120'
+	},
+	{
+		ÖLNAMN: 'ALBERT HEIJN MILD',
+		BRYGGERI: 'ALBERT HEIJN ZAANDAM',
+		LAND: 'NL',
+		ALKOHOL: '2.5',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '000209'
+	},
+	{
+		ÖLNAMN: 'RADLER-FRITZ',
+		BRYGGERI: 'KKLOSTERBRAUEREI NEUZELLE',
+		LAND: 'DE',
+		ALKOHOL: '2.4',
+		BETYG: '3.50',
+		DELTAGARE: 4,
+		DATUM: '110216'
+	},
+	{
+		ÖLNAMN: 'PETITE PECHERESSE',
+		BRYGGERI: 'LINDEMANS',
+		LAND: 'BE',
+		ALKOHOL: '2.3',
+		BETYG: '3.60',
+		DELTAGARE: 5,
+		DATUM: '950807'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S GOLDEN LAGER',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '2.3',
+		BETYG: '4.50',
+		DELTAGARE: 4,
+		DATUM: '950522'
+	},
+	{
+		ÖLNAMN: 'AEGTE DANSK SKIBSØL',
+		BRYGGERI: 'Refsvindinge bryggeri',
+		LAND: 'DK',
+		ALKOHOL: '2.1',
+		BETYG: '1.67',
+		DELTAGARE: 6,
+		DATUM: '030922'
+	},
+	{
+		ÖLNAMN: 'PRIPPS BLÅ, KLASS 1',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '2.1',
+		BETYG: '1.33',
+		DELTAGARE: 3,
+		DATUM: '931118'
+	},
+	{
+		ÖLNAMN: 'KONGENS BRYG',
+		BRYGGERI: 'TUBORG',
+		LAND: 'DK',
+		ALKOHOL: '1.7',
+		BETYG: '2.20',
+		DELTAGARE: 5,
+		DATUM: '960829'
+	},
+	{
+		ÖLNAMN: 'JEVER FUN',
+		BRYGGERI: 'FRIESISCHES Brauhaus',
+		LAND: 'DE',
+		ALKOHOL: '0.5',
+		BETYG: '2.00',
+		DELTAGARE: 5,
+		DATUM: '930310'
+	},
+	{
+		ÖLNAMN: 'NORDIC KOBBER',
+		BRYGGERI: 'PRIPPS',
+		LAND: 'SE',
+		ALKOHOL: '0.5',
+		BETYG: '1.80',
+		DELTAGARE: 5,
+		DATUM: '960829'
+	},
+	{
+		ÖLNAMN: 'BIRELL RADEGAST',
+		BRYGGERI: 'PIVOVAR RADEGAST',
+		LAND: 'CZ',
+		ALKOHOL: '0.5',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '100915'
+	},
+	{
+		ÖLNAMN: 'Easy Rider Bulldog',
+		BRYGGERI: 'Gotlands Br.',
+		LAND: 'SE',
+		ALKOHOL: '0.4',
+		BETYG: '3.80',
+		DELTAGARE: 5,
+		DATUM: '161208'
+	},
+	{
+		ÖLNAMN: 'Drink-in the Sund',
+		BRYGGERI: 'de Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '0.3',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '161208'
+	},
+	{
+		ÖLNAMN: 'Freak Kriek',
+		BRYGGERI: 'The Flying Dutchman Br. Co.',
+		LAND: 'BE',
+		ALKOHOL: '0.3',
+		BETYG: '5.17',
+		DELTAGARE: 6,
+		DATUM: '200123'
+	},
+	{
+		ÖLNAMN: 'Hallo Ich bin Mikkeller - Berliner Weisse',
+		BRYGGERI: 'de Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '0.1',
+		BETYG: '5.60',
+		DELTAGARE: 5,
+		DATUM: '161208'
+	},
+	{
+		ÖLNAMN: 'BARBICAN',
+		BRYGGERI: 'ANJAN INDUSTRIES CO.',
+		LAND: 'AE',
+		ALKOHOL: '0.0',
+		BETYG: '5.00',
+		DELTAGARE: 4,
+		DATUM: '100512'
+	},
+	{
+		ÖLNAMN: 'SAN MIGUEL MANZANA',
+		BRYGGERI: 'SAN MIGUEL FABRICAS DE CERVECERIA Y MALTA',
+		LAND: 'ES',
+		ALKOHOL: '0.0',
+		BETYG: '3.75',
+		DELTAGARE: 4,
+		DATUM: '100609'
+	},
+	{
+		ÖLNAMN: 'TOMELILLA DRICKA',
+		BRYGGERI: "TOMELILLA BRYGGAR'N",
+		LAND: 'SE',
+		ALKOHOL: '0.0',
+		BETYG: '1.50',
+		DELTAGARE: 4,
+		DATUM: '000417'
+	},
+	{
+		ÖLNAMN: '420 EXTRA PALE ALE',
+		BRYGGERI: 'SWEET WATER BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '010510'
+	},
+	{
+		ÖLNAMN: 'BIÈRE NOUVELLE',
+		BRYGGERI: 'BR. DE SAINT-SYLVESTRE',
+		LAND: 'FR',
+		ALKOHOL: '',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '070614'
+	},
+	{
+		ÖLNAMN: 'BLUE MOON',
+		BRYGGERI: 'BLUE MOON BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '4.80',
+		DELTAGARE: 5,
+		DATUM: '990104'
+	},
+	{
+		ÖLNAMN: 'CELTIA',
+		BRYGGERI: 'SEABG-BOUARGOUB',
+		LAND: 'TN',
+		ALKOHOL: '',
+		BETYG: '5.20',
+		DELTAGARE: 5,
+		DATUM: '051212'
+	},
+	{
+		ÖLNAMN: 'CLUB BEER',
+		BRYGGERI: 'MONROVIA BR.',
+		LAND: 'LR',
+		ALKOHOL: '',
+		BETYG: '5.14',
+		DELTAGARE: 7,
+		DATUM: '060215'
+	},
+	{
+		ÖLNAMN: 'CORIANDER RYE ALE',
+		BRYGGERI: 'BISON BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '7.00',
+		DELTAGARE: 4,
+		DATUM: '010927'
+	},
+	{
+		ÖLNAMN: 'DANSK FADØL',
+		BRYGGERI: 'KOPPARBERGS BR.',
+		LAND: 'SE',
+		ALKOHOL: '',
+		BETYG: '4.00',
+		DELTAGARE: 5,
+		DATUM: '000410'
+	},
+	{
+		ÖLNAMN: 'GINGERBREAD ALE',
+		BRYGGERI: 'BISON BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '5.50',
+		DELTAGARE: 4,
+		DATUM: '010927'
+	},
+	{
+		ÖLNAMN: 'Karlinske Pivo Krizik',
+		BRYGGERI: '',
+		ALKOHOL: '',
+		LAND: 'CZ',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '181112'
+	},
+	{
+		ÖLNAMN: 'LENINGRAD COWBOY (B)',
+		BRYGGERI: 'SINEBRYCHOFF',
+		LAND: 'FI',
+		ALKOHOL: '',
+		BETYG: '3.25',
+		DELTAGARE: 4,
+		DATUM: '930816'
+	},
+	{
+		ÖLNAMN: 'MALHEUR DARK BRUT',
+		BRYGGERI: 'DE LANDTSHEER',
+		LAND: 'FR',
+		ALKOHOL: '',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '0803XX'
+	},
+	{
+		ÖLNAMN: 'NASTRO AZZURRO*',
+		BRYGGERI: 'BIRRA PERONI',
+		LAND: 'IT',
+		ALKOHOL: '',
+		BETYG: '4.25',
+		DELTAGARE: 4,
+		DATUM: '970204'
+	},
+	{
+		ÖLNAMN: 'OLD JOCK*',
+		BRYGGERI: 'BROUGHTON ALES LTD',
+		LAND: 'SCOT',
+		ALKOHOL: '',
+		BETYG: '6.67',
+		DELTAGARE: 3,
+		DATUM: '0006..'
+	},
+	{
+		ÖLNAMN: 'ROGUE AMBER ALE',
+		BRYGGERI: 'ROGUE ALES NEWPORT',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '051011'
+	},
+	{
+		ÖLNAMN: "SAMUEL ADAM'S HEFE",
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '080910'
+	},
+	{
+		ÖLNAMN: "SAMUEL ADAM'S HONEY PORTER",
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '080910'
+	},
+	{
+		ÖLNAMN: "SAMUEL ADAM'S IRISH RED",
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '080910'
+	},
+	{
+		ÖLNAMN: "SAMUEL ADAM'S LIGHT",
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '3.17',
+		DELTAGARE: 6,
+		DATUM: '080910'
+	},
+	{
+		ÖLNAMN: "SAMUEL ADAM'S SUMMER ALE",
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '080910'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAM´S CHERRY WHEAT',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '3.40',
+		DELTAGARE: 5,
+		DATUM: '990104'
+	},
+	{
+		ÖLNAMN: 'SAMUEL ADAMS CHOCOLATE BOCK',
+		BRYGGERI: 'BOSTON BEER COMPANY',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '051011'
+	},
+	{
+		ÖLNAMN: "STOUDT'S ABBEY DOUBLE*",
+		BRYGGERI: 'STOUDT BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '000509'
+	},
+	{
+		ÖLNAMN: "STOUDT'S ABBEY DOUBLE*",
+		BRYGGERI: 'STOUDT BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '7.40',
+		DELTAGARE: 5,
+		DATUM: '010510'
+	},
+	{
+		ÖLNAMN: "STOUDT'S ABBEY TRIPLE",
+		BRYGGERI: 'STOUDT BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '8.40',
+		DELTAGARE: 5,
+		DATUM: '010510'
+	},
+	{
+		ÖLNAMN: "STOUDT'S SCOTCH STYLE ALE",
+		BRYGGERI: 'STOUDT BR. CO.',
+		LAND: 'US',
+		ALKOHOL: '',
+		BETYG: '7.60',
+		DELTAGARE: 5,
+		DATUM: '000509'
+	},
+	{
+		ÖLNAMN: 'FUNKYLAND SOUR BLUEBERRY',
+		BRYGGERI: 'South Plains Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '4.0',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '210825'
+	},
+	{
+		ÖLNAMN: 'BLUEBERRY CUPCAKE SOUR',
+		BRYGGERI: 'Friends Company',
+		LAND: 'SE',
+		ALKOHOL: '4.7',
+		BETYG: '7.17',
+		DELTAGARE: 6,
+		DATUM: '210825'
+	},
+	{
+		ÖLNAMN: 'BLUEBERRY SOUR W/ CACAO NIBS',
+		BRYGGERI: 'Collective Arts Ltd',
+		LAND: 'CA',
+		ALKOHOL: '5.6',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '210825'
+	},
+	{
+		ÖLNAMN: 'I FOUND MY THRILL',
+		BRYGGERI: 'Mikkeller Baghaven',
+		LAND: 'DK',
+		ALKOHOL: '7.4',
+		BETYG: '8.00',
+		DELTAGARE: 6,
+		DATUM: '210825'
+	},
+	{
+		ÖLNAMN: 'BLUEBERRY',
+		BRYGGERI: 'Vault City Brewing',
+		LAND: 'SCOT',
+		ALKOHOL: '6.5',
+		BETYG: '7.83',
+		DELTAGARE: 6,
+		DATUM: '210825'
+	},
+	{
+		ÖLNAMN: 'BIANCA',
+		BRYGGERI: 'Omnipollo',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '7.67',
+		DELTAGARE: 6,
+		DATUM: '210825'
+	},
+	{
+		ÖLNAMN: 'FLASHBACK',
+		BRYGGERI: 'Omnipollo',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '8.33',
+		DELTAGARE: 6,
+		DATUM: '210825'
+	},
+	{
+		ÖLNAMN: 'DESSERT IN A CAN',
+		BRYGGERI: 'Amundsen Br.',
+		LAND: 'NO',
+		ALKOHOL: '10.5',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '210825'
+	},
+	{
+		ÖLNAMN: 'SHAGGY SHEEP',
+		BRYGGERI: 'Uncharted Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '6.3',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '210707'
+	},
+	{
+		ÖLNAMN: 'THIRSTY HIPPO',
+		BRYGGERI: 'Uncharted Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '210707'
+	},
+	{
+		ÖLNAMN: 'FRISKY FOX',
+		BRYGGERI: 'Uncharted Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '210707'
+	},
+	{
+		ÖLNAMN: 'MAGIC MACAW',
+		BRYGGERI: 'Uncharted Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '210707'
+	},
+	{
+		ÖLNAMN: 'LAZY LEMUR',
+		BRYGGERI: 'Uncharted Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '210707'
+	},
+	{
+		ÖLNAMN: 'VELVET RAVEN',
+		BRYGGERI: 'Uncharted Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '210707'
+	},
+	{
+		ÖLNAMN: 'POUNCING PANTHER',
+		BRYGGERI: 'Uncharted Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '8.8',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '210707'
+	},
+	{
+		ÖLNAMN: 'BALLSY BADGER',
+		BRYGGERI: 'Uncharted Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '8.8',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '210707'
+	},
+	{
+		ÖLNAMN: 'The Original Quarter Cash',
+		BRYGGERI: 'Innis & Gun',
+		LAND: 'SCOT',
+		ALKOHOL: '7.4',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '210621'
+	},
+	{
+		ÖLNAMN: 'Vintage Ale 2020',
+		BRYGGERI: "Fuller's",
+		LAND: 'UK',
+		ALKOHOL: '8.5',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '210621'
+	},
+	{
+		ÖLNAMN: 'Old Stock Ale 2014 Rye Whisky',
+		BRYGGERI: 'North Coast Br.',
+		LAND: 'US',
+		ALKOHOL: '13.7',
+		BETYG: '8.17',
+		DELTAGARE: 6,
+		DATUM: '210621'
+	},
+	{
+		ÖLNAMN: 'Old Stock Ale 2013 Bourbon',
+		BRYGGERI: 'North Coast Br.',
+		LAND: 'US',
+		ALKOHOL: '14.1',
+		BETYG: '8.17',
+		DELTAGARE: 6,
+		DATUM: '210621'
+	},
+	{
+		ÖLNAMN: 'Old Stock Ale 2014 Wheat Whisky',
+		BRYGGERI: 'North Coast Br.',
+		LAND: 'US',
+		ALKOHOL: '14.4',
+		BETYG: '7.83',
+		DELTAGARE: 6,
+		DATUM: '210621'
+	},
+	{
+		ÖLNAMN: 'Vanishing Point 04',
+		BRYGGERI: 'Innis & Gun',
+		LAND: 'SCOT',
+		ALKOHOL: '11.0',
+		BETYG: '7.83',
+		DELTAGARE: 6,
+		DATUM: '210621'
+	},
+
+	{
+		ÖLNAMN: 'Dark Skull Feat. Victor Brandt',
+		BRYGGERI: 'Electric Nurse',
+		LAND: 'SE',
+		ALKOHOL: '10.7',
+		BETYG: '8.33',
+		DELTAGARE: 6,
+		DATUM: '180308'
+	},
+	{
+		ÖLNAMN: 'Old foghorn barleywine ale',
+		BRYGGERI: 'Anchor Br.',
+		LAND: 'US',
+		ALKOHOL: '8.8',
+		BETYG: '7.80',
+		DELTAGARE: 5,
+		DATUM: '180215'
+	},
+	{
+		ÖLNAMN: 'Oud Geueze Boon Bone Dry Mikkeller Selection',
+		BRYGGERI: 'Boon/Mikkeller',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '7.50',
+		DELTAGARE: 6,
+		DATUM: '180412'
+	},
+	{
+		ÖLNAMN: 'Sour Wench',
+		BRYGGERI: 'Ballast Point Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '7.0',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '180308'
+	},
+	{
+		ÖLNAMN: 'Black Shield Stout',
+		BRYGGERI: 'Myanmar Br. Ltd.',
+		LAND: 'MM',
+		ALKOHOL: '8.1',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '180517'
+	},
+	{
+		ÖLNAMN: 'Dark Skull Imperial Coconut Stout',
+		BRYGGERI: 'Electric Nurse',
+		LAND: 'SE',
+		ALKOHOL: '10.7',
+		BETYG: '7.33',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: 'S:t Bernardus Wit Ab',
+		BRYGGERI: "Bière d'Abbaye",
+		LAND: 'BE',
+		ALKOHOL: '5.5',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '180215'
+	},
+	{
+		ÖLNAMN: 'S:t Bernardus Abt 12',
+		BRYGGERI: "Bière d'Abbaye",
+		LAND: 'BE',
+		ALKOHOL: '10.0',
+		BETYG: '7.00',
+		DELTAGARE: 5,
+		DATUM: '180215'
+	},
+	{
+		ÖLNAMN: 'Choco Libre',
+		BRYGGERI: 'Brewdog',
+		LAND: 'SCOT',
+		ALKOHOL: '8.2',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '180308'
+	},
+	{
+		ÖLNAMN: 'Nelson Sauvin Brut Oranges and Passion Fruit',
+		BRYGGERI: 'De Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '180412'
+	},
+	{
+		ÖLNAMN: 'S:t Bernardus Prior 8',
+		BRYGGERI: "Bière d'Abbaye",
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '180215'
+	},
+	{
+		ÖLNAMN: "Harvey's Christmas Ale",
+		BRYGGERI: 'Harvey & Son Ltd',
+		LAND: 'UK',
+		ALKOHOL: '7.5',
+		BETYG: '6.80',
+		DELTAGARE: 5,
+		DATUM: '180215'
+	},
+	{
+		ÖLNAMN: "Dale's Pale Ale",
+		BRYGGERI: 'Oskar Blues Br.',
+		LAND: 'US',
+		ALKOHOL: '6.5',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '180118'
+	},
+	{
+		ÖLNAMN: 'Pink Passion',
+		BRYGGERI: 'Brekeriet',
+		LAND: 'SE',
+		ALKOHOL: '4.7',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '180412'
+	},
+	{
+		ÖLNAMN: 'ABC Extra Stout',
+		BRYGGERI: 'APB Alliance Br. Co. Ltd.',
+		LAND: 'MM',
+		ALKOHOL: '8.0',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '180517'
+	},
+	{
+		ÖLNAMN: 'Saison',
+		BRYGGERI: 'Zywiec',
+		LAND: 'PL',
+		ALKOHOL: '6.5',
+		BETYG: '6.67',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: 'The Stranger Wheat IPA',
+		BRYGGERI: 'Clown Shoes Br.',
+		LAND: 'US',
+		ALKOHOL: '7.7',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '180308'
+	},
+	{
+		ÖLNAMN: 'Frölunda IPA',
+		BRYGGERI: 'Göteborgs Nya Br.',
+		LAND: 'SE',
+		ALKOHOL: '5.6',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: 'S:t Bernardus Trippel',
+		BRYGGERI: "Bière d'Abbaye",
+		LAND: 'BE',
+		ALKOHOL: '8.0',
+		BETYG: '6.40',
+		DELTAGARE: 5,
+		DATUM: '180215'
+	},
+	{
+		ÖLNAMN: 'Rogue Fresh Roast',
+		BRYGGERI: 'Rogue Ales Br.',
+		LAND: 'US',
+		ALKOHOL: '5.7',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '180308'
+	},
+	{
+		ÖLNAMN: 'Lindemans Ginger Gueuze',
+		BRYGGERI: 'Lindemans',
+		LAND: 'BE',
+		ALKOHOL: '6.0',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '180412'
+	},
+	{
+		ÖLNAMN: 'Imperial Saison Röda/Svarta Vinbär',
+		BRYGGERI: 'Poppels',
+		LAND: 'SE',
+		ALKOHOL: '8.5',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '180412'
+	},
+	{
+		ÖLNAMN: 'Hop Federation Pils',
+		BRYGGERI: 'Hop Federation Br.',
+		LAND: 'NZ',
+		ALKOHOL: '5.3',
+		BETYG: '6.28',
+		DELTAGARE: 7,
+		DATUM: '180712'
+	},
+	{
+		ÖLNAMN: 'Saison Dupont Cuvée Dry Hopping',
+		BRYGGERI: 'Br. Dupont',
+		LAND: 'BE',
+		ALKOHOL: '6.5',
+		BETYG: '6.20',
+		DELTAGARE: 5,
+		DATUM: '180816'
+	},
+	{
+		ÖLNAMN: 'Pszeniczniak',
+		BRYGGERI: 'Browar Amber',
+		LAND: 'PL',
+		ALKOHOL: '5.2',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: 'Miss Behave Ale',
+		BRYGGERI: 'Höganäs Br.',
+		LAND: 'SE',
+		ALKOHOL: '6.0',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '180118'
+	},
+	{
+		ÖLNAMN: 'Burbrit Rangoon Blonde',
+		BRYGGERI: 'Burbrit Yangon Craft Br. Co. Ltd.',
+		LAND: 'MM',
+		ALKOHOL: '5.0',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '180517'
+	},
+	{
+		ÖLNAMN: 'Ocean Glenn No 5',
+		BRYGGERI: 'Ocean',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: 'Kozlak',
+		BRYGGERI: 'Browar Amber',
+		LAND: 'PL',
+		ALKOHOL: '6.5',
+		BETYG: '6.00',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: 'Saision Dupont Biologique',
+		BRYGGERI: 'Br. Dupont',
+		LAND: 'BE',
+		ALKOHOL: '5.5',
+		BETYG: '6.00',
+		DELTAGARE: 5,
+		DATUM: '180816'
+	},
+	{
+		ÖLNAMN: 'Sweet Hoof Milk Stout',
+		BRYGGERI: 'Remmarlöv',
+		LAND: 'SE',
+		ALKOHOL: '6.2',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '180308'
+	},
+	{
+		ÖLNAMN: 'Zxotelwy',
+		BRYGGERI: 'Browar Amber',
+		LAND: 'PL',
+		ALKOHOL: '5.6',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: 'Saison 1858 Bocq',
+		BRYGGERI: 'Br. du Bocq',
+		LAND: 'BE',
+		ALKOHOL: '6.4',
+		BETYG: '5.80',
+		DELTAGARE: 5,
+		DATUM: '180816'
+	},
+	{
+		ÖLNAMN: 'Pax Citra Pale Ale',
+		BRYGGERI: 'Paxbrygghus',
+		LAND: 'SE',
+		ALKOHOL: '5.8',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '180118'
+	},
+	{
+		ÖLNAMN: 'India Pale Ale',
+		BRYGGERI: 'Brygghuset Finn',
+		LAND: 'SE',
+		ALKOHOL: '6.5',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '180118'
+	},
+	{
+		ÖLNAMN: 'Burbrit London Porter',
+		BRYGGERI: 'Burbrit Yangon Craft Br. Co. Ltd.',
+		LAND: 'MM',
+		ALKOHOL: '5.3',
+		BETYG: '5.67',
+		DELTAGARE: 6,
+		DATUM: '180517'
+	},
+	{
+		ÖLNAMN: 'Modus Hoperandi IPA',
+		BRYGGERI: 'Ska Br. Co.',
+		LAND: 'US',
+		ALKOHOL: '6.8',
+		BETYG: '5.50',
+		DELTAGARE: 6,
+		DATUM: '180118'
+	},
+	{
+		ÖLNAMN: 'Grebbestad Saison',
+		BRYGGERI: 'GREBBESTAD BR. AB',
+		LAND: 'SE',
+		ALKOHOL: '5.9',
+		BETYG: '5.50',
+		DELTAGARE: 5,
+		DATUM: '180816'
+	},
+	{
+		ÖLNAMN: 'Hirond Ale',
+		BRYGGERI: 'Br. Dupont',
+		LAND: 'BE',
+		ALKOHOL: '5.7',
+		BETYG: '5.40',
+		DELTAGARE: 5,
+		DATUM: '180816'
+	},
+	{
+		ÖLNAMN: 'American Pale Ale',
+		BRYGGERI: 'Brygghuset Finn',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '180118'
+	},
+	{
+		ÖLNAMN: 'Amerykanskie Pszeniczne',
+		BRYGGERI: 'Zywiec',
+		LAND: 'PL',
+		ALKOHOL: '4.9',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: 'Benahoare',
+		BRYGGERI: 'La Palma Distillers',
+		LAND: 'ES',
+		ALKOHOL: '5.2',
+		BETYG: '5.14',
+		DELTAGARE: 7,
+		DATUM: '180712'
+	},
+	{
+		ÖLNAMN: 'Nelson Sauvin Brut',
+		BRYGGERI: 'De Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '180412'
+	},
+	{
+		ÖLNAMN: 'Karnevöl',
+		BRYGGERI: 'Finn Br.',
+		LAND: 'SE',
+		ALKOHOL: '4.2',
+		BETYG: '5.00',
+		DELTAGARE: 7,
+		DATUM: '180712'
+	},
+	{
+		ÖLNAMN: 'Hotel Henri',
+		BRYGGERI: 'De Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '6.9',
+		BETYG: '5.00',
+		DELTAGARE: 5,
+		DATUM: '180816'
+	},
+	{
+		ÖLNAMN: 'Seacoast Pilsner',
+		BRYGGERI: 'Coronado Br.',
+		LAND: 'US',
+		ALKOHOL: '4.9',
+		BETYG: '4.86',
+		DELTAGARE: 7,
+		DATUM: '180712'
+	},
+	{
+		ÖLNAMN: 'Tepache',
+		BRYGGERI: 'The Wild Beer Co.',
+		LAND: 'UK',
+		ALKOHOL: '6.0',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '180412'
+	},
+	{
+		ÖLNAMN: 'Myanmar Lager Beer',
+		BRYGGERI: 'Myanmar Br. Ltd.',
+		LAND: 'MM',
+		ALKOHOL: '5.0',
+		BETYG: '4.67',
+		DELTAGARE: 6,
+		DATUM: '180517'
+	},
+	{
+		ÖLNAMN: 'Pczeniczne',
+		BRYGGERI: 'Browar Zankowy Clezyn',
+		LAND: 'PL',
+		ALKOHOL: '5.4',
+		BETYG: '4.50',
+		DELTAGARE: 6,
+		DATUM: '180606'
+	},
+	{
+		ÖLNAMN: 'To öl',
+		BRYGGERI: 'De Proef Br.',
+		LAND: 'BE',
+		ALKOHOL: '4.0',
+		BETYG: '4.42',
+		DELTAGARE: 7,
+		DATUM: '180712'
+	},
+	{
+		ÖLNAMN: 'Tuborg',
+		BRYGGERI: 'Carlsberg Br.',
+		LAND: 'MM',
+		ALKOHOL: '5.0',
+		BETYG: '4.33',
+		DELTAGARE: 6,
+		DATUM: '180517'
+	},
+	{
+		ÖLNAMN: 'Amber Pils',
+		BRYGGERI: 'Br. Amber',
+		LAND: 'PL',
+		ALKOHOL: '5.0',
+		BETYG: '4.28',
+		DELTAGARE: 7,
+		DATUM: '180712'
+	},
+	{
+		ÖLNAMN: 'Burma Pale Ale',
+		BRYGGERI: 'Burbrit Yangon Craft Br. Co. Ltd.',
+		LAND: 'MM',
+		ALKOHOL: '6.0',
+		BETYG: '4.00',
+		DELTAGARE: 6,
+		DATUM: '180517'
+	},
+	{
+		ÖLNAMN: 'Old Stock Ale 2014 Wheat Whisky',
+		BRYGGERI: 'North Coast Br.',
+		LAND: 'US',
+		ALKOHOL: '14.4',
+		BETYG: '7.83',
+		DELTAGARE: 6,
+		DATUM: '210621'
+	},
+	{
+		ÖLNAMN: 'Old Stock Ale 2013 Bourbon',
+		BRYGGERI: 'North Coast Br.',
+		LAND: 'US',
+		ALKOHOL: '14.1',
+		BETYG: '8.17',
+		DELTAGARE: 6,
+		DATUM: '210621'
+	},
+	{
+		ÖLNAMN: 'Old Stock Ale 2014 Rye Whisky',
+		BRYGGERI: 'North Coast Br.',
+		LAND: 'US',
+		ALKOHOL: '13.7',
+		BETYG: '8.17',
+		DELTAGARE: 6,
+		DATUM: '210621'
+	},
+	{
+		ÖLNAMN: 'Vanishing Point 04',
+		BRYGGERI: 'Innis & Gun',
+		LAND: 'SCOT',
+		ALKOHOL: '11.0',
+		BETYG: '7.83',
+		DELTAGARE: 6,
+		DATUM: '210621'
+	},
+	{
+		ÖLNAMN: 'DESSERT IN A CAN',
+		BRYGGERI: 'Amundsen Br.',
+		LAND: 'NO',
+		ALKOHOL: '10.5',
+		BETYG: '6.83',
+		DELTAGARE: 6,
+		DATUM: '210825'
+	},
+	{
+		ÖLNAMN: 'FLASHBACK',
+		BRYGGERI: 'Omnipollo',
+		LAND: 'BE',
+		ALKOHOL: '9.0',
+		BETYG: '8.33',
+		DELTAGARE: 6,
+		DATUM: '210825'
+	},
+	{
+		ÖLNAMN: 'POUNCING PANTHER',
+		BRYGGERI: 'Uncharted Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '8.8',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '210707'
+	},
+	{
+		ÖLNAMN: 'BALLSY BADGER',
+		BRYGGERI: 'Uncharted Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '8.8',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '210707'
+	},
+	{
+		ÖLNAMN: 'Vintage Ale 2020',
+		BRYGGERI: "Fuller's",
+		LAND: 'UK',
+		ALKOHOL: '8.5',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '210621'
+	},
+	{
+		ÖLNAMN: 'I FOUND MY THRILL',
+		BRYGGERI: 'Mikkeller Baghaven',
+		LAND: 'DK',
+		ALKOHOL: '7.4',
+		BETYG: '8.00',
+		DELTAGARE: 6,
+		DATUM: '210825'
+	},
+	{
+		ÖLNAMN: 'The Original Quarter Cash',
+		BRYGGERI: 'Innis & Gun',
+		LAND: 'SCOT',
+		ALKOHOL: '7.4',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '210621'
+	},
+	{
+		ÖLNAMN: 'BIANCA',
+		BRYGGERI: 'Omnipollo',
+		LAND: 'BE',
+		ALKOHOL: '7.0',
+		BETYG: '7.67',
+		DELTAGARE: 6,
+		DATUM: '210825'
+	},
+	{
+		ÖLNAMN: 'BLUEBERRY',
+		BRYGGERI: 'Vault City Brewing',
+		LAND: 'SCOT',
+		ALKOHOL: '6.5',
+		BETYG: '7.83',
+		DELTAGARE: 6,
+		DATUM: '210825'
+	},
+	{
+		ÖLNAMN: 'SHAGGY SHEEP',
+		BRYGGERI: 'Uncharted Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '6.3',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '210707'
+	},
+	{
+		ÖLNAMN: 'BLUEBERRY SOUR W/ CACAO NIBS',
+		BRYGGERI: 'Collective Arts Ltd',
+		LAND: 'CA',
+		ALKOHOL: '5.6',
+		BETYG: '6.17',
+		DELTAGARE: 6,
+		DATUM: '210825'
+	},
+	{
+		ÖLNAMN: 'THIRSTY HIPPO',
+		BRYGGERI: 'Uncharted Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '5.5',
+		BETYG: '5.33',
+		DELTAGARE: 6,
+		DATUM: '210707'
+	},
+	{
+		ÖLNAMN: 'FRISKY FOX',
+		BRYGGERI: 'Uncharted Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '5.3',
+		BETYG: '5.00',
+		DELTAGARE: 6,
+		DATUM: '210707'
+	},
+	{
+		ÖLNAMN: 'LAZY LEMUR',
+		BRYGGERI: 'Uncharted Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '5.2',
+		BETYG: '5.83',
+		DELTAGARE: 6,
+		DATUM: '210707'
+	},
+	{
+		ÖLNAMN: 'VELVET RAVEN',
+		BRYGGERI: 'Uncharted Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '5.0',
+		BETYG: '6.33',
+		DELTAGARE: 6,
+		DATUM: '210707'
+	},
+	{
+		ÖLNAMN: 'BLUEBERRY CUPCAKE SOUR',
+		BRYGGERI: 'Friends Company',
+		LAND: 'SE',
+		ALKOHOL: '4.7',
+		BETYG: '7.17',
+		DELTAGARE: 6,
+		DATUM: '210825'
+	},
+	{
+		ÖLNAMN: 'MAGIC MACAW',
+		BRYGGERI: 'Uncharted Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '4.5',
+		BETYG: '4.83',
+		DELTAGARE: 6,
+		DATUM: '210707'
+	},
+	{
+		ÖLNAMN: 'FUNKYLAND SOUR BLUEBERRY',
+		BRYGGERI: 'South Plains Br. Co.',
+		LAND: 'SE',
+		ALKOHOL: '4.0',
+		BETYG: '6.50',
+		DELTAGARE: 6,
+		DATUM: '210825'
+	}
+];
+ratings.forEach(function (obj, index) {
+	db.collection('ratings')
+		.add({
+			id: index,
+			beer: obj.ÖLNAMN,
+			brewery: obj.BRYGGERI,
+			country: obj?.LAND,
+			alcohol: parseFloat(obj.ALKOHOL),
+			rating: parseFloat(obj.BETYG),
+			date: obj.DATUM,
+			nbrOfParticipants: parseFloat(obj.DELTAGARE)
+		})
+		.then(function (docRef) {
+			console.log('Document written with ID: ', docRef.id);
+		})
+		.catch(function (error) {
+			console.error('Error adding document: ', error);
+		});
+});
