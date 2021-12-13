@@ -4,7 +4,7 @@
 
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import algoliasearch from 'algoliasearch/lite';
+	import algoliasearch from 'algoliasearch';
 	import { variables } from '../lib/variables';
 	import type { BeerI } from 'src/models/Beer.interface';
 	import Beer from '../components/beer.svelte';
