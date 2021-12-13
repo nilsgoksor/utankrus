@@ -20,7 +20,6 @@
 			return moment(validDate).format('MMM YY');
 		}
 	}
-	console.log(beer.beer, ': ', beer.date);
 </script>
 
 <div class="beer-container">

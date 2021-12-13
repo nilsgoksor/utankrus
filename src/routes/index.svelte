@@ -23,7 +23,6 @@
 	});
 
 	async function search() {
-		console.log('query', query);
 		if (query.length > 0) {
 			const result = await index.search(query);
 			hits = result.hits;
@@ -41,7 +40,7 @@
 <section>
 	<h1>Sök på öl eller bryggeri</h1>
 	<p class="subtitle">Eller på datum (YYMMDD) för att hitta specifika provningar</p>
-	<input bind:value={query} on:input={search} placeholder="Sök på en öl" />
+	<input bind:value={query} on:input={search} placeholder="Berliner GOX 181112" />
 	<ul class="list">
 		{#each hits as hit}
 			<li class="list-item">

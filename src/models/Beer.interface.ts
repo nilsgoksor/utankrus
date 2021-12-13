@@ -3,8 +3,8 @@ export interface BeerI {
 	beer: string;
 	brewery: string;
 	country: string;
-	alcohol: string;
-	rating: string;
+	alcohol: number;
+	rating: number;
 	date: string;
 	nbrOfParticipants: number;
 }
