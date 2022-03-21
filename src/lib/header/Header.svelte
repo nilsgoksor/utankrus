@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import logo from './svelte-logo.svg';
 </script>
 
 <header>
-	<div class="corner" />
+	<div class="corner">
+		<!-- <p>logo</p> -->
+	</div>
 
 	<nav>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
@@ -22,7 +23,9 @@
 		</svg>
 	</nav>
 
-	<div class="corner" />
+	<div class="corner">
+		<!-- <p>login</p> -->
+	</div>
 </header>
 
 <style>
@@ -30,6 +33,8 @@
 		display: flex;
 		justify-content: space-between;
 		position: sticky;
+		top: 0px;
+		z-index: 101;
 	}
 
 	.corner {

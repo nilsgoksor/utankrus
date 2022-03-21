@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { BeerI } from '../models/Beer.interface';
 	import moment from 'moment';
-	import GroupIcon from 'svelte-material-icons/AccountMultiple.svelte';
-	import CalendarIcon from 'svelte-material-icons/Calendar.svelte';
+	import Card, { Content } from '@smui/card';
+	import { Icon } from '@smui/icon-button';
 
 	export let beer: BeerI;
 
@@ -22,75 +22,61 @@
 	}
 </script>
 
-<div class="beer-container">
-	<div class="beer-info">
-		<h3 class="beer-name">{beer.beer}</h3>
-		<div>
-			<p class="info-text">{`${beer.brewery} - ${beer.country}`}</p>
-		</div>
-	</div>
-	<div class="rating-container">
-		<div class="rating-info-container">
-			<div class="rating-info">
-				<p class="info-text">5</p>
-				<GroupIcon width="25" height="25" />
+<div class="beer-card-wrapper">
+	<Card>
+		<Content>
+			<div class="beer-content">
+				<div class="beer-info">
+					<h2>{beer.beer}</h2>
+					<h3>{beer.brewery}</h3>
+				</div>
+				<div class="beer-numbers">
+					<div class="beer-number">
+						{beer.rating}
+						<Icon class="material-icons">star</Icon>
+					</div>
+					<div class="beer-number">
+						{beer.alcohol}
+						<Icon class="material-icons">percent</Icon>
+					</div>
+					<div class="beer-number">
+						{beer.nbrOfParticipants}
+						<Icon class="material-icons">people</Icon>
+					</div>
+					<div class="beer-number">
+						{moment(beer.date_timestamp).format('MMM Do YY')}
+						<Icon class="material-icons">event</Icon>
+					</div>
+				</div>
 			</div>
-			<div class="rating-info">
-				<p class="info-text">{getDate(beer.date)}</p>
-				<CalendarIcon width="25" height="25" />
-			</div>
-		</div>
-		<div class="rating-wrapper">
-			<p class="rating">{beer.rating}</p>
-		</div>
-	</div>
+		</Content>
+	</Card>
 </div>
 
 <style>
-	.beer-container {
-		background-color: var(--primary-color);
-		color: var(--accent-color);
-		padding: 1rem;
+	.beer-card-wrapper {
 		margin-bottom: 1rem;
+	}
+	.beer-content {
 		display: flex;
 		justify-content: space-between;
-		text-align: start;
+		width: 100%;
 	}
 	.beer-info {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
+		text-align: left;
 	}
-	.beer-name {
-		margin: 0;
-	}
-	.rating-container {
-		display: flex;
-		align-items: center;
-	}
-	.rating-info-container {
+
+	.beer-numbers {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-end;
 	}
-	.rating-wrapper {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 50px;
-		width: 50px;
-		border-radius: 50%;
-		background-color: var(--accent-color);
-		margin-left: 1rem;
-	}
-	.rating {
-		color: var(--primary-color);
-	}
-	.rating-info {
+	.beer-number {
 		display: flex;
 		align-items: center;
-	}
-	.info-text {
-		margin: 0px;
+		text-align: right;
 	}
 </style>

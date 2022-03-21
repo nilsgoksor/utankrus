@@ -6,5 +6,6 @@ export interface BeerI {
 	alcohol: number;
 	rating: number;
 	date: string;
+	date_timestamp: string;
 	nbrOfParticipants: number;
 }

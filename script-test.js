@@ -21818,17 +21818,23 @@ const ratings = [
 	}
 ];
 ratings.forEach(function (obj, index) {
+	const rawYear = obj.DATUM.slice(0, 2);
+	const year = rawYear > 90 ? `19${rawYear}` : `20${rawYear}`;
+	const month = obj.DATUM.slice(2, 4);
+	const day = obj.DATUM.slice(4, 6) || '01';
+	const data = {
+		id: index,
+		beer: obj.ÖLNAMN,
+		brewery: obj.BRYGGERI,
+		country: obj?.LAND,
+		alcohol: parseFloat(obj.ALKOHOL),
+		rating: parseFloat(obj.BETYG),
+		date: obj.DATUM,
+		date_timestamp: new Date(`${year}-${month}-${day}`).getTime() / 1000,
+		nbrOfParticipants: parseFloat(obj.DELTAGARE)
+	};
 	db.collection('ratings')
-		.add({
-			id: index,
-			beer: obj.ÖLNAMN,
-			brewery: obj.BRYGGERI,
-			country: obj?.LAND,
-			alcohol: parseFloat(obj.ALKOHOL),
-			rating: parseFloat(obj.BETYG),
-			date: obj.DATUM,
-			nbrOfParticipants: parseFloat(obj.DELTAGARE)
-		})
+		.add(data)
 		.then(function (docRef) {
 			console.log('Document written with ID: ', docRef.id);
 		})

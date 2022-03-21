@@ -1,13 +1,11 @@
-<script context="module" lang="ts">
-	export const prerender = true;
-</script>
-
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import algoliasearch from 'algoliasearch';
 	import { variables } from '../lib/variables';
 	import type { BeerI } from 'src/models/Beer.interface';
 	import Beer from '../components/beer.svelte';
+	import Textfield from '@smui/textfield';
+	import { Icon } from '@smui/icon-button';
 
 	let searchClient;
 	let index;
@@ -19,12 +17,16 @@
 	onMount(async () => {
 		searchClient = algoliasearch(variables.algoliaAppId, variables.algoliaSearchOnlyKey);
 		index = searchClient.initIndex('ratings');
-		index.search({ query }).then(console.log);
+		index.search(query).then(console.log);
 	});
 
 	async function search() {
+		let searchTerm = query;
 		if (query.length > 0) {
-			const result = await index.search(query);
+			if (query.length > 4 && new RegExp(/^\d+$/).test(query)) {
+				searchTerm = (new Date(query).getTime() / 1000).toString();
+			}
+			const result = await index.search(searchTerm);
 			hits = result.hits;
 		} else {
 			query = '';
@@ -38,9 +40,11 @@
 </svelte:head>
 
 <section>
-	<h1>Sök på öl eller bryggeri</h1>
-	<p class="subtitle">Eller på datum (YYMMDD) för att hitta specifika provningar</p>
-	<input bind:value={query} on:input={search} placeholder="Berliner GOX 181112" />
+	<h1>Sök</h1>
+	<p class="subtitle">På öl, bryggeri eller datum (YYMMDD)</p>
+	<Textfield bind:value={query} on:input={search} label="Berliner GOX 181112">
+		<Icon class="material-icons" slot="trailingIcon">search</Icon>
+	</Textfield>
 	<ul class="list">
 		{#each hits as hit}
 			<li class="list-item">
